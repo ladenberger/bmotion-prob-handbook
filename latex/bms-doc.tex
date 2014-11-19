@@ -1,6 +1,31 @@
-\documentclass{book}
+\ifdefined\isinprint
+\documentclass[twoside,10pt]{book}
+\usepackage[twoside,paperwidth=155.93mm,paperheight=233.89mm,hmargin={15mm,15mm},vmargin={20mm,20mm},bindingoffset=5mm]{geometry}
+\usepackage[hyphens]{url} 
+\usepackage[colorlinks=false,
+            pdfborder={0 0 0}
+	        pdftex,
+            plainpages=false,
+            pdfauthor={Lukas Ladenberger (Editor)},
+            pdftitle={BMotion User's Handbook},
+            pdfsubject={},
+            pdfkeywords={BMotion Studio, ProB, Classical-B, Event-B},
+            pdfproducer={http://handbook.event-b.org},
+            pdfcreator={plastex-based tool chain}]{hyperref}
+\else
+\documentclass[12pt]{book}
 \usepackage[left=2.5cm,top=3cm,right=2.5cm,bottom=3cm]{geometry}
-\usepackage[colorlinks=true]{hyperref}
+\usepackage[hyphens]{url} 
+\usepackage[colorlinks=true,
+	        pdftex,
+            plainpages=false,
+            pdfauthor={Lukas Ladenberger (Ed.)},
+            pdftitle={BMotion User's Handbook},
+            pdfsubject={},
+            pdfkeywords={BMotion Studio, ProB, Classical-B, Event-B},
+            pdfproducer={http://www.stups.hhu.de/ProB},
+            pdfcreator={plastex-based tool chain}]{hyperref}
+\fi
 \usepackage{graphicx}
 \usepackage{bsymb}
 \usepackage{b2latex}
@@ -8,11 +33,82 @@
 \usepackage{verbatim}
 \usepackage{wrapfig}
 \usepackage{makeidx}
+\usepackage{fix-cm}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{framed}
+\colorlet{shadecolor}{gray!30}
+\fboxsep=3pt
+
+\usepackage{subfigure}
+\usepackage{fancyvrb}
+
+\usepackage{listings}
+
+\usepackage{longtable}
+
+\lstdefinelanguage{Groovy}% 
+{morekeywords={abstract,any,as,boolean,break,byte,case,catch,char,class, 
+const,continue,def,default,do,double,else,extends,false,final,finally, 
+float,for,goto,if,implements,import,instanceof,in,int,interface,label, 
+long,native,new,null,package,private,protected,public,return,short, 
+static,strictfp,super,switch,synchronized,this,throw,throws,transient, 
+true,try,void,volatile,while,with},% 
+sensitive=true,% 
+morecomment=[l]//,% 
+morecomment=[s]{/}{/},% 
+morestring=[b]",% 
+morestring=[b]',% 
+}[keywords,comments,strings]
+
+\lstdefinelanguage{B}% 
+{morekeywords={MACHINE, REFINEMENT,OPERATIONS,INITIALISATION,END,BEGIN,PRE,IF,THEN,ELSE,VARIABLES,INVARIANT,SETS},% 
+sensitive=true,% 
+morecomment=[l]//,% 
+morecomment=[s]{/}{/},% 
+morestring=[b]",% 
+morestring=[b]',% 
+}[keywords,comments,strings]
+
+\lstset{
+  language={Java},basicstyle=\ttfamily\small,,columns=fullflexible
+}
+\lstset{
+  language={Groovy},basicstyle=\ttfamily\small,,columns=fullflexible
+}
+\lstset{
+ numberbychapter=false
+}
+
+\definecolor{oldmauve}{rgb}{0.4, 0.19, 0.28}
+
+\lstset{
+  frame=top,frame=bottom,
+  %basicstyle=\small\normalfont\sffamily,    % the size of the fonts that are used for the code
+  stepnumber=1,                           % the step between two line-numbers. If it is 1 each line will be numbered
+  numbersep=10pt,                         % how far the line-numbers are from the code
+  tabsize=2,                              % tab size in blank spaces
+  extendedchars=true,                     %
+  breaklines=true,                        % sets automatic line breaking
+  captionpos=t,                           % sets the caption-position to top
+  mathescape=false,
+  stringstyle=\color{blue}\ttfamily, % Farbe der String
+  keywordstyle=\color{oldmauve}\ttfamily, % Farbe der String
+  showspaces=false,           % Leerzeichen anzeigen ?
+  showtabs=false,             % Tabs anzeigen ?
+  xleftmargin=17pt,
+  framexleftmargin=17pt,
+  framexrightmargin=17pt,
+  framexbottommargin=5pt,
+  framextopmargin=5pt,
+  showstringspaces=false,      % Leerzeichen in Strings anzeigen ?
+  escapechar=\%
+ }
+
 
 \input{config}
 \input{makros}
 
-%\title{User Manual for BMotion Studio v.\versionnr}
 \title{BMotion Studio for ProB}
 \author{
 Work in Progress\\
@@ -23,13 +119,44 @@ Handbook $ $Rev: 13274 $ $ \\
 }
 
 \begin{document}        
-
-\maketitle
-
+\pagestyle{empty}
 \ifplastex
+\maketitle
 \else
+\pagenumbering{roman}
+\begin{titlepage}
+\AddToShipoutPicture*{\BackgroundPic}
+\vspace*{\titletop}
+{\titledimrodin\selectfont \bfseries BMotion Studio}
+
+\vspace*{\titlesubtitledistance}
+{\titledimhandbook\selectfont \bfseries User's Handbook}
+
+\vspace*{\titlesecdistance}
+{\titledimsubtext\selectfont \textbf{\textsf{ProB Edition}}}
+
+\vspace*{\titlesecdistance}
+{\titledimsubtext\selectfont \textsf{Lukas Ladenberger (Editor)}}
+
+\vspace*{\titlesecdistance}
+{\titledimsponsor\selectfont %
+  $\hbox{\includegraphics[height=4ex]{img/advance-logo.png}}$
+  \textsf{This work is sponsored by the Advance Project}}
+
+\vspace*{\titlebottom}
+
+\end{titlepage}
+\ifdefined\isinprint
+\cleardoublepage
+\clearpage
+\else\fi
+\cleardoublepage
+\pagenumbering{arabic}
+\phantomsection
+\addcontentsline{toc}{chapter}{Contents}
 \tableofcontents
 \fi
+\newpage
 
 \section{Overview}
 
@@ -50,26 +177,26 @@ The handbook comes in various formats:
 \begin{description}
 	\item[Eclipse Help] BMotion Studio is shipped with Eclipse and can be accessed through the help system.
 	%\item[Online Help] You can access the handbook online at \url{http://handbook.event-b.org}.
-	\item[PDF Help] The BMotion Studio Website \url{http://cobra.cs.uni-duesseldorf.de/bmotionstudio} includes a link to the PDF version of the handbook.
+	\item[PDF Help] The BMotion Studio Website \url{http://www.stups.hhu.de/ProB/index.php5/BMotion_Studio} includes a link to the PDF version of the handbook.
 \end{description}
 
 \subsection{Background and Motivation}
 
 Formal methods like the B-Method gained a lot of popularity as approach for the specification and design of software that ensures its safety and reliability. Several industrial projects like the Coppilot System that controls the opening and closing of platform screen doors at the paris metro line 13 have been installed successfully. Such industrial applications need also industrial strength tools in order to support the deployment of formal models. One of them is ProB. ProB is an animation tool with the challange to check the presence of desired functionality and to inspect the behavior of a formal model.
 
-Another challenge for successful deployment of formal models is the communication between a developer and a domain expert (or manager). On the one hand it is crucial for the developer to get feedback from the domain expert for further development. On the other hand the domain expert needs to check whether his expectations are met. Furthermore, good communication and presentation of formal models can help to obtain several contracts. An animation tool could perform this task, but may be still too difficult for domain experts, because they also need a certain level of knowledge about the mathematical notation to understand the meaning of a specific state. To avoid this problem, it is useful to create domain specific visualizations.
+Another challenge for successful deployment of formal models is the communication between a developer and a domain expert (or manager). On the one hand it is crucial for the developer to get feedback from the domain expert for further development. On the other hand the domain expert needs to check whether his expectations are met. Furthermore, good communication and presentation of formal models can help to obtain several contracts. An animation tool like ProB could perform this task, but may be still too difficult for domain experts, because they also need a certain level of knowledge about the mathematical notation to understand the meaning of a specific state. To avoid this problem, it is useful to create domain specific visualizations.
 
-That's why we introduced BMotion Studio, a visual editor which enables the developer of a formal model to set-up easily a domain specific visualization for discussing it with the domain expert. 
+That's why we introduce BMotion Studio for ProB, a tool built on top of the ProB Java API for creating domain specific visualisations of Classical-B, Event-B and CSP models.
 
 \subsection{BMotion Studio Website}
 \label{rodin_wiki}
 
-This handbook is complemented by the BMotion Studio Website (\url{http://cobra.cs.uni-duesseldorf.de/bmotionstudio}).  Sometimes, the handbook will refer to the website for more information.  Also, plugin and developer information is usually located in the wiki.
+This handbook is complemented by the BMotion Studio for ProB Website (\url{http://www.stups.hhu.de/ProB/index.php5/BMotion_Studio}).  Sometimes, the handbook will refer to the website for more information.
 
 \subsection{Feedback}
 \label{feedback}
 
-All online versions of the handbook contain a button or link for feedback.  You can also submit feedback via email to \texttt{lukas.ladenberger@gmx.de}.
+All online versions of the handbook contain a button or link for feedback.  You can also submit feedback via email to \texttt{ladenberger@cs.uni-duesseldorf.de}.
 
 \section{Conventions}
 \label{conventions}
@@ -90,16 +217,16 @@ We use \textsf{sans serif font} for GUI elements like menus and buttons.  Menu a
 
 The icons that you find throughout this handbook were created by Pixel-Mixer\footnote{\url{http://pixel-mixer.com/}}, who provides them freely.  Thanks!
 
-\section{DEPLOY}
-\label{deploy}
+\section{ADVANCE}
+\label{advance}
 
-This work has been sponsored by the DEPLOY project\footnote{\url{http://www.deploy-project.eu/}}.  DEPLOY is an European Commission Information and Communication Technologies FP7 project.
+This work has been sponsored by the Advance project\footnote{\url{http://www.advance-ict.eu/}}.  ADVANCE is an FP7 Information and Communication Technologies Project funded by the European Commission. The overall objective of ADVANCE is the development of a unified tool-based framework for automated formal verification and simulation-based validation of cyber-physical systems.
 
-The overall aim of the EC Information and Communication Technologies FP7 DEPLOY Project is to make major advances in engineering methods for dependable systems through the deployment of formal engineering methods. Formal engineering methods enable greater mastery of complexity than found in traditional software engineering processes. It is the central role played by mechanically-analysed formal models throughout the system development flow that enables mastery of complexity.
+The ADVANCE project is unique in addressing both simulation and formal verification within a single design framework.
 
-As well as leading to big improvements in system dependability, greater mastery of complexity also leads to greater productivity by reducing the expensive test-debug-rework cycle and by facilitating increased reuse of software.
+Unification is being achieved through the use of a common formal modelling language supported by methods and tools for simulation and formal verification. An integrated tool environment is providing support for construction, verification and simulation of models.
 
-The work of the project is driven by the tasks of achieving and evaluating industrial take-up, initially by DEPLOY's industrial partners, of DEPLOY's methods and tools, together with the necessary further research on methods and tools. 
+ADVANCE is building on an existing formal modelling language - Event-B - and its associated tools environment - Rodin - with strong support for formal verification. In ADVANCE, Rodin is being further strengthened and augmented with novel approaches to multi-simulation and testing.
 
 \input{creative-commons}
 
