@@ -1,0 +1,84 @@
+
+\section{Outline}
+
+\begin{enumerate}
+\item The Rodin Platform (\ref{reference_01}): This chapter should give the user an overview
+  about the UI elements he might encounter.
+  \begin{enumerate}
+  \item Eclipse in general: just references to other resources
+  \item The Event-B perspective: We briefly describe the various views
+    (Event-B explorer, structure editor, outline view, symbol view)
+    and their content.
+    We want to cover every element of each view (like buttons, entry fields, etc.),
+    but for the underlying theory we link to the other reference sections.
+    The relevant menu entries are also described.
+  \item The proving perspective: We do basically the same as for the Event-B perspective.
+    The views are proof tree, goal, control and statistics.
+  \item Preferences: We briefly describe what preference can be set for Rodin.
+    For their deeper meaning, we'll refer to the other sections (esp. the prover settings).
+  \end{enumerate}
+\item Event-B (modeling notation) (\ref{reference_02}):
+  \begin{enumerate}
+  \item Contexts
+    \begin{enumerate}
+    \item Sets: Introducing sets, with a comment about how to add enumerated sets
+    \item Constants and axioms (with theorems), which POs are generated
+    \item Extending a context
+    \end{enumerate}
+  \item Models
+    \begin{enumerate}
+    \item Variables and invariants (with theorems), generated POs 
+    \item Seeing a context
+    \item Refining a model: Refines clause, gluing invariant, general picture of refinement with
+      pointers to the event below, re-use of variables
+    \item Events: All aspects of events are covered: Parameters, guards and actions,
+      generated POs, refinement (again with generated POs, re-use of parameters, witnesses),
+      status (normal/convergent/anticipated), merging of events.
+    \item Termination: How to prove termination by the model's variant and the status of events
+    \end{enumerate}
+  \item Generated proof obligations: We give a brief overview about what POs are generated
+    where. This should help the user to identify the reason of a PO when he just know its label.
+  \end{enumerate}
+\item Mathematical notation (\ref{reference_03}):
+  Here we cover the complete mathematical notation of Event-B. For each expression
+  (like an operator) we describe its purpose, its type, the type of its arguments and
+  well-definedness-conditions. 
+  We roughly separate the expressions into three groups: predicates, set-theoretical and arithmetic.
+
+  Some laws (like the commutative law of addition in arithmetic) would be nice but will not be part of the first
+  iteration of the documentation. E.g. the Z reference manual does this.
+
+  References to related proof rules would be nice to have, too. But again, this is not part of the first iteration.
+  \begin{enumerate}
+  \item Introduction: What data types exist, what are well-definedness-conditions, 
+    how the description of the expressions is organized.
+  \item Predicates: All operators that work with predicates ($\land$, $\lor$, quantifier, \ldots). 
+  \item Sets and relations
+  \item Arithmetic
+  \end{enumerate}
+\item Proving (\ref{reference_04}): This section should enable the user to understand proofs in Event-B.
+  In the first iteration, we won't go into detail when it comes to proof rules and tactics. We
+  just refer to the already existing Wiki sites.
+  \begin{enumerate}
+  \item Introduction: How does a proof in Event-B looks like? (Goal, proof tree, hypothesis, selected hypothesis, \ldots)
+  \item Proof rules (first only a link to the Wiki page)
+  \item Proof tactics (first only a link to the Wiki page)
+  \item The provers (PP, ML, New-PP): We just give a very brief over the existing provers.
+    (What is its strength/weakness).
+  \end{enumerate}
+\item Glossary (\ref{reference_05}):
+  During planning the outline of the reference we encountered some
+  topics that did not seem to fit anywhere. This might be a good place
+  to put such things.
+  (E.g. horizontal vs. vertical refinement, naming convention, \ldots)
+\item Index (optional) (\ref{reference_06}):
+  An index is very helpful to find the relevant information in the documentation.
+  We make the index optional because there is the alternative of a text-based search (esp. in the
+  web version of the documentation) and we ran into technical difficulties when generating the 
+  index for the web version.
+\end{enumerate}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "rodin-doc"
+%%% End: 

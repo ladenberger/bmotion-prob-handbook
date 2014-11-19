@@ -1,0 +1,119 @@
+\documentclass{book}
+\usepackage[left=2.5cm,top=3cm,right=2.5cm,bottom=3cm]{geometry}
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{graphicx}
+\usepackage{bsymb}
+\usepackage{b2latex}
+\usepackage{fancyhdr,lastpage,color}
+\usepackage{verbatim}
+\usepackage{wrapfig}
+\usepackage{makeidx}
+
+\input{config}
+\input{makros}
+
+%\title{User Manual for BMotion Studio v.\versionnr}
+\title{User Manual for BMotion Studio}
+\author{
+Work in Progress\\
+Handbook $ $Rev: 13274 $ $ \\
+\\
+\href{mailto:lukas.ladenberger@gmx.de}{lukas.ladenberger@gmx.de}\\
+\href{http://cobra.cs.uni-duesseldorf.de/bmotionstudio}{http://cobra.cs.uni-duesseldorf.de/bmotionstudio}
+}
+
+\begin{document}        
+
+\maketitle
+
+\ifplastex
+\else
+\tableofcontents
+\fi
+
+\section{Overview}
+
+This handbook consists of three parts:
+
+\begin{description}
+	\item[Introduction] You are reading the introduction right now.  It helps you to orient yourself and to find information quickly.
+	\item[Tutorial] If you are completely new to BMotion Studio, the Tutorial is a good way to get up to speed quickly.  It guides you through installation and usage of the tool and gives you an overview of the BMotion Studio features.
+	\item[Reference] The reference section provides comprehensive documentation of BMotion Studio, and its components.
+	\item[Frequently Asked Questions] Common issues are listed by category in the FAQ.
+	\item[Index] Particularly for the print version of this handbook, we included an index.  In the electronic versions, you may want to try the search functionality as well.
+\end{description}
+
+\subsection{Formats of this Handbook}
+
+The handbook comes in various formats:
+
+\begin{description}
+	\item[Eclipse Help] BMotion Studio is shipped with Eclipse and can be accessed through the help system.
+	%\item[Online Help] You can access the handbook online at \url{http://handbook.event-b.org}.
+	\item[PDF Help] The BMotion Studio Website \url{http://cobra.cs.uni-duesseldorf.de/bmotionstudio} includes a link to the PDF version of the handbook.
+\end{description}
+
+\subsection{Background and Motivation}
+
+Formal methods like the B-Method gained a lot of popularity as approach for the specification and design of software that ensures its safety and reliability. Several industrial projects like the Coppilot System that controls the opening and closing of platform screen doors at the paris metro line 13 have been installed successfully. Such industrial applications need also industrial strength tools in order to support the deployment of formal models. One of them is ProB. ProB is an animation tool with the challange to check the presence of desired functionality and to inspect the behavior of a formal model.
+
+Another challenge for successful deployment of formal models is the communication between a developer and a domain expert (or manager). On the one hand it is crucial for the developer to get feedback from the domain expert for further development. On the other hand the domain expert needs to check whether his expectations are met. Furthermore, good communication and presentation of formal models can help to obtain several contracts. An animation tool could perform this task, but may be still too difficult for domain experts, because they also need a certain level of knowledge about the mathematical notation to understand the meaning of a specific state. To avoid this problem, it is useful to create domain specific visualizations.
+
+That's why we introduced BMotion Studio, a visual editor which enables the developer of a formal model to set-up easily a domain specific visualization for discussing it with the domain expert. 
+
+\subsection{BMotion Studio Website}
+\label{rodin_wiki}
+
+This handbook is complemented by the BMotion Studio Website (\url{http://cobra.cs.uni-duesseldorf.de/bmotionstudio}).  Sometimes, the handbook will refer to the website for more information.  Also, plugin and developer information is usually located in the wiki.
+
+\subsection{Feedback}
+\label{feedback}
+
+All online versions of the handbook contain a button or link for feedback.  You can also submit feedback via email to \texttt{lukas.ladenberger@gmx.de}.
+
+\section{Conventions}
+\label{conventions}
+
+We use the following conventions in this manual:
+
+\tick{Checklists and Milestones are designated with tick. Here we summarize what we want to learn or should have learned so far.}
+\info{Useful information and tricks are designated by the information sign.}
+\warning{Potential problems and warnings are designated by a warning sign.}
+\pencil{Examples and Code are designated by a pencil.}
+
+We use \texttt{typewriter} font for file names and directories.
+
+We use \textsf{sans serif font} for GUI elements like menus and buttons.  Menu actions are depicted by a chain of elements, separated by ``$\rangle$'', e.g. \textsf{File $\rangle$ New $\rangle$ Project...}.
+
+\section{Acknowledgements}
+\label{sec:acknowledgements}
+
+The icons that you find throughout this handbook were created by Pixel-Mixer\footnote{\url{http://pixel-mixer.com/}}, who provides them freely.  Thanks!
+
+\section{DEPLOY}
+\label{deploy}
+
+This work has been sponsored by the DEPLOY project\footnote{\url{http://www.deploy-project.eu/}}.  DEPLOY is an European Commission Information and Communication Technologies FP7 project.
+
+The overall aim of the EC Information and Communication Technologies FP7 DEPLOY Project is to make major advances in engineering methods for dependable systems through the deployment of formal engineering methods. Formal engineering methods enable greater mastery of complexity than found in traditional software engineering processes. It is the central role played by mechanically-analysed formal models throughout the system development flow that enables mastery of complexity.
+
+As well as leading to big improvements in system dependability, greater mastery of complexity also leads to greater productivity by reducing the expensive test-debug-rework cycle and by facilitating increased reuse of software.
+
+The work of the project is driven by the tasks of achieving and evaluating industrial take-up, initially by DEPLOY's industrial partners, of DEPLOY's methods and tools, together with the necessary further research on methods and tools. 
+
+\input{creative-commons}
+
+% \input{style-guide}
+
+\input{tutorial}
+
+\input{reference}
+
+\input{faq}
+
+\clearpage
+\addcontentsline{toc}{chapter}{Index} 
+\printindex
+
+\end{document}
+

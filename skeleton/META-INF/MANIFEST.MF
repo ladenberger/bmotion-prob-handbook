@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: BMotion Studio Handbook
+Bundle-SymbolicName: org.bmotionstudio.handbook;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: HHU Düsseldorf STUPS Group
+Created-By: HHU Düsseldorf STUPS Group
+

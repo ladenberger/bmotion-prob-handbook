@@ -1,0 +1,204 @@
+% defining a if(plastex) environment
+\newif\ifplastex
+\plastexfalse
+
+\def\doculist#1#2{
+\begin{quote}
+\hspace{-10mm}
+\textrm{\includegraphics[width=7mm]{#2}} % Hack!  We "mark" the image with textrm so that we can use a different CSS-Style in plastex.
+\vspace{-8mm}
+
+#1
+\end{quote}
+}
+
+\def\tick#1{\doculist{#1}{img/tick_64.png}}
+\def\info#1{\doculist{#1}{img/info_64.png}}
+\def\warning#1{\doculist{#1}{img/warning_64.png}}
+\def\pencil#1{\doculist{#1}{img/pencil_64.png}}
+
+% macro for icons
+\def\icon#1{
+\includegraphics[]{img/icons/#1}
+}
+
+% macro for image versions (pdf version + html version)
+% #1 Path to image for pdf version
+% #2 Path to image for html version
+% #3 Caption
+% #4 Label
+\def\imagedpi#1#2#3#4#5{
+	\ifplastex
+		\begin{figure}[!h]
+		\begin{center}
+			\includegraphics{#3}
+			\caption{#4}
+			\label{#5}
+		\end{center}
+		\end{figure}
+	\else
+		\begin{figure}[!h]
+		\begin{center}
+			\includegraphics[width=#2]{#1}
+			\caption{#4}
+			\label{#5}
+		\end{center}
+		\end{figure}
+	\fi
+}
+
+% different method to write an ASCII backslash for plastex and normal pdflatex
+\ifplastex
+  \newcommand{\mybackslash}{\textbackslash}
+\else
+  % we do not use textbackslash for latex, because it does not use the current font setting
+  \newcommand{\mybackslash}{\symbol{`\\}}
+\fi
+
+% Path to resources like zip's with machines
+% We use a relative path in the html + eclipe version (in order to work offline)
+% and an absolute path in the pdf version
+\ifplastex
+	\newcommand{\filepath}{files/}
+\else
+	\newcommand{\filepath}{\handbookpath/\versionpath/files/}
+\fi
+
+% Use this definition to create a link to the file. The definition takes to arguments. 
+% The first argument (1) defines the file name i.e. Celebrity.zip or in case if you saved 
+% the file in a subdirectory subdirecotry/Celebrity.zip. The second argument (2) defines 
+% the name which should be displayed in the document, i.e. Celebrity Problem Example Download
+\def\file#1#2{
+\href{\filepath#1}{#2}
+}
+
+% We want to mark contributions from other plugins in a special way, by including the plugin's
+% icon and by putting the content in a gray box.  We have to approach this differently for
+% Latex and for Plastex:
+% Latex: We use "shaded" from package "framed"
+% Platexte: We use "verse" as the marker and create the shading with the style sheet.
+\newcommand{\tmpName}{Dummy}
+\ifplastex
+\newenvironment{rodin-plugin}[2]
+{
+\renewcommand{\tmpName}{#2}
+  \begin{verse}
+\begin{wrapfigure}{l}{}
+    \includegraphics{#1}
+\end{wrapfigure}
+}
+{
+\newline
+\textit{This contribution requires the \textbf{\tmpName} plugin.  The content is maintained by the plugin contributors and may be out of date.}
+\end{verse}
+}
+\else
+\usepackage{framed}
+\definecolor{shadecolor}{rgb}{0.93,0.93,0.93}
+\newenvironment{rodin-plugin}[2]
+{
+\renewcommand{\tmpName}{#2} % Otherwise we cannot use #2 in the end block - stupid!
+\begin{shaded}
+\begin{wrapfigure}{l}{10mm}
+\vspace{-5mm}
+\includegraphics[width=10mm]{#1}
+\vspace{-5mm}
+\end{wrapfigure}
+\noindent
+}
+{
+\vspace{1mm}
+\noindent\rule{\textwidth}{.1pt}
+\vspace{1mm}
+\noindent
+{\scriptsize This contribution requires the \textbf{\tmpName} plugin.  The content is maintained by the plugin contributors and may be out of date.}
+
+\end{shaded}
+}
+\fi
+
+% Marginpars are  cropped - this formats them nicely.
+\let\oldmarginpar\marginpar
+\renewcommand\marginpar[1]{\-\oldmarginpar[\raggedleft\scriptsize{#1}]
+{\raggedright\small{#1}}}
+\marginparwidth=2cm
+
+% A command to typeset names of an Event-B section (like variables, invariant, etc)
+% consistently.
+\newcommand{\eventbsection}[1]{\textsl{#1}}
+
+% A command to typeset consistently the names of proof obligations
+\newcommand{\eventbpo}[1]{\textsf{#1}}
+
+% Commands for the structure of the reference section
+
+% rrnames is used for the array of operator symbols and description
+% at the beginning of a reference section.
+% The environment defines an array with three columns:
+% 1) The mathematical symbol
+% 2) The ASCII representation
+% 3) A description of the operator
+\newenvironment{rrnames}%
+  {\begin{tabular}{l@{\quad---\quad}l@{\quad---\quad}l}}%
+    {\end{tabular}}
+
+% The environment rodinrefentry is used for a reference section with several
+% entries: Description, Definition, Types, Well-Definedness
+% \rrindent is the indention in such an environment
+\newlength{\rrindent}
+\setlength{\rrindent}{8em}
+\newenvironment{rodinrefentry}{%
+   \renewcommand\descriptionlabel[1]{\makebox[\rrindent][r]{\textbf{##1}}}
+   \setlength{\leftmargini}{\rrindent}
+   \begin{description}%
+}{%
+   \end{description}%
+}
+\newcommand{\rrdesc}{\item[Description]}
+\newcommand{\rrdef}{\item[Definition]}
+\newcommand{\rrtypes}{\item[Types]}
+%\newcommand{\rrwd}{\item[Well-Definedness]}
+\newcommand{\rrwd}{\item[WD]}
+\newcommand{\rrfis}{\item[Feasibility]}
+
+\newcommand{\actfis}{\mathcal{F}}
+
+% operators (L and D) for well-definendness
+\newcommand{\wdl}{\mathcal{L}}
+\newcommand{\wdd}{\mathcal{D}}
+
+% a placeholder symbol for operators
+\newcommand{\opelipse}{\mathbin{\Box}}
+
+\newcommand{\podef}[4]{%
+  \begin{center}
+    \setlength{\parindent}{2em}\vspace{0.2em}
+    \begin{tabular}{rp{0.5\textwidth}}
+      \hline
+      & \textbf{#1} \\
+      Name       & #2 \\
+      Goal       & #3 \\
+      Hypotheses & #4 \\
+      \hline
+    \end{tabular}
+  \end{center}
+}
+
+% a second approach to proof obligations
+\newcommand{\pode}[3]{%
+  \begin{center}
+    \setlength{\parindent}{2em}\vspace{0.2em}
+    \begin{tabular}{rp{0.6\textwidth}}
+      \hline
+      & \textbf{#1} \\
+      Name       & #2 \\
+      Goal       & #3 \\
+      \hline
+    \end{tabular}
+  \end{center}
+}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "rodin-doc"
+%%% End: 

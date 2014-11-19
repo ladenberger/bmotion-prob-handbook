@@ -1,0 +1,128 @@
+<project default="generate-all">
+
+	<property name="build-dir" value="${basedir}/build"/>
+	<!--${eclipse.workspace}
+	${workspace_loc}-->
+	<property name="theme-html" value="bms-theme-html"/>
+	<property name="theme-eclipse" value="bms-theme-eclipse"/>	
+	
+	<target name="generate-all">
+		<antcall target="cleanup" />
+		<antcall target="generate-html" />
+		<antcall target="generate-pdf" />
+		<antcall target="generate-eclipse" />
+		<antcall target="copy-files" />
+		<antcall target="teardown" />
+	</target>
+
+    <target name="cleanup">
+    	<delete dir="${basedir}/build" /> 
+    </target>
+	
+	<target name="generate-html">
+    	<antcall target="generate">
+    		<param name="targetdir" value="${build-dir}/html"/>
+            <param name="theme" value="${theme-html}"/>
+		</antcall>
+    	<delete dir="${build-dir}/html" includes="chm.*,*.xml,*.hs,*.jhm,*.paux"/>
+   	</target>
+
+   <target name="generate-pdf">
+   		<mkdir dir="${build-dir}/pdf"/>
+		<!-- Run twice to get cross-references right -->
+		<antcall target="run-rubber" />
+		<antcall target="run-rubber" />
+		<delete dir="${build-dir}/pdf" includes="*.aux,*.log,*.out,*.idx,*.ilg,*.ind,*.toc"/>
+    </target>
+
+    <target name="run-rubber">
+      <exec executable="rubber" dir="${build-dir}/pdf">
+          <arg value="--pdf"/>
+          <arg value="--force"/>
+          <arg value="${build-dir}/latex/bms-doc.tex"/>
+      </exec>
+      </target>
+
+    <target name="generate-eclipse">
+        <antcall target="generate">
+            <param name="targetdir" value="${build-dir}/eclipse"/>
+            <param name="theme" value="${theme-eclipse}"/>
+        </antcall>
+        <delete dir="${build-dir}/eclipse" includes="*.aux,*.log,*.out,*.idx,*.ilg,*.ind,*.toc"/>
+    	<copy todir="${build-dir}/eclipse">
+    		<fileset dir="${basedir}/skeleton" />
+    		<fileset dir="${build-dir}/pdf" />
+    	</copy>
+    	
+    	<replace file="${build-dir}/eclipse/eclipse-toc.xml" >
+    	<replacetoken><![CDATA[<toc ]]></replacetoken>
+    	  <replacevalue><![CDATA[<toc topic="index.html" ]]></replacevalue>
+        </replace>
+    	
+    	<!-- delete old eclipse help zip x
+    	<delete dir="${build-dir}/plugin" includes="*.zip"/>
+    	
+    	<tstamp>
+    	  <format property="qualifier" pattern="yyyyMMddHHmm"/>
+    	</tstamp>
+    	
+    	<mkdir dir="${build-dir}/plugin/plugins"/>
+    	
+    	<jar destfile="${build-dir}/plugin/plugins/org.rodinp.handbook_2.5.0.${qualifier}.jar" basedir="${basedir}/build/eclipse" manifest="${basedir}/skeleton/META-INF/MANIFEST.MF" />
+    	 
+    	 <zip destfile="${build-dir}/plugin/org.rodinp.handbook.zip"
+    	       basedir="${build-dir}/plugin"
+    	       update="true" />
+    
+    	<delete dir="${build-dir}/plugin/plugins"/>
+		-->
+    	
+    </target>
+
+    <target name="generate" depends="init">
+        <mkdir dir="${targetdir}"/>
+    	<exec executable="plastex" dir="${build-dir}/latex">
+    		<env key="XHTMLTEMPLATES" value="${build-dir}/XHTML"/>
+    		<arg value="-d"/>
+            <arg value="${targetdir}"/>
+    		<arg value="--sec-num-depth=6"/>
+    		<arg value="--theme=${theme}"/>
+    		<arg value="${build-dir}/latex/bms-doc.tex"/>
+    	</exec>
+    	<copy todir="${targetdir}/files">
+    		<fileset dir="${basedir}/latex/files" />
+		</copy>
+    	<!-- The Eclipse help browser cannot handle elements with spaces,
+    	but such elements exist in the index.  We replace them. -->
+    	<replaceregexp
+    		match="plasTeX.Base.LaTeX.Index.IndexDestination[^>]*"
+    		replace="plasTeX.Base.LaTeX.Index.IndexDestination/"
+    		flags="g">
+    		<fileset dir="${targetdir}" includes="*.html"/>
+    	</replaceregexp>
+    </target>
+
+	<target name="init">
+		<tstamp/>
+		<!-- plastex cannot deal with subversion files.  Thus, we create a copy -->
+		<copy todir="${build-dir}/latex">
+			<fileset dir="${basedir}/latex" excludes=".svn"/>
+		</copy>
+
+		<copy todir="${build-dir}/XHTML">
+            <fileset dir="${basedir}/XHTML" excludes=".svn"/>
+        </copy>
+	</target>
+	
+	<target name="copy-files">
+    	<copy todir="${basedir}/build/files">
+    		<fileset dir="${basedir}/latex/files" />
+		</copy>
+	</target>
+	
+	<target name="teardown">
+		<delete dir="${build-dir}/XHTML"/>
+		<delete dir="${build-dir}/latex"/>
+	</target>
+
+</project>
