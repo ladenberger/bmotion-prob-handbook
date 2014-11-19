@@ -10,7 +10,7 @@
 		<antcall target="cleanup" />
 		<antcall target="generate-html" />
 		<antcall target="generate-pdf" />
-		<antcall target="generate-eclipse" />
+		<!--antcall target="generate-eclipse" /-->
 		<antcall target="copy-files" />
 		<antcall target="teardown" />
 	</target>
