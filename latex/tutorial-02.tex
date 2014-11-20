@@ -3,24 +3,33 @@
 
 \subsection{Installation}
 
-Start off by downloading BMotion Studio for your operating system. 
-You can find the latest version of BMotion Studio for ProB at \url{http://www.stups.hhu.de/ProB/index.php5/BMotion_Studio}.
+Start off by downloading \bms~for your operating system. 
+You can find the latest version of the tool at \url{http://www.stups.hhu.de/ProB/index.php5/BMotion_Studio}.
 Decompress the archive and expand the directory if necessary. 
 
-\warning{Do not change the location and structure of the files and directories within the folder!}
+%\warning{Do not change the location and structure of the files and directories within the folder!}
 
 \subsection{First Steps}
 
-Navigate to the \texttt{bin} folder. 
-In order to start BMotion Studio enter the bash command as shown in Listing~\ref{lst:bmsstart}.
+Navigate to the \texttt{bin} folder and start the tool by entering the bash command as shown in Listing~\ref{lst:bmsstart}.
 
 \begin{lstlisting}[float=ht,language=bash, ,caption={Bash command for starting BMotion Studio for ProB},label=lst:bmsstart]
 .\bmotion-prob
 \end{lstlisting}
+
+\info{Windows users should execute the \texttt{bmotion-prob.bat} file.}
+
 That's all! 
-Your default browser should open and show the current workspace of BMotion Studio.
-In particular, the workspace includes no visualisations.
-The \texttt{lib} folder contains JavaScript libraries that are used by BMotion Studio and that also can be used by the user to create a visualisation.
+Your default browser should open and show the default workspace.
+In particular the workspace contains the following folder:
+
+\begin{itemize}
+\item \texttt{lib}: This folder contains JavaScript libraries that are needed for creating visualisations.
+\item \texttt{b\_template}: A visualisation template for creating visualisations for Classical-B and Event-B models.
+\item \texttt{csp\_template}: A visualisation template for creating visualisations for CSP models.
+\end{itemize}
+
+
 
 
 
