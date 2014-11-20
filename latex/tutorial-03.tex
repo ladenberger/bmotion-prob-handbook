@@ -55,7 +55,7 @@ Linking a formal model within the template file loads the model automatically, w
 Your \texttt{template.html} file should look like in Listing~\ref{lst:htmlmodelline2}.
 
 \begin{lstlisting}[float=ht,language=html, numbers=left,                   numbersep=5pt,            
-  numberstyle=\tiny\color{gray},caption={Template HTML file after linking the Event-B model with the visualisation},label=lst:htmlmodelline2]
+  numberstyle=\tiny,caption={Template HTML file after linking the Event-B model with the visualisation},label=lst:htmlmodelline2]
 <html>
   <head>
       <title>BMotion Studio for ProB</title>
@@ -166,7 +166,7 @@ Line 3 is responsible to register the observer.
 Any registered observer will be triggered after every state change.
 
 \begin{lstlisting}[float=ht,language=Groovy, numbers=left,                   numbersep=5pt,            
-  numberstyle=\tiny\color{gray}, ,caption={Transform Observer Displaying the Current Floor},label=lst:liftobserver1]
+  numberstyle=\tiny, ,caption={Transform Observer Displaying the Current Floor},label=lst:liftobserver1]
 transform("#txt_cur_floor") {
     set "text", { bms.eval("cur_floor").value }
     register(bms)
@@ -182,7 +182,7 @@ Line 3 to 17 will switch the \textit{y} coordinate of the door (denoting the mov
 In line 18 we register the observer.
 
 \begin{lstlisting}[float=ht,language=Groovy, numbers=left,                   numbersep=5pt,            
-  numberstyle=\tiny\color{gray}, ,caption={Transform Observer for the Lift Door},label=lst:liftobserver2]
+  numberstyle=\tiny, ,caption={Transform Observer for the Lift Door},label=lst:liftobserver2]
 transform("#door") {
     set "fill", { (bms.eval("door_open").value == "TRUE") ? "white" : "lightgray" }
     set "y", {
