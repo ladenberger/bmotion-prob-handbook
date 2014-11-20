@@ -54,7 +54,8 @@ We link the visualisation with the Event-B machine called ``MLift''.
 Linking a formal model within the template file loads the model automatically, whenever you start the visualisation.
 Your \texttt{template.html} file should look like in Listing~\ref{lst:htmlmodelline2}.
 
-\begin{lstlisting}[float=ht,language=html, ,caption={Template HTML file after linking the Event-B model with the visualisation},label=lst:htmlmodelline2]
+\begin{lstlisting}[float=ht,language=html, numbers=left,                   numbersep=5pt,            
+  numberstyle=\tiny\color{gray},caption={Template HTML file after linking the Event-B model with the visualisation},label=lst:htmlmodelline2]
 <html>
   <head>
       <title>BMotion Studio for ProB</title>
@@ -68,7 +69,7 @@ Your \texttt{template.html} file should look like in Listing~\ref{lst:htmlmodell
 </html>
 \end{lstlisting}
 
-\info{The meta tag \textit{bms.script} contains the link to the Groovy script file and the meta tag \textit{bms.tool} defines the formalism or the simulator respectively that should be used. In this case we are creating a visualisation for a ``BAnimation'' (Classical-B or and Event-B).}
+\info{The meta tag \textit{bms.script} (line 6) contains the link to the Groovy script file and the meta tag \textit{bms.tool} (line 5) defines the formalism or the simulator respectively that should be used. In this case we are creating a visualisation for a ``BAnimation'' (Classical-B or and Event-B).}
 
 \subsection{Creating a Visualisation}
 
@@ -135,7 +136,7 @@ At the right bottom you will find a menu called \textsf{Open View} for opening d
 For instance, Figure~\ref{fig_tut_03_running1} shows the running Lift visualisation with the ProB Events view opened.
 
 At the moment nothing spectacular happens when you change the state (i.e. executing events in the Event view).
-In the next Section we are going to create our first observers.
+In the next Section we are going to create the first observers.
 
 \begin{figure}[!ht]
 \begin{center}
@@ -148,7 +149,71 @@ In the next Section we are going to create our first observers.
 \subsection{Creating Observers}
 \label{sec_creation_observers}
 
-(tbd)
+In this Section we are going to create observers.
+Observers are used to link visual elements with the model. 
+An observer is notified whenever a model has changed its state, i.e. whenever an event has been executed. 
+In response, the observer will query the model's state and triggers actions on the linked visual elements in respect to the new state.
+
+Consider the Transform Observer in Listing~\ref{lst:liftobserver1}.
+We are going to explore the Groovy code line by line.
+Line 1 means that we want to transform the visual element with the id \textit{txt\_cur\_floor} that is located in our \texttt{template.html} file.
+BMotion Studio follows the jQuery selector syntax\footnote{\url{http://api.jquery.com/category/selectors}} to select elements.
+The prefix ``\#'' denotes that we want to select an element by its id.
+Line 2 affects that the attribute \textit{text} will be set to the value that is returned by the followed closure.
+In particular, the closure evaluates the expression \textit{cur\_floor} in the current state and returns the value to be set.
+In other words, the observer sets the current value of the variable \textit{cur\_floor} into the visual text element with the id \textit{txt\_cur\_floor}.
+Line 3 is responsible to register the observer.
+Any registered observer will be triggered after every state change.
+
+\begin{lstlisting}[float=ht,language=Groovy, numbers=left,                   numbersep=5pt,            
+  numberstyle=\tiny\color{gray}, ,caption={Transform Observer Displaying the Current Floor},label=lst:liftobserver1]
+transform("#txt_cur_floor") {
+    set "text", { bms.eval("cur_floor").value }
+    register(bms)
+}
+\end{lstlisting}
+
+Let's create another Transformer Observer.
+Check out Listing~\ref{lst:liftobserver2}.
+Line 1 means that we want to transform the visual element with the id \textit{door}, similar to the first observer.
+Line 2 affects that the attribute \textit{fill} will be set to the value that is returned by the followed closure.
+Whenever the expression \textit{door\_open} evaluates to \textit{TRUE}, the value \textit{white} (denoting the door is opened) is returned, otherwise the value \textit{lightgray} (denoting the door is closed) is returned.
+Line 3 to 17 will switch the \textit{y} coordinate of the door (denoting the movement of the door between floors) according to the evaluation result of the expression \textit{cur\_floor}.
+In line 18 we register the observer.
+
+\begin{lstlisting}[float=ht,language=Groovy, numbers=left,                   numbersep=5pt,            
+  numberstyle=\tiny\color{gray}, ,caption={Transform Observer for the Lift Door},label=lst:liftobserver2]
+transform("#door") {
+    set "fill", { (bms.eval("door_open").value == "TRUE") ? "white" : "lightgray" }
+    set "y", {
+        switch ( bms.eval("cur_floor").value ) {
+            case "-1":
+                "275"
+                break
+            case "0":
+                "175"
+                break
+            case "1":
+                "60"
+                break
+            default:
+                "275"
+        }
+    }
+    register(bms)
+}
+\end{lstlisting}
+
+Add both snippets to your \texttt{template.groovy} file and refresh your browser.
+Let's see how this affects our visualisation.
+
+\begin{figure}[!ht]
+\begin{center}
+	\includegraphics[width=\textwidth]{img/tutorial/tut_04.png}
+	\caption{Lift Visualisation with Transformer Observer}
+	\label{fig_tut_03_running1}
+\end{center}
+\end{figure}
 
 \subsection{Add Interactivity}
 
