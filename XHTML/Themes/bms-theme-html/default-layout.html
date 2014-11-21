@@ -23,11 +23,11 @@
 <div id="navcontainer">
 <ul id="navlist">
 <li><a href="index.html">Handbook Home</a>
-<li><a href="" id="feedback">Feedback</a>
-<li><a href="" id="feedbackmail">Email Feedback</a>
-<li><a href="../pdf/bmotionstudio-doc.pdf">Handbook as PDF</a>
-<li><a href="http://www.stups.uni-duesseldorf.de/bmotionstudio">Website</a>
-<li><a href="mailto:lukas.ladenberger@gmx.de">Contact</a>
+<!--li><a href="" id="feedback">Feedback</a-->
+<!--li><a href="" id="feedbackmail">Email Feedback</a-->
+<li><a href="../pdf/bms-doc.pdf">Handbook as PDF</a>
+<li><a href="http://www.stups.hhu.de/ProB/index.php5/BMotion_Studio">Website</a>
+<li><a href="mailto:ladenberger@cs.uni-duesseldorf.de">Contact</a>
 </ul>
 </div>
 
@@ -61,13 +61,13 @@ This work is licensed under a <a rel="license" href="http://creativecommons.org/
 <div style="visibility:hidden;" id="doctitle" tal:content="links/document/title"></div>
 
 <script>
-section = encodeURIComponent(document.getElementById("section").innerHTML);
+/*section = encodeURIComponent(document.getElementById("section").innerHTML);
 doctitle = encodeURIComponent(document.getElementById("doctitle").innerHTML);
 url = "https://spreadsheets.google.com/spreadsheet/viewform?formkey=dEJmXzUydnRzZGdDVE16WFZmZmd1alE6MQ"
     + String.fromCharCode(38) + "entry_0=" + section;
 mail = "mailto:rodin-handbook@formalmind.com?subject=Feedback " + doctitle + " (" + section + ")";
 document.getElementById("feedback").href = url;
-document.getElementById("feedbackmail").href = mail;
+document.getElementById("feedbackmail").href = mail;*/
 </script>
 
 
@@ -92,13 +92,13 @@ document.getElementById("feedbackmail").href = mail;
 </table>
 </div>
 
-<div style="float: right; text-align: center; font-family: sans-serif;">
+<!--div style="float: right; text-align: center; font-family: sans-serif;">
 <a href="" id="feedbackbubble" style="color: red; text-decoration: none;">
 <img src="icons/bubble_48.png" border="0" align="middle"><br><b>Feedback</b></a>
 <script>
 document.getElementById("feedbackbubble").href = url;
 </script>
-</div>
+</div-->
 
 <div tal:content="self">File contents</div>
 
