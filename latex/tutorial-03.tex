@@ -13,7 +13,7 @@ After refreshing your browser, it should look like as shown in Figure~\ref{fig_t
 
 \begin{figure}[!ht]
 \begin{center}
-	\includegraphics[]{img/tutorial/tut_01.png}
+	\includegraphics[width=12cm]{img/tutorial/tut_01.png}
 	\caption{\bms~Workspace}
 	\label{fig_tut_01_workspace}
 \end{center}
@@ -83,7 +83,7 @@ With Inkscape the user can export the vector graphic into the SVG format.
 
 \begin{figure}[!ht]
 \begin{center}
-	\includegraphics[width=\textwidth]{img/tutorial/tut_02.png}
+	\includegraphics[width=12cm]{img/tutorial/tut_02.png}
 	\caption{Creating an SVG graphic with Inkscape}
 	\label{fig_tut_02_inkscape}
 \end{center}
@@ -101,32 +101,32 @@ If you are satisfied with your SVG graphic, save it as a plain SVG graphic with 
 Select \textsf{Plan SVG (*.svg)} as an output format and click on the \textsf{Save} button.
 You can save the SVG file anywhere on your local system. 
 Open the SVG file with a text editor of your choice and put the SVG code within the body tag in the \texttt{template.html} file located in your workspace.
-Your \texttt{template.html} file should look like in Listing~\ref{lst:lifthtml}.
+%Your \texttt{template.html} file should look like in Listing~\ref{lst:lifthtml}.
 
-\begin{lstlisting}[float=ht,language=html, ,caption={Template HTML file with Lift SVG graphic},label=lst:lifthtml]
-<html>
-  <head>
-      <title>BMotion Studio for ProB</title>
-      <meta name="bms.model" content="model/MLift.bcm" />
-      <meta name="bms.tool" content="BAnimation" />
-      <meta name="bms.script" content="template.groovy" />
-      <script data-main="template" src="/bms/libs/requirejs/require.js"></script>
-  </head>
-  <body>
-      <svg width="325" height="430" xmlns="http://www.w3.org/2000/svg">
-            <rect stroke="#000000" id="svg_1" height="331" width="192" y="37" x="39" fill="#ffffff" />
-            <line id="svg_2" y2="267" x2="270" y1="267" x1="0" stroke-dasharray="2,2" stroke="#000000" fill="none" />
-            <line id="svg_4" y2="157" x2="270" y1="157" x1="0" stroke-dasharray="2,2" stroke="#000000" fill="none" />
-            <rect fill="lightgray" stroke="#000000" x="101" y="275" width="70" height="80" id="door" />
-            <text font-weight="normal" xml:space="preserve" text-anchor="middle" font-family="Monospace" font-size="14" id="txt_floor1" y="110" x="280" stroke-dasharray="2,2" stroke-width="0" stroke="#000000" fill="#000000">Floor 1</text>
-            <text id="txt_floor0" font-weight="normal" xml:space="preserve" text-anchor="middle" font-family="Monospace" font-size="14" y="220" x="280" stroke-dasharray="2,2" stroke-width="0" stroke="#000000" fill="#000000">Floor 0</text>
-            <text id="txt_floor-1" font-weight="normal" xml:space="preserve" text-anchor="middle" font-family="Monospace" font-size="14" y="330" x="280" stroke-dasharray="2,2" stroke-width="0" stroke="#000000" fill="#000000">Floor -1</text>
-            <text fill="#000000" stroke="#000" stroke-width="0" x="145" y="407.5" id="txt_cur_floor" font-size="15" font-family="Helvetica, Arial, sans-serif" text-anchor="left" xml:space="preserve">CUR_FLOOR</text>
-            <text fill="#000000" stroke="#000" stroke-width="0" x="36.5" y="407.5" id="svg_3" font-size="15" font-family="Helvetica, Arial, sans-serif" text-anchor="left" xml:space="preserve">Current Floor:</text>
-    </svg>
-  </body>
-</html>
-\end{lstlisting}
+%\begin{lstlisting}[float=ht,language=html, ,caption={Template HTML file with Lift SVG graphic},label=lst:lifthtml]
+%<html>
+%  <head>
+%      <title>BMotion Studio for ProB</title>
+%      <meta name="bms.model" content="model/MLift.bcm" />
+%      <meta name="bms.tool" content="BAnimation" />
+%      <meta name="bms.script" content="template.groovy" />
+%      <script data-main="template" src="/bms/libs/requirejs/require.js"></script>
+%  </head>
+%  <body>
+%      <svg width="325" height="430" xmlns="http://www.w3.org/2000/svg">
+%            <rect stroke="#000000" id="svg_1" height="331" width="192" y="37" x="39" fill="#ffffff" />
+%            <line id="svg_2" y2="267" x2="270" y1="267" x1="0" stroke-dasharray="2,2" stroke="#000000" fill="none" />
+%            <line id="svg_4" y2="157" x2="270" y1="157" x1="0" stroke-dasharray="2,2" stroke="#000000" fill="none" />
+%            <rect fill="lightgray" stroke="#000000" x="101" y="275" width="70" height="80" id="door" />
+%            <text font-weight="normal" xml:space="preserve" text-anchor="middle" font-family="Monospace" font-size="14" id="txt_floor1" y="110" x="280" stroke-dasharray="2,2" stroke-width="0" stroke="#000000" fill="#000000">Floor 1</text>
+%            <text id="txt_floor0" font-weight="normal" xml:space="preserve" text-anchor="middle" font-family="Monospace" font-size="14" y="220" x="280" stroke-dasharray="2,2" stroke-width="0" stroke="#000000" fill="#000000">Floor 0</text>
+%            <text id="txt_floor-1" font-weight="normal" xml:space="preserve" text-anchor="middle" font-family="Monospace" font-size="14" y="330" x="280" stroke-dasharray="2,2" stroke-width="0" stroke="#000000" fill="#000000">Floor -1</text>
+%            <text fill="#000000" stroke="#000" stroke-width="0" x="145" y="407.5" id="txt_cur_floor" font-size="15" font-family="Helvetica, Arial, sans-serif" text-anchor="left" xml:space="preserve">CUR_FLOOR</text>
+%            <text fill="#000000" stroke="#000" stroke-width="0" x="36.5" y="407.5" id="svg_3" font-size="15" font-family="Helvetica, Arial, sans-serif" text-anchor="left" xml:space="preserve">Current Floor:</text>
+%    </svg>
+%  </body>
+%</html>
+%\end{lstlisting}
 
 Let's try out the visualisation for the first time.
 In your browser, navigate to the \texttt{lift} folder and click on the \texttt{template.html} file.
@@ -140,7 +140,7 @@ In the next Section we are going to create the first observers.
 
 \begin{figure}[!ht]
 \begin{center}
-	\includegraphics[width=\textwidth]{img/tutorial/tut_03.png}
+	\includegraphics[width=12cm]{img/tutorial/tut_03.png}
 	\caption{Running the Lift Visualisation for the First Time}
 	\label{fig_tut_03_running1}
 \end{center}
@@ -165,8 +165,8 @@ In other words, the observer sets the current value of the variable \textit{cur\
 Line 3 is responsible to register the observer.
 Any registered observer will be triggered after every state change.
 
-\begin{lstlisting}[float=ht,language=Groovy, numbers=left,                   numbersep=5pt,            
-  numberstyle=\tiny, ,caption={Transform Observer Displaying the Current Floor},label=lst:liftobserver1]
+\begin{lstlisting}[float=ht,language=Groovy, numbers=left, numbersep=5pt,            
+  numberstyle=\tiny, ,caption={Transform Observer Displaying the Current Floor (Groovy)},label=lst:liftobserver1]
 transform("#txt_cur_floor") {
     set "text", { bms.eval("cur_floor").value }
     register(bms)
@@ -181,23 +181,19 @@ Whenever the expression \textit{door\_open} evaluates to \textit{TRUE}, the valu
 Line 3 to 17 will switch the \textit{y} coordinate of the door (denoting the movement of the door between floors) according to the evaluation result of the expression \textit{cur\_floor}.
 In line 18 we register the observer.
 
-\begin{lstlisting}[float=ht,language=Groovy, numbers=left,                   numbersep=5pt,            
-  numberstyle=\tiny, ,caption={Transform Observer for the Lift Door},label=lst:liftobserver2]
+\begin{lstlisting}[float=ht,language=Groovy, numbers=left, numbersep=5pt,            
+  numberstyle=\tiny, ,caption={Transform Observer for the Lift Door (Groovy)},label=lst:liftobserver2]
 transform("#door") {
     set "fill", { (bms.eval("door_open").value == "TRUE") ? "white" : "lightgray" }
     set "y", {
-        switch ( bms.eval("cur_floor").value ) {
-            case "-1":
-                "275"
+        switch (bms.eval("cur_floor").value) {
+            case "-1": "275"
                 break
-            case "0":
-                "175"
+            case "0": "175"
                 break
-            case "1":
-                "60"
+            case "1": "60"
                 break
-            default:
-                "275"
+            default: "275"
         }
     }
     register(bms)
@@ -205,20 +201,83 @@ transform("#door") {
 \end{lstlisting}
 
 Add both snippets to your \texttt{template.groovy} file and refresh your browser.
-Let's see how this affects our visualisation.
+Let's see how this affects the visualisation:
+Setup and initialise the machine using the ProB events view.
+Execute some events and see what happens.
+For instance, Figure~\ref{fig_tut_04_running2} shows the visualisation where the lift is on floor 0 and the door is open.
 
 \begin{figure}[!ht]
 \begin{center}
-	\includegraphics[width=\textwidth]{img/tutorial/tut_04.png}
+	\includegraphics[width=12cm]{img/tutorial/tut_04.png}
 	\caption{Lift Visualisation with Transformer Observer}
-	\label{fig_tut_03_running1}
+	\label{fig_tut_04_running2}
 \end{center}
 \end{figure}
 
 \subsection{Add Interactivity}
 
-(tbd)
+In this Section we learn how we can enhance our visualisation with interactive features, like executing some Event-B events by clicking on some buttons.
 
-\subsection{Starting the Visualisation}
+Let's add an interactive feature, where the user can click on the visual element that represents the door to open or close the door respectively.
+The first step consists of registering a new groovy method that executes the corresponding event \textit{open\_door} or \textit{close\_door}.
+Add the code from Listing~\ref{lst:liftinteractive1} to your \texttt{template.groovy} file.
 
-(tbd)
+\begin{lstlisting}[float=ht,language=Groovy, numbers=left, numbersep=5pt,            
+  numberstyle=\tiny, ,caption={Register a Groovy Method for Opening and Closing the Lift Door (Groovy)},label=lst:liftinteractive1]
+bms.registerMethod("openCloseDoor", {
+    def Trace t = bms.getTool().getTrace()
+    def Trace newTrace = executeEvent(t, "open_door", []) ?: executeEvent(t, "close_door", [])
+    if (newTrace != null) {
+        animations.traceChange(newTrace)
+        return [newState: newTrace.getCurrentState().id]
+    }
+})
+
+def Trace executeEvent(t,name,pred) {
+    try {
+        t.execute(name, pred)
+    } catch(IllegalArgumentException e) {
+        null
+    }
+}
+\end{lstlisting}
+
+In Line 1 we register a new groovy method called \textit{openCloseDoor}.
+In Line 2 we get the current trace of the animation.
+In Line 3, we first try to execute the \textit{open\_door} event by means of a helper method called \textit{executeEvent} (Line 10 to 16).
+If the return value of the helper method is null (the event could not be executed), we try to execute the event \textit{close\_door}.
+If we success (we executed one of the both events), we trigger a trace change, causing to refresh the current animation (Line 5).
+This in turn changes the state and triggers our registered observers.
+Line 6 returns a Json object that contains the state id of the new state.
+This information can used later at the JavaScript side after executing the registered \textit{openCloseDoor} method.
+
+Let's switch to the JavaScript side.
+Add Listing~\ref{lst:liftinteractive2} to your \texttt{template.js} file.
+In Line 8 we register a new click function on the visual element with the id door.
+Here we also use the jQuery selector syntax.
+Line 9 calls our registered Groovy method \textit{openCloseDoor}.
+In Line 10 to 12 we register a success function that can handle the returned value of the registered Groovy method \textit{openCloseDoor}.
+In this case we alert the returned new state id.
+
+\begin{lstlisting}[float=ht,language=JavaScript, numbers=left,                   numbersep=5pt,           
+  numberstyle=\tiny, ,caption={Call openCloseDoor Groovy Method (JavaScript)},label=lst:liftinteractive2]
+require.config({
+    paths: {
+        'prob': '/bms/libs/prob/prob'
+    }
+});
+define(["require","prob"], function(require) {
+    var bms = require('bmotion')
+    $("#door").click(function() {
+     bms.callMethod("openCloseDoor", {
+         success : function(data) {
+             alert("New state id: " + data.newState)
+         }
+     });
+    });
+});
+\end{lstlisting}
+
+This is only a small and short example for adding interactivity to your visualisation.
+In particular you are not limited to this example.
+
