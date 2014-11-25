@@ -73,6 +73,22 @@ morestring=[b]',%
  numberbychapter=false
 }
 
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  keywordstyle=\color{magenta}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{magenta}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{blue}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+
+
 \lstset{
   frame=top,frame=bottom,
   %basicstyle=\small\normalfont\sffamily,    % the size of the fonts that are used for the code
