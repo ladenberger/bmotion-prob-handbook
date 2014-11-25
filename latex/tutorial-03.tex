@@ -259,24 +259,24 @@ Line 9 calls our registered Groovy method \textit{openCloseDoor}.
 In Line 10 to 12 we register a success function that can handle the returned value of the registered Groovy method \textit{openCloseDoor}.
 In this case we alert the returned new state id.
 
-\begin{lstlisting}[float=ht,language=JavaScript, numbers=left,                   numbersep=5pt,           
-  numberstyle=\tiny, ,caption={Call openCloseDoor Groovy Method (JavaScript)},label=lst:liftinteractive2]
-require.config({
-    paths: {
-        'prob': '/bms/libs/prob/prob'
-    }
-});
-define(["require","prob"], function(require) {
-    var bms = require('bmotion')
-    $("#door").click(function() {
-     bms.callMethod("openCloseDoor", {
-         success : function(data) {
-             alert("New state id: " + data.newState)
-         }
-     });
-    });
-});
-\end{lstlisting}
+%\begin{lstlisting}[float=ht,language=JavaScript, numbers=left,                   numbersep=5pt,           
+%  numberstyle=\tiny, ,caption={Call openCloseDoor Groovy Method (JavaScript)},label=lst:liftinteractive2]
+%require.config({
+%    paths: {
+%        'prob': '/bms/libs/prob/prob'
+%    }
+%});
+%define(["require","prob"], function(require) {
+%    var bms = require('bmotion')
+%    $("#door").click(function() {
+%     bms.callMethod("openCloseDoor", {
+%         success : function(data) {
+%             alert("New state id: " + data.newState)
+%         }
+%     });
+%    });
+%});
+%\end{lstlisting}
 
 This is only a small example for adding interactivity to your visualisation.
 In particular you are not limited to this example.

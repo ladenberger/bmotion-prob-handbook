@@ -45,7 +45,7 @@
 \newlength{\titlebottom}
 \newlength{\titlesecdistance}
 \ifinprint
-\def\titledimrodin{\fontsize{30}{50}}
+\def\titledimrodin{\fontsize{58}{71}}
 \def\titledimhandbook{\fontsize{20.5}{25}}
 \def\titledimsubtext{\fontsize{13}{16}}
 \def\titledimsponsor{\fontsize{11}{15}}
@@ -54,7 +54,7 @@
 \setlength{\titlebottom}{-30mm}
 \setlength{\titlesecdistance}{8mm}
 \else
-\def\titledimrodin{\fontsize{40}{50}}
+\def\titledimrodin{\fontsize{45}{50}}
 \def\titledimhandbook{\fontsize{24.5}{30}}
 \def\titledimsubtext{\fontsize{16}{19}}
 \def\titledimsponsor{\fontsize{11}{15}}
@@ -118,8 +118,7 @@
     \newcommand{\file}[2]{\href{\filepath#1}{#2}}
 \else
 	\newcommand{\filepath}{\handbookpath/\versionpath/files/}
-%    \newcommand{\file}[2]{\href{\filepath#1}{#2}\footnote{The URL of the resource is: \url{\filepath#1}}}
-    \newcommand{\file}[2]{\href{\filepath#1}{#2}}
+    \newcommand{\file}[2]{\href{\filepath#1}{#2}\footnote{The URL of the resource is: \url{\filepath#1}}}
 \fi
 
 % Use this definition to create a link to the file. The definition takes to arguments. 
@@ -174,8 +173,6 @@
 \end{shaded}
 }
 \fi
-
-\newenvironment{plugin-pror}{\begin{rodin-plugin}{pror.png}{ProR Requirements}}{\end{rodin-plugin}}
 
 % Marginpars are  cropped - this formats them nicely.
 \let\oldmarginpar\marginpar

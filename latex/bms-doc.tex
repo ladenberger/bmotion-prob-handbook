@@ -1,15 +1,31 @@
+\ifdefined\isinprint
+\documentclass[twoside,10pt]{book}
+\usepackage[twoside,paperwidth=155.93mm,paperheight=233.89mm,hmargin={15mm,15mm},vmargin={20mm,20mm},bindingoffset=5mm]{geometry}
+\usepackage[hyphens]{url} 
+\usepackage[colorlinks=false,
+            pdfborder={0 0 0}
+	        pdftex,
+            plainpages=false,
+            pdfauthor={Lukas Ladenberger (Editor)},
+            pdftitle={BMotion Studio User's Handbook},
+            pdfsubject={BMotion Studio},
+            pdfkeywords={ProB, Event-B},
+            pdfproducer={http://www.stups.hhu.de/ProB/index.php5/BMotion_Studio},
+            pdfcreator={plastex-based tool chain}]{hyperref}
+\else
 \documentclass[12pt]{book}
 \usepackage[left=2.5cm,top=3cm,right=2.5cm,bottom=3cm]{geometry}
 \usepackage[hyphens]{url} 
 \usepackage[colorlinks=true,
 	        pdftex,
             plainpages=false,
-            pdfauthor={Lukas Ladenberger (Ed.)},
-            pdftitle={BMotion User's Handbook},
-            pdfsubject={},
-            pdfkeywords={BMotion Studio, ProB, Classical-B, Event-B},
-            pdfproducer={http://www.stups.hhu.de/ProB},
+            pdfauthor={Lukas Ladenberger (Editor)},
+            pdftitle={BMotion Studio User's Handbook},
+            pdfsubject={BMotion Studio},
+            pdfkeywords={ProB, Event-B},
+            pdfproducer={http://www.stups.hhu.de/ProB/index.php5/BMotion_Studio},
             pdfcreator={plastex-based tool chain}]{hyperref}
+\fi
 \usepackage{graphicx}
 \usepackage{bsymb}
 \usepackage{b2latex}
@@ -48,10 +64,10 @@ morestring=[b]',%
 }[keywords,comments,strings]
 
 \lstset{
-  language={Java},basicstyle=\ttfamily\footnotesize,,columns=fullflexible
+  language={Java},basicstyle=\ttfamily\small,,columns=fullflexible
 }
 \lstset{
-  language={Groovy},basicstyle=\ttfamily\footnotesize,,columns=fullflexible
+  language={Groovy},basicstyle=\ttfamily\small,,columns=fullflexible
 }
 \lstset{
  numberbychapter=false
@@ -62,7 +78,7 @@ morestring=[b]',%
   %basicstyle=\small\normalfont\sffamily,    % the size of the fonts that are used for the code
   stepnumber=1,                           % the step between two line-numbers. If it is 1 each line will be numbered
   numbersep=10pt,                         % how far the line-numbers are from the code
-  tabsize=1,                              % tab size in blank spaces
+  tabsize=2,                              % tab size in blank spaces
   extendedchars=true,                     %
   breaklines=true,                        % sets automatic line breaking
   captionpos=t,                           % sets the caption-position to top
@@ -80,33 +96,16 @@ morestring=[b]',%
   escapechar=\%
  }
 
-\lstdefinelanguage{JavaScript}{
-  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
-  keywordstyle=\color{blue}\bfseries,
-  ndkeywords={class, export, boolean, throw, implements, import, this},
-  ndkeywordstyle=\color{Gray}\bfseries,
-  identifierstyle=\color{black},
-  sensitive=false,
-  comment=[l]{//},
-  morecomment=[s]{/*}{*/},
-  commentstyle=\color{purple}\ttfamily,
-  stringstyle=\color{red}\ttfamily,
-  morestring=[b]',
-  morestring=[b]"
-}
-
-\newcommand{\bms}{BMotion Studio}
-
 \input{config}
 \input{makros}
 
-\title{BMotion Studio}
+\title{BMotion Studio User's Handbook}
 \author{
 Work in Progress\\
-Handbook $ $Rev: 13274 $ $ \\
+Handbook $ $Rev: 16185 $ $ \\
 \\
 \href{mailto:ladenberger@cs.uni-duesseldorf.de}{ladenberger@cs.uni-duesseldorf.de}\\
-\href{http://www.stups.hhu.de/ProB}{http://www.stups.hhu.de/ProB}
+\href{http://www.stups.hhu.de/ProB/index.php5/BMotion_Studio}{http://www.stups.hhu.de/ProB/index.php5/BMotion_Studio}
 }
 
 \begin{document}        
@@ -132,14 +131,29 @@ Handbook $ $Rev: 13274 $ $ \\
 \vspace*{\titlesecdistance}
 {\titledimsponsor\selectfont %
   $\hbox{\includegraphics[height=4ex]{img/advance-logo.png}}$
-  \textsf{This work is sponsored by the Advance Project}}
+  \textsf{This work is sponsored by the ADVANCE Project}}
 
 \vspace*{\titlebottom}
 
 \end{titlepage}
 \ifdefined\isinprint
 \cleardoublepage
+% Title page
+\vspace*{10em}
+\begin{center}
+  {\huge \textbf{BMotion Studio User's Handbook}}\\
+  \vspace{2em}
+  {\large ProB Edition}
+\end{center}
 \clearpage
+% Copyright page
+\vspace*{\fill}
+\noindent\textbf{BMotion Studio User's Handbook}\\
+~\\
+This work, except the cover image, is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit \href{http://creativecommons.org/licenses/by-sa/3.0/}{creative\-com\-mons.org/\-licenses/\-by-sa/3.0/} or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.\\
+The cover image of a Rodin statue was created by Miikka Skaffari.
+It is licensed under a Creative Commons Attribution-NonCommercial 3.0 Unported License.  To view a copy of this license, visit \href{http://creativecommons.org/licenses/by-sa/3.0/}{creative\-com\-mons.org/\-licenses/\-by-sa/3.0/} or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+\vspace{10em}
 \else\fi
 \cleardoublepage
 \pagenumbering{arabic}
@@ -147,66 +161,54 @@ Handbook $ $Rev: 13274 $ $ \\
 \addcontentsline{toc}{chapter}{Contents}
 \tableofcontents
 \fi
-\newpage
+
+\chapter{Introduction}
+\label{introduction}
+
+This handbook provides documentation for users of the Rodin toolset, which provides tools for working with Event-B models.
+
+Event-B is a formal method for system-level modelling and analysis. Key features of Event-B are the use of set theory as a modelling notation, the use of refinement to represent systems at different abstraction levels and the use of mathematical proof to verify consistency between refinement levels.
+
+The Rodin Platform is an Eclipse-based IDE for Event-B that provides effective support for refinement and mathematical proof. The platform is open source, contributes to the Eclipse framework and is further extensible with plugins. 
+
+This handbook covers the use of the core platform.  Documentation for developers and regarding extensions can be found in the Rodin wiki (\ref{rodin_wiki}).
 
 \section{Overview}
 
-This handbook consists of three parts:
+This handbook consists of five parts:
 
 \begin{description}
-	\item[Introduction] You are reading the introduction right now.  It helps you to orient yourself and to find information quickly.
-	\item[Tutorial] If you are completely new to \bms, the Tutorial is a good way to get up to speed quickly.  It guides you through installation and usage of the tool and gives you an overview of the \bms~features.
-	\item[Reference] The reference section provides comprehensive documentation of \bms, and its components.
-	\item[Frequently Asked Questions] Common issues are listed by category in the FAQ.
-	\item[Index] Particularly for the print version of this handbook, we included an index.  In the electronic versions, you may want to try the search functionality as well.
+	\item[Introduction (Chapter~\ref{introduction})] You are reading the introduction right now.  Its purpose is to help you orient yourself and to find information quickly.
+	\item[Tutorial (Chapter~\ref{tutorial})] If you are completely new to Rodin, the tutorial is a good way to get up to speed quickly.  It guides you through the installation and usage of the tool and gives you an overview of the Event-B modelling notation.
+	\item[Reference (Chapter~\ref{reference})] The reference section provides comprehensive documentation of Rodin and its components.
+	\item[Frequently Asked Questions  (Chapter~\ref{faq})] Common issues are listed by category in the FAQ.
+	\item[Index] We included an index particularly for the print version of the handbook, but it may be useful in the electronic versions as well.  
 \end{description}
 
 \subsection{Formats of this Handbook}
+\label{handbook_formats}
 
 The handbook comes in various formats:
 
 \begin{description}
-	\item[Eclipse Help] \bms~is shipped with Eclipse and can be accessed through the help system.
-	%\item[Online Help] You can access the handbook online at \url{http://handbook.event-b.org}.
-	\item[PDF Help] The \bms~Website \url{http://www.stups.hhu.de/ProB/index.php5/BMotion_Studio} includes a link to the PDF version of the handbook.
+	\item[Eclipse Help] The Rodin Handbook is shipped with Rodin and can be accessed through the help system.  The handbook will be updated with the standard Rodin update mechanism.
+	\item[Online Help] You can access the handbook online at \url{http://handbook.event-b.org}.
+	\item[PDF Help] Both online versions also include a link to the PDF version of the handbook.
 \end{description}
-
-\subsection{Background and Motivation}
-
-Formal methods like the B-Method gained a lot of popularity as approach for the specification and design of software that ensures its safety and reliability. Several industrial projects like the Coppilot System that controls the opening and closing of platform screen doors at the paris metro line 13 have been installed successfully. Such industrial applications need also industrial strength tools in order to support the deployment of formal models. One of them is ProB. ProB is an animation tool with the challange to check the presence of desired functionality and to inspect the behavior of a formal model.
-
-Another challenge for successful deployment of formal models is the communication between a developer and a domain expert (or manager). On the one hand it is crucial for the developer to get feedback from the domain expert for further development. On the other hand the domain expert needs to check whether his expectations are met. Furthermore, good communication and presentation of formal models can help to obtain several contracts. An animation tool like ProB could perform this task, but may be still too difficult for domain experts, because they also need a certain level of knowledge about the mathematical notation to understand the meaning of a specific state. To avoid this problem, it is useful to create domain specific visualizations.
-
-That's why we introduce \bms, a tool built on top of the ProB Java API for creating domain specific visualisations of Classical-B, Event-B and CSP models.
-
-\subsection{BMotion Studio Website}
-\label{rodin_wiki}
-
-This handbook is complemented by the \bms~Website (\url{http://www.stups.hhu.de/ProB/index.php5/BMotion_Studio}).  Sometimes, the handbook will refer to the website for more information.
-
-\subsection{Feedback}
-\label{feedback}
-
-All online versions of the handbook contain a button or link for feedback.  You can also submit feedback via email to \texttt{ladenberger@cs.uni-duesseldorf.de}.
 
 \section{Conventions}
 \label{conventions}
 
 We use the following conventions in this manual:
 
-\tick{Checklists and Milestones are designated with tick. Here we summarize what we want to learn or should have learned so far.}
+\tick{Checklists and milestones are designated with a tick. Here we summarize what we want to learn or should have learned so far.}
 \info{Useful information and tricks are designated by the information sign.}
 \warning{Potential problems and warnings are designated by a warning sign.}
 \pencil{Examples and Code are designated by a pencil.}
 
 We use \texttt{typewriter} font for file names and directories.
 
-We use \textsf{sans serif font} for GUI elements like menus and buttons.  Menu actions are depicted by a chain of elements, separated by ``$\rangle$'', e.g. \textsf{File $\rangle$ New $\rangle$ Project...}.
-
-\section{Acknowledgements}
-\label{sec:acknowledgements}
-
-The icons that you find throughout this handbook were created by Pixel-Mixer\footnote{\url{http://pixel-mixer.com/}}, who provides them freely.  Thanks!
+We use \textsf{sans serif font} for GUI elements like menus and buttons.  Menu actions are depicted by a chain of elements, separated by ``$\rangle$'', e.g. \textsf{File $\rangle$ New $\rangle$ Event-B Component}.
 
 \section{ADVANCE}
 \label{advance}
@@ -230,6 +232,7 @@ ADVANCE is building on an existing formal modelling language - Event-B - and its
 \input{faq}
 
 \clearpage
+\phantomsection
 \addcontentsline{toc}{chapter}{Index} 
 \printindex
 

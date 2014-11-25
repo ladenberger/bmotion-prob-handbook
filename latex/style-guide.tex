@@ -1,28 +1,30 @@
 \section{Style Guide}
+\label{style-guide}
 
-\info{For now, we will manage the style guide as \LaTeX~together with the rest of the documentation.  We may take it out upon publication.}
+\info{For now, we will manage the style guide as a \LaTeX~document together with the rest of the documentation.  We may take it out upon publication.}
 
 \subsubsection{General Stylistic Guidelines}
 
 \begin{itemize}
-	\item The Conventions (\ref{conventions}) are part of the style guide.
+	\item The conventions (\ref{conventions}) are part of the style guide.
 
 	\item Use the ``we'' form.
 
 	\item We use British English.
 
-	\item When refering to the different views in Rodin, the word ``view'' should be written in lowercase, e.g., the Rodin Problems view.
+	\item When referring to the different views in Rodin, the word ``view'' should be written in lowercase, e.g., the Rodin Problems view.
 \end{itemize}
 
 \subsubsection{Files}
 
 Files should be saved in the \texttt{files} subdirectory. You can also create a subdirectory. Then, use the definition 
 
-\begin{verbatim} \file{1}{2} \end{verbatim} 
+\begin{verbatim} \file{1}{2} 
+\end{verbatim} 
 
-to create a link to the file. The definition takes to arguments. The first argument (1) defines the file name i.e. \texttt{Celebrity.zip} or in case if you saved the file in a subdirectory \texttt{subdirecotry/Celebrity.zip}. The second argument (2) defines the name which should be displayed in the document, i.e. ``Celebrity Problem Example Download''.
+to create a link to the file. The definition extends to arguments. The first argument (1) defines the file name i.e. \texttt{Celebrity.zip} or if you saved the file in a subdirectory \texttt{subdirectory/Celebrity.zip}. The second argument (2) defines the name which should be displayed in the document, i.e. ``Celebrity Problem Example Download''.
 
-\warning{Please note, that you only enter the file name without a path before (expected subdirectories). The build script assigns automatically the correct path to the file on the server.}
+\warning{Please note, that you only enter the file name without a path before (expected subdirectories). The build script assigns the correct path to the file on the server automatically .}
 
 Here is an example using the definition: \file{Celebrity.zip}{Celebrity Problem Example Download}.
 
@@ -33,31 +35,31 @@ We will reduce (or avoid) redundancy through heavy linking, following these guid
 \begin{itemize}
 	\item If in doubt, provide the bulk of the information in the Reference section.  For instance, the FAQ entry ``What is Event-B?''  Should simply refer to the Event-B entry in the Reference section.
 	\item Web Links should not appear multiple times
-	\item Realize web links as footnotes in the Tutorial and FAQ.
-	\item Realize web links in a ``See also'' Section in the Reference.
+	\item List web links as footnotes in the Tutorial and FAQ.
+	\item List web links in a ``See also'' Section in the Reference.
 \end{itemize}
 
 \subsubsection{Sections}
 
 \begin{itemize}
-	\item If referring to a specific chapter or section, use uppercase to denote this, e.g. ``in Chapter~3''.
+	\item If referring to a specific chapter or section, use uppercase to denote it, e.g. ``in Chapter~3''.
 	\item We also refer to subsections as Section, e.g. ``see Section~2.5''
 	\item We have a small number of well-defined chapters which are the top level structuring element.
 	\item Sections and subsections are numbered.  In the HTML-Versions, they are broken into subpages.
     \item Subsubsections do not receive numbers and are not broken into subpages in the HTML.  Keep this in mind regarding both the reading flow and page sizes.
 	\item Avoid linking (ref) to subsubsections, as they don't have a number.  Latex will instead provide a link to the next higher element.  This works, but it could create confusion.
-	\item Generally, we should avoid gaps in the hierarchy (i.e. having a subsubsection in a section without a subsection in between).\footnote{Coincidentally, this style guide violates this rule. Reason: We want the style guide not broken into subpages, but the proper hierarchy is a section.}
+	\item Generally, we should avoid gaps in the hierarchy (i.e. having a subsubsection in a section without a subsection in between).\footnote{Coincidentally, this style guide violates this rule. Reason: We want the style guide to remain whole and not be broken into subsections, but the proper hierarchy is a section.}
 	\item Section labels should be all in lower case. Use ``\_'' for blanks.
-	\item We use the prefix ``\texttt{int\_}'' for introduction section labels, ``\texttt{tut\_}'' for tutorial section labels following the section number (i.e. \texttt{tut\_01}) and ``\texttt{faq\_}'' for faq section labels following a short version of the title (i.e. \texttt{faq\_diff\_eventb\_b}). Reference section labels have no prefix.
+	\item We use the prefix ``\texttt{int\_}'' for introduction section labels, ``\texttt{tut\_}'' for tutorial section labels following a meaningful description of the section (i.e. \texttt{tut\_rodin\_installation}) and ``\texttt{faq\_}'' for faq section labels following a short version of the title (i.e. \texttt{faq\_diff\_eventb\_b}). Reference section labels have no prefix.
 \end{itemize}
 
 \subsubsection{Images}
 \begin{itemize}
-	\item Images must be no more than 700 pixels in width (for HTML version)  This is fairly easy for bitmaps (screenshot), pay attention to this regarding how plasTeX converts vector images. (see Latex section below on how to include images)
+	\item Images must be no more than 700 pixels in width (for HTML version) and no more than 160 mm (for PDF version). This is fairly easy for bitmaps (screenshot), pay attention to this regarding how plasTeX converts vector images. (see Latex section below on how to include images)
 
-    \item Screenshots should look neat and consistent.  Horizontal real estate will always be an issue, so please resize the windows before taking the screenshot to keep things readable at 700 pixel width.  (see Latex section below on how to include images)
+	\item Screenshots should look neat and consistent.  Horizontal real estate will always be an issue, so please resize the windows before taking the screenshot to keep things readable at 700 pixel width.  (see Latex section below on how to include images)
 
-	\item Images should always have a caption and a label. Please use for the label the same conventions like for the section labels. However, use the prefix ``\texttt{fig\_}''. Example: ``\texttt{fig\_tut\_03\_traffic\_light}''. For referencing do not use references like "As shown bellow" or "Like in the following image:". Use always a format like:
+	\item Images should always have a caption and a label. Please use the same conventions for the figure labels that are used for the the section labels, but use the prefix ``\texttt{fig\_}''. \\Example: ``\texttt{fig\_tut\_03\_traffic\_light}''. For referencing do not use references like "As shown bellow" or "Like in the following image:". Use always a format like:
 
 \begin{verbatim}"... as shown in figure \ref{fig_tut_03_traffic_light}."\end{verbatim}
 
@@ -90,44 +92,48 @@ Here is an example using icons in continuous text:
 \textit{Lorem ipsum dolor sit amet, consetetur \icon{rodin/auto_prover.png} sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore \icon{rodin/lasoo_prover.png} magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.}
 
 \subsubsection{Index}
-Please use the index, this helps users to look up information more efficiently.
+Please add meaningful entries to the index. This helps users to look up information more efficiently.
 The \LaTeX-command to do this is \verb#\index{#\textit{word}\verb#}#.
 \begin{itemize}
+\item The most important thing to think about when considering the index is the user perspective: 
+  What is the word that a user will look up to try and find this topic?
 \item An index entry should be a noun, singular and written in lowercase (uppercase if it's a name).
-\item If there are several locations in the documentation for the same word (e.g. in the tutorial and the
-  reference section), consider to highlight the usually used location with \verb#\index{word|textbf}#.
+\item If the word appears in are several locations in the documentation (e.g. in the tutorial and the
+  reference section), try to highlight the most commonly used location with \verb#\index{word|textbf}#.
   This is usually an entry in the reference section.
 \item Adjectives should be used with care. 
   Please use them only if omitting the adjective changes the meaning of the entry drastically or
   if the adjective is necessary to distinguish the entry from other entries with the same noun but
   other location.
-\item If you use an adjective, consider to use the noun as a key for sorting: \verb#\index{cloud,grey@grey cloud}#
+\item If you use an adjective, consider using the noun as a key for sorting: \verb#\index{cloud,grey@grey cloud}#
   instead of \verb#\index{grey cloud}#
 \item If you have multiple entries for the same word, consider using sub-entries (\verb#\index{cloud!grey}#)
-  if different things are meant.
+  if different things are meant. Another example is \verb#\index{true!as predicate}# and \\ \verb#\index{true!as expression}#
+\item Multiple index entries for the same text block are alright.
+\item If you use the index command, please have a look at the result.
 \end{itemize}
 
 \subsubsection{\LaTeX{} Styling}
 
 \begin{itemize}
-	\item Try to avoid fancy \LaTeX formatting, as PlasTeX (used for generating HTML) is temperamental.  Especially macros don't always work, and sometimes the result is just ugly.
-	\item We have the option to use different files for PDF and HTML generation, but we would generally prefer not to do this.  Look at \texttt{bsymb.sty} and \texttt{plastex-bsymb.sty} as an example. \textbf{NOTE:} We don't do this any more for any style files.
+	\item Try to avoid fancy \LaTeX formatting, as PlasTeX (used for generating HTML) is temperamental.  Macros are especially problematic, and sometimes the result is just ugly.
+	\item We have the option to use different files to generate the PDF and HTML, but we would generally prefer not to do this.  Look at \texttt{bsymb.sty} and \texttt{plastex-bsymb.sty} as an example. \textbf{NOTE:} We don't do this any more for any style files.
 	\item Every section should have a label, reflecting the section name, all lowercase, spaces replaced with underscores (\_).
 	\item Don't create subdirectories in the \texttt{latex} folder, as the scripts cannot always deal with them.
 	\item Put images in the \texttt{img} folder.  Feel free to create additional directory structures underneath.
-	\item Files other than images (e.g. Event-B projects) TODO - we have to figure out whether to keep them in svn (then they won't be accessible from PDFs) or on the Wiki (then they won't be accessible offline).
-	\item Don't use hyperlinks for cross-references, but linked section numbers (generated with \texttt{\\ref{}}.  This is necessary for the print documentation to be useful.
+	\item Files other than images (e.g. Event-B projects) --- we have macros to link them absolute in the PDF, and to link them relative in HTML and Eclipse Help.
+	\item Use linked sections numbers (generated with \texttt{\\ref{}} instead of hyperlinks for cross-references. This is necessary for the print documentation to be useful.
 	\item When including images in Latex, do not provide a width!  Instead, try to embed the print size in the image itself.  For instance, PNGs allow you to set the print size (in mm).  This way we can be sure that the images are rendered as HTML without distortion.
 \end{itemize}
 
 \subsubsection{Contributions from Plugin Developers}
 \label{sec:plugin_contributions}
 
-\begin{rodin-plugin}{img/prob.png}{ProB}
+\begin{rodin-plugin}{prob.png}{ProB}
 We want to encourage Plugin developers to contribute to the Handbook, but we have to make it clear that we cannot maintain that documentation.  Therefore, it has to be clearly marked.  We use a custom environment for that purpose that
 (1) provides the Plugin's icon, (2) adds a disclaimer to the end of the custom documentation and (3) puts the content into a gray box (like this one).
 
-There are some lmitations to the environment that we use.  Specifically, headlines and images should be kept outside the gray box.
+There are some limitations to the environment that we use.  Specifically, headlines and images should be kept outside the gray box.
 
 \end{rodin-plugin}
 
