@@ -1,19 +1,39 @@
 \section{Before Getting Started}
 \label{tutorial_01}
 
-What is BMotion Studio?
-
-(tbd)
-
 Before we get started with the actual tutorial, we are going to go over the required background to make sure that you have a rudimentary understanding of the necessary concepts.
 
 \tick{\textbf{You can skip this section, if...}
 \begin{itemize}
+	\item ... you a familiar with \bms
 	\item ... you know what formal modelling is
 	\item ... you know what predicate logic is
 	\item ... you know what ProB refer to
 \end{itemize}
 }
+
+\subsection{BMotion Studio}
+
+\begin{figure}[!ht]
+\begin{center}
+	\includegraphics[width=14cm]{img/tutorial/bms_architecture}
+	\caption{\bms~Architecture}
+	\label{fig_tut_00_architecture}
+\end{center}
+\end{figure}
+
+Figure~\ref{fig_tut_00_architecture} shows an overview of the architecture of \bms. 
+In \bms, a visualisation is described by a visualisation template that contains visual elements and observers. 
+Visual elements may be, for instance, shapes or images that represent some aspects of the model. 
+For example, when modelling a communication protocol, circles may be used for representing the communicating entities of the protocol and arrows for the message exchanges between the entities. 
+\bms~supports web technologies like Scalable Vector Graphics (SVG)\footnote{\url{http://www.w3.org/TR/SVG11}} and Cascading Style Sheets (CSS)\footnote{\url{http://www.w3.org/TR/css-2010}} for this purpose. 
+SVG is an XML-based markup language for describing two-dimensional vector graphics. 
+It comes with a number of visual elements like shapes, images and paths.
+CSS is a language that can be used to describe the style of SVG visual elements (e.g. the colour or the dimension). 
+
+Observers are used to link visual elements with the model. 
+An observer is notified whenever a model has changed its state, i.e. whenever an event has been executed. 
+In response, the observer will query the model's state and triggers actions on the linked visual elements in respect to the new state. 
 
 \subsection{Formal Modelling}
 
@@ -35,7 +55,7 @@ Event-B supports first-order logic which is, technically speaking, just one type
 
 Event-B is a notation for formal modelling based around an abstract machine notation (\index{abstract machine notation}).
 
-Event-B is considered an evolution of B (also known as classical B). It is a simpler notation which is easier to learn and use. It comes with tool support in the form of the Rodin Platform.
+Event-B is considered an evolution of B (also known as Classical B). It is a simpler notation which is easier to learn and use. It comes with tool support in the form of the Rodin Platform.
 
 \subsection{ProB Animator}
 \label{prob_animator}

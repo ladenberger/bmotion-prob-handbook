@@ -1,11 +1,11 @@
-\section{Let's Start: Our First Visualisation}
+\section{Let's Start: Creating a Visualisation}
 \label{tutorial_03}
 
 \tick{\textbf{Goals:} The objective of this section is to create a first visualisation for an Event-B model of a simple lift system. 
 You will learn to create the actual visualisation and to link the visualisation with a formal model by establishing observers.
 In addition, you will see how to add interactivity to the visualisation.}
 
-\subsection{Preparing a new Visualisation Template}
+\subsection{Create a new Visualisation Template}
 
 The easiest way to create a new visualisation template is to duplicate the default template \texttt{b\_template} that is included in the \texttt{workspace} folder of your \bms~installation.
 Just duplicate the \texttt{b\_template} folder and rename it to \texttt{lift}.
@@ -38,7 +38,7 @@ For instance, pressing a button in your visualisation could cause the execution 
 
 \subsection{Simple Lift Model}
 
-We are going to create a visualisation for a simple, single lift system that allows movement of a single lift cage between three floors.
+We are going to create a visualisation for a simple lift system that allows movement of a single lift cage between three floors.
 The door of the lift can be closed and opened - all in response to the pressing of floor call and cage send buttons.
 
 You can download the corresponding Event-B model \file{EventBLift.zip}{here}.
@@ -157,7 +157,7 @@ In response, the observer will query the model's state and triggers actions on t
 Consider the Transform Observer in Listing~\ref{lst:liftobserver1}.
 We are going to explore the Groovy code line by line.
 Line 1 means that we want to transform the visual element with the id \textit{txt\_cur\_floor} that is located in our \texttt{template.html} file.
-BMotion Studio follows the jQuery selector syntax\footnote{\url{http://api.jquery.com/category/selectors}} to select elements.
+\bms~follows the jQuery selector syntax\footnote{\url{http://api.jquery.com/category/selectors}} to select elements.
 The prefix ``\#'' denotes that we want to select an element by its id.
 Line 2 affects that the attribute \textit{text} will be set to the value that is returned by the followed closure.
 In particular, the closure evaluates the expression \textit{cur\_floor} in the current state and returns the value to be set.
