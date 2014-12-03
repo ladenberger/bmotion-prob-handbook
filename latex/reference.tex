@@ -1,2 +1,80 @@
 \chapter{Reference}
 \label{reference}
+
+\section{The BMotion Studio API}
+\label{sec:bmsapi}
+
+(tbd)
+
+\section{Observers}
+\label{sec:observers}
+
+Observers are used to link visual elements with the model. 
+An observer is notified whenever a model has changed its state, i.e. whenever an event has been executed. 
+In response, the observer will query the model's state and triggers actions on the linked visual elements in respect to the new state. 
+In general, observers are defined in the Groovy script file.
+\bms~comes with some predefined observers that are described in the following sections.
+
+\subsection{Transform Observer}
+\label{sec:transform_observer}
+
+The transform observer supports changing attributes of visual elements based on the current state of the animation.
+The following code snippet demonstrates the basic use of a transform observer:
+
+\begin{lstlisting}[float=ht,language=Groovy]
+transform("#myvisualelement") {
+    set "fill", "green"
+    set "stroke", "red"
+    register(bms)
+}
+\end{lstlisting}
+
+In line 1 we define a jQuery selector to select the visual elements which should be transformed.
+In this case we select a visual element with the id \textit{myvisualelement} (in jQuery the prefix ``\#'' denotes that we want to select and element by its id).
+jQuery provides several possibilities to select visual elements.
+
+\info{The jQuery selector API documentation\footnote{\url{http://api.jquery.com/category/selectors/}} provides an overview and a detailed documentation about selectors.}
+
+Line 2 to 3 are actions that are made on the visual elements which are matched by the defined selector.
+In this case the \textit{fill} attribute is set to the value \textit{green} and the \textit{stroke} attribute to \textit{red}.
+
+In line 4 we register the observer to the current visualisation.
+A registered observer is triggered after every state change, e.g. after executing an event.
+
+\subsubsection{The Use of Groovy Closures}
+
+As we use the Groovy Scripting language for defining the observers, we can make use of the entire function and feature range of it.
+Transform observers supports the use of closures for defining the selector or the value of an action.
+
+The following code snippet demonstrates the use of closures for transform observers:
+
+\begin{lstlisting}[float=ht,language=Groovy]
+transform("#myvisualelement") {
+    set "fill", { (bms.eval("1 < x").value == "TRUE") ? "white" : "lightgray" }
+    set "y", {
+        switch (bms.eval("x").value) {
+            case "0": "15"
+                break
+            case "1": "20"
+                break
+            case "2": "25"
+                break
+            default: "0"
+        }
+    }
+    register(bms)
+}
+\end{lstlisting}
+
+In Groovy a closure is encapsulated in curly brackets.
+Line 2 and 3 show two examples for using closures for defining the value of the attribute \textit{fill} and \textit{y} respectively.
+Closures are evaluated after every state change in consequence of triggering the transform observer.
+As an example, in line 2 the closure evaluates the expression $1 < x$.
+The value of the \textit{fill} attribute is set to \textit{white} whenever the expression evaluates to \textit{TRUE} and otherwise to \textit{lightgray}.
+
+
+\subsection{Method Observer}
+\label{sec:method_observer}
+
+\subsection{Custom Observer}
+\label{sec:custom_observers}
