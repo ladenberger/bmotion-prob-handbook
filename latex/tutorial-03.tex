@@ -292,10 +292,10 @@ $("#door").click(function () {
 }).css("cursor", "pointer")
 \end{lstlisting}
 
-In Line 8 we register a new click function on the visual element with the id door.
+In Line 1 we register a new click function on the visual element with the id door.
 Here we also use the jQuery selector syntax.
-Line 9 calls our registered Groovy method \textit{openCloseDoor}.
-In Line 10 to 12 we pass a callback function that can handle the returned value of the registered Groovy method \textit{openCloseDoor}.
+Line 2 calls our registered Groovy method \textit{openCloseDoor}.
+In Line 3 to 5 we pass a callback function that can handle the returned value of the registered Groovy method \textit{openCloseDoor}.
 In this case we print the returned new state id on the console.
 
 These are only small examples for adding interactivity to your visualisation.
