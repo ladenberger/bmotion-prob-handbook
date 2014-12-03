@@ -1,13 +1,34 @@
-
 pre {
-    color: #004000;
-    font-size: 90%;
-    background-color: #f0f0f0;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    border: 1px #aaffaa solid;
-    font-family: Monaco, "Courier New", Courier, fixed;
-    padding-left: 4ex;
+  background-color:#eee;
+  overflow:auto;
+  margin:1em 0 1em;
+  padding:.5em 1em;
+  font:normal normal 16px/18px "Courier New",Courier,Monospace;
+}
+
+pre code,
+pre .line-number {
+  /* Ukuran line-height antara teks di dalam tag <code> dan <span class="line-number"> harus sama! */
+  font:normal normal 16px/18px "Courier New",Courier,Monospace;
+  color:black;
+  display:block;
+}
+
+pre .line-number {
+  float:left;
+  margin:0 1em 0 -1em;
+  border-right:1px solid;
+  text-align:right;
+}
+
+pre .line-number span {
+  display:block;
+  padding:0 .5em 0 1em;
+}
+
+pre .cl {
+  display:block;
+  clear:both;
 }
 
 .breadcrumbs {

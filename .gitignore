@@ -16,7 +16,10 @@
 *.fls
 *.out
 *.lol
+*.ini
+*.xml
 *.directory
+.cache
 bms-doc.pdf
 tmp/ 
 build/

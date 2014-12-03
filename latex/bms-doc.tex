@@ -53,25 +53,25 @@ morecomment=[s]{/}{/},%
 morestring=[b]",% 
 morestring=[b]',% 
 }[keywords,comments,strings]
-
-\lstdefinelanguage{B}% 
-{morekeywords={MACHINE, REFINEMENT,OPERATIONS,INITIALISATION,END,BEGIN,PRE,IF,THEN,ELSE,VARIABLES,INVARIANT,SETS},% 
-sensitive=true,% 
-morecomment=[l]//,% 
-morecomment=[s]{/}{/},% 
-morestring=[b]",% 
-morestring=[b]',% 
-}[keywords,comments,strings]
-
-\lstset{
-  language={Java},basicstyle=\ttfamily\small,,columns=fullflexible
-}
-\lstset{
-  language={Groovy},basicstyle=\ttfamily\small,,columns=fullflexible
-}
-\lstset{
- numberbychapter=false
-}
+%
+%\lstdefinelanguage{B}% 
+%{morekeywords={MACHINE, REFINEMENT,OPERATIONS,INITIALISATION,END,BEGIN,PRE,IF,THEN,ELSE,VARIABLES,INVARIANT,SETS},% 
+%sensitive=true,% 
+%morecomment=[l]//,% 
+%morecomment=[s]{/}{/},% 
+%morestring=[b]",% 
+%morestring=[b]',% 
+%}[keywords,comments,strings]
+%
+%\lstset{
+%  language={Java},basicstyle=\ttfamily\small,,columns=fullflexible
+%}
+%\lstset{
+%  language={Groovy},basicstyle=\ttfamily\small,,columns=fullflexible
+%}
+%\lstset{
+% numberbychapter=false
+%}
 
 \lstdefinelanguage{JavaScript}{
   keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
@@ -109,7 +109,9 @@ morestring=[b]',%
   framexbottommargin=5pt,
   framextopmargin=5pt,
   showstringspaces=false,      % Leerzeichen in Strings anzeigen ?
-  escapechar=\%
+  escapechar=\%,
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt
  }
 
 \input{config}
