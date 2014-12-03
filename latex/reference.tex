@@ -76,5 +76,25 @@ The value of the \textit{fill} attribute is set to \textit{white} whenever the e
 \subsection{Method Observer}
 \label{sec:method_observer}
 
+The following code snippet gives an example of a method observers:
+
+\begin{lstlisting}[float=ht,language=Groovy]
+callMethod("mymethod") {
+    data([foo: "bar"])
+    register(bms)
+}
+\end{lstlisting}
+
 \subsection{Custom Observer}
 \label{sec:custom_observers}
+
+The following code snippet gives an example of a custom observer:
+
+\begin{lstlisting}[float=ht,language=Groovy]
+def customObserver = [
+        apply: { bms ->
+            System.out.println("Triggering custom observer.")
+        }
+] as BMotionObserver
+bms.registerObserver(customObserver)
+\end{lstlisting}
