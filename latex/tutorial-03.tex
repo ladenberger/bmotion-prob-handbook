@@ -1,15 +1,30 @@
 \section{Let's Start: Creating a Visualisation}
 \label{tutorial_03}
 
-\tick{\textbf{Goals:} The objective of this section is to create a first visualisation for an Event-B model of a simple lift system. 
-You will learn to create the actual visualisation and to link the visualisation with a formal model by establishing observers.
-In addition, you will see how to add interactivity to the visualisation.}
+\tick{\textbf{Goals:} The objective of this section is to create a visualisation for an Event-B model of a simple lift system.}
 
-\subsection{Create a new Visualisation Template}
+\subsection{Creating a new Visualisation Template}
 
 The easiest way to create a new visualisation template is to duplicate the default template \texttt{b\_template} that is included in the \texttt{workspace} folder of your \bms~installation.
 Just duplicate the \texttt{b\_template} folder and rename it to \texttt{lift}.
-After refreshing your browser, it should look like as shown in Figure~\ref{fig_tut_01_workspace}.
+After refreshing your browser, the a new folder called \texttt{lift} should appear in your workspace (see Figure~\ref{fig_tut_01_workspace}).
+Navigate to the \texttt{lift} folder. 
+The folder contains three files:
+\begin{itemize}
+\item \texttt{template.html}: This file is the root file of your visualisation. It contains the actual visualisation and it's configuration.
+\item \texttt{template.groovy}: The Groovy script file is the place where you can setup your observers.
+In particular, the Groovy script file is the link between the formal model and the visualisation.
+It allows you to programmatically control the ProB animator and to access the actual formal model being visualised.
+In addition, you can register functions that can be called from the visualisation, e.g. executing an Event-B event after pressing a button in the visualisation.
+\item \texttt{template.js}: The JavaScript file is needed to initialise your visualisation.
+Moreover, it is the starting point to take advantage of the JavaScript language.
+There exist are a lot of libraries for JavaScript that you can apply to create custom visualisations.
+% if they have specific needs in a particular domain. 
+For instance, it exists libraries for manipulating the DOM of an HTML document, or for generating chart and plot diagrams.
+In addition, you can call functions that are registered in the Groovy script file.
+This enables you to add some interactivity to your visualisation.
+For instance, pressing a button in your visualisation could cause the execution of an Event-B event.
+\end{itemize}
 
 \begin{figure}[!ht]
 \begin{center}
@@ -19,43 +34,28 @@ After refreshing your browser, it should look like as shown in Figure~\ref{fig_t
 \end{center}
 \end{figure}
 
-Navigate to the lift folder. The folder contains three files:
-
-\begin{itemize}
-\item \texttt{template.html}: This file is the root file of your visualisation. It contains the actual visualisation and it's configuration.
-\item \texttt{template.groovy}: The Groovy script file is the place where you can setup your observers.
-In particular, the Groovy script file is the link between the formal model and the visualisation.
-It allows you to programmatically control the ProB animator and to access the actual formal model being visualised.
-You can establish functions that can be called from the visualisation, e.g. executing an Event-B event after pressing a button in the visualisation.
-\item \texttt{template.js}: The JavaScript file is needed to initialise your visualisation.
-Moreover, it is the starting point to take advantage of the JavaScript language.
-There are a lot of libraries for JavaScript that you can apply to create custom visualisations if they have specific needs in a particular domain. 
-For instance, libraries exist for manipulating the DOM of an HTML document, or for generating chart and plot diagrams.
-In addition, you can call functions that are defined in the Groovy script file.
-This enables you to add some interactivity to your visualisation.
-For instance, pressing a button in your visualisation could cause the execution of an Event-B event.
-\end{itemize}
-
-\subsection{Simple Lift Model}
+\subsection{The Formal Model}
 
 We are going to create a visualisation for a simple lift system that allows movement of a single lift cage between three floors.
 The door of the lift can be closed and opened - all in response to the pressing of floor call and cage send buttons.
 
-You can download the corresponding Event-B model \file{EventBLift.zip}{here}.
-Decompress it and put the files into a new folder called \texttt{model} relative to your \texttt{template.html} file located in your workspace.
-The next step consists of linking the model with the visualisation.
-For this, open the \texttt{template.html} with a text editor of your choice and add the line shown in Listing~\ref{lst:htmlmodelline} within the head tag.
+You can download the Event-B model \file{EventBLift.zip}{here}.
+Decompress it and put the files into a new folder called \texttt{model} relative to your \texttt{template.html} file in your workspace.
 
-\begin{lstlisting}[float=ht,language=html, ,caption={Linking an Event-B model and the visualisation (HTML)},label=lst:htmlmodelline]
+\subsection{Linking a Model with the Visualisation}
+
+The next step consists of linking the model with the visualisation.
+For this, open the \texttt{template.html} file with a text editor of your choice and add the following line within the head tag:
+
+\begin{lstlisting}[language=html]
 <meta name="bms.model" content="model/MLift.bcm" />
 \end{lstlisting}
 
 We link the visualisation with the Event-B machine called ``MLift''.
-Linking a formal model within the template file loads the model automatically, whenever you start the visualisation.
-Your \texttt{template.html} file should look like in Listing~\ref{lst:htmlmodelline2}.
+Linking a model within the \texttt{template.html} file automatically loads the model, when starting the visualisation.
+Your \texttt{template.html} file should look like:
 
-\begin{lstlisting}[float=ht,language=html, numbers=left,                   numbersep=5pt,            
-  numberstyle=\tiny,caption={Template HTML file after linking the Event-B model (HTML)},label=lst:htmlmodelline2]
+\begin{lstlisting}[language=html]
 <html>
   <head>
       <title>BMotion Studio for ProB</title>
@@ -71,36 +71,43 @@ Your \texttt{template.html} file should look like in Listing~\ref{lst:htmlmodell
 
 \info{The meta tag \textit{bms.script} (line 6) contains the link to the Groovy script file and the meta tag \textit{bms.tool} (line 5) defines the formalism or the simulator respectively that should be used. In this case we are creating a visualisation for a ``BAnimation'' (Classical-B or and Event-B).}
 
-\subsection{Creating a Visualisation}
+\subsection{Creating the Actual Visualisation}
 
+The next step consists of creating the actual visualisation.
 The user is not restricted to an editor in order to create a visualisation.
 The user can make use of any tool that support the creation of SVG graphics or HTML documents.
-For this tutorial we are going to use the Inkspace\footnote{\url{https://inkscape.org}} editor. Inkscape is an editor for creating vector graphics that is available for Windows, Mac OS X and Linux.
-It's free and open source.
-With Inkscape the user can export the vector graphic into the SVG format.
+%For this tutorial we are going to use the Inkspace\footnote{\url{https://inkscape.org}} editor. Inkscape is an editor for creating vector graphics that is available for Windows, Mac OS X and Linux.
+%It's free and open source.
+%With Inkscape the user can export the vector graphic into the SVG format.
 
 %\info{We are currently working on a build-in graphical editor for creating SVG graphics and for managing observers.}
 
-\begin{figure}[!ht]
-\begin{center}
-	\includegraphics[width=12cm]{img/tutorial/tut_02.png}
-	\caption{Creating an SVG graphic with Inkscape}
-	\label{fig_tut_02_inkscape}
-\end{center}
-\end{figure}
+%\begin{figure}[!ht]
+%\begin{center}
+%	\includegraphics[width=12cm]{img/tutorial/tut_02.png}
+%	\caption{Creating an SVG graphic with Inkscape}
+%	\label{fig_tut_02_inkscape}
+%\end{center}
+%\end{figure}
+Please download the prepared \file{lift.svg}{lift.svg} file and put it relative to your \texttt{template.html} file in your workspace.
+Add the following tag within the body tag in your \texttt{template.html} file:
 
-Please download the prepared \file{lift.svg}{lift.svg} file and open it with Inkscape as demonstrated in Figure~\ref{fig_tut_02_inkscape}.
-Feel free to modify and explore the SVG graphic.
-In order to link visual elements of the SVG graphic with the formal model, we have to give them identifiers. 
-For this, select an element, open the context menu and select \textsf{Object Properties}.
-A popup window should be opened as demonstrated in Figure~\ref{fig_tut_02_inkscape}.
-As an example, we give the visual element that represents the door, the id ``door''.
-In Section~\ref{sec_creation_observers} we explain how we can use this information in order to create the link between the formal model and the visualisation by means of observers.
+\begin{lstlisting}[language=html]
+<object data="lift.svg" type="image/svg+xml" data-bms="svg">
+</object>
+\end{lstlisting}
 
-If you are satisfied with your SVG graphic, save it as a plain SVG graphic with \textsf{File $\rangle$ Save As}.
-Select \textsf{Plan SVG (*.svg)} as an output format and click on the \textsf{Save} button.
-You can save the SVG file anywhere on your local system. 
-Open the SVG file with a text editor of your choice and put the SVG code within the body tag in the \texttt{template.html} file located in your workspace.
+%open it with Inkscape as demonstrated in Figure~\ref{fig_tut_02_inkscape}.
+%Feel free to modify and explore the SVG graphic.
+%In order to link visual elements of the SVG graphic with the formal model, we have to give them identifiers. 
+%For this, select an element, open the context menu and select \textsf{Object Properties}.
+%A popup window should be opened as demonstrated in Figure~\ref{fig_tut_02_inkscape}.
+%As an example, we give the visual element that represents the door, the id ``door''.
+%In Section~\ref{sec_creation_observers} we explain how we can use this information in order to create the link between the formal model and the visualisation by means of observers.
+%If you are satisfied with your SVG graphic, save it as a plain SVG graphic with \textsf{File $\rangle$ Save As}.
+%Select \textsf{Plan SVG (*.svg)} as an output format and click on the \textsf{Save} button.
+%You can save the SVG file anywhere on your local system. 
+%Open the SVG file with a text editor of your choice and put the SVG code within the body tag in the \texttt{template.html} file located in your workspace.
 %Your \texttt{template.html} file should look like in Listing~\ref{lst:lifthtml}.
 
 %\begin{lstlisting}[float=ht,language=html, ,caption={Template HTML file with Lift SVG graphic},label=lst:lifthtml]
@@ -128,15 +135,17 @@ Open the SVG file with a text editor of your choice and put the SVG code within 
 %</html>
 %\end{lstlisting}
 
-Let's try out the visualisation for the first time.
+\subsection{Starting the Visualisation}
+
+Let's try out the visualisation!
 In your browser, navigate to the \texttt{lift} folder and click on the \texttt{template.html} file.
 
 The visualisation should start.
 At the right bottom you will find a menu called \textsf{Open View} for opening different ProB related views.
 For instance, Figure~\ref{fig_tut_03_running1} shows the running Lift visualisation with the ProB Events view opened.
 
-At the moment nothing spectacular happens when you change the state (i.e. executing events in the Event view).
-In the next Section we are going to create the first observers.
+At the moment nothing spectacular happens when changing the state (i.e. executing events in the Event view), because no link between visual elements and the formal model exists yet.
+In the next Section we learn creating observers.
 
 \begin{figure}[!ht]
 \begin{center}
@@ -149,12 +158,18 @@ In the next Section we are going to create the first observers.
 \subsection{Creating Observers}
 \label{sec_creation_observers}
 
-In this Section we are going to create observers.
 Observers are used to link visual elements with the model. 
 An observer is notified whenever a model has changed its state, i.e. whenever an event has been executed. 
 In response, the observer will query the model's state and triggers actions on the linked visual elements in respect to the new state.
+As an example, consider the following observer written in Groovy:
 
-Consider the Transform Observer in Listing~\ref{lst:liftobserver1}.
+\begin{lstlisting}[float=ht,language=Groovy, caption={Transform Observer Displaying the Current Floor (Groovy)}]
+transform("#txt_cur_floor") {
+    set "text", { bms.eval("cur_floor").value }
+    register(bms)
+}
+\end{lstlisting}
+
 We are going to explore the Groovy code line by line.
 Line 1 means that we want to transform the visual element with the id \textit{txt\_cur\_floor} that is located in our \texttt{template.html} file.
 \bms~follows the jQuery selector syntax\footnote{\url{http://api.jquery.com/category/selectors}} to select elements.
@@ -163,26 +178,12 @@ Line 2 affects that the attribute \textit{text} will be set to the value that is
 In particular, the closure evaluates the expression \textit{cur\_floor} in the current state and returns the value to be set.
 In other words, the observer sets the current value of the variable \textit{cur\_floor} into the visual text element with the id \textit{txt\_cur\_floor}.
 Line 3 is responsible to register the observer.
-Any registered observer will be triggered after every state change.
+All registered observer will be triggered after every state change.
 
-\begin{lstlisting}[float=ht,language=Groovy, numbers=left, numbersep=5pt,            
-  numberstyle=\tiny, ,caption={Transform Observer Displaying the Current Floor (Groovy)},label=lst:liftobserver1]
-transform("#txt_cur_floor") {
-    set "text", { bms.eval("cur_floor").value }
-    register(bms)
-}
-\end{lstlisting}
+Let's create another observer.
+Check out the following code:
 
-Let's create another Transformer Observer.
-Check out Listing~\ref{lst:liftobserver2}.
-Line 1 means that we want to transform the visual element with the id \textit{door}, similar to the first observer.
-Line 2 affects that the attribute \textit{fill} will be set to the value that is returned by the followed closure.
-Whenever the expression \textit{door\_open} evaluates to \textit{TRUE}, the value \textit{white} (denoting the door is opened) is returned, otherwise the value \textit{lightgray} (denoting the door is closed) is returned.
-Line 3 to 17 will switch the \textit{y} coordinate of the door (denoting the movement of the door between floors) according to the evaluation result of the expression \textit{cur\_floor}.
-In line 18 we register the observer.
-
-\begin{lstlisting}[float=ht,language=Groovy, numbers=left, numbersep=5pt,            
-  numberstyle=\tiny, ,caption={Transform Observer for the Lift Door (Groovy)},label=lst:liftobserver2]
+\begin{lstlisting}[float=ht,language=Groovy, caption={Transform Observer for the Lift Door (Groovy)}]
 transform("#door") {
     set "fill", { (bms.eval("door_open").value == "TRUE") ? "white" : "lightgray" }
     set "y", {
@@ -199,6 +200,13 @@ transform("#door") {
     register(bms)
 }
 \end{lstlisting}
+
+Line 1 means that we want to transform the visual element with the id \textit{door}, similar to the previous observer.
+Line 2 affects that the attribute \textit{fill} will be set to the value that is returned by the followed closure.
+Whenever the expression \textit{door\_open} evaluates to \textit{TRUE}, the value \textit{white} (denoting the door is opened) is returned, otherwise the value \textit{lightgray} (denoting the door is closed) is returned.
+Line 3 to 17 will switch the \textit{y} coordinate of the door (denoting the movement of the door between floors) according to the evaluation result of the expression \textit{cur\_floor}.
+In line 18 we register the observer.
+You can use the entire Groovy power and feature range for defining your observers.
 
 Add both snippets to your \texttt{template.groovy} file and refresh your browser.
 Let's see how this affects the visualisation:
@@ -218,12 +226,31 @@ For instance, Figure~\ref{fig_tut_04_running2} shows the visualisation where the
 
 In this Section we learn how we can enhance our visualisation with interactive features, like executing some Event-B events by clicking on some buttons.
 
-Let's add an interactive feature, where the user can click on the visual element that represents the door to open or close the door respectively.
-The first step consists of registering a new groovy method that executes the corresponding event \textit{open\_door} or \textit{close\_door}.
-Add the code from Listing~\ref{lst:liftinteractive1} to your \texttt{template.groovy} file.
+Let's add an interactive feature, where the user can click on a floor label to order the lift on the corresponding floor.
+Add the code snippet to your \texttt{template.js} file:
+\newpage
+\begin{lstlisting}[language=JavaScript, caption={Example of an Interactive Feature (JavaScript)}]
+$("text[data-floor]").each(function () {
+	$(this).click(function () {
+		bms.executeEvent("push_call_button", {
+			predicate: "b=" + $(this).attr("data-floor"),
+			callback: function (data) {
+				console.log("Callback: " + data)
+			}
+		})
+	}).css("cursor", "pointer")
+});
+\end{lstlisting}
 
-\begin{lstlisting}[float=ht,language=Groovy, numbers=left, numbersep=5pt,            
-  numberstyle=\tiny, ,caption={Register a Groovy Method for Opening and Closing the Lift Door (Groovy)},label=lst:liftinteractive1]
+Refresh your browser, to apply these changes and try to click on a floor label.
+This should call the Event-B event \textit{push\_call\_button} with the corresponding parameter.
+For instance, clicking on the floor Label ``Floor 1'' should execute the Event-B event \textit{push\_call\_button(1)}.
+
+Let's add another interactive feature, where the user can click on the visual element that represents the door to open or close the door respectively.
+The first step consists of registering a new Groovy function that executes the corresponding event \textit{open\_door} or \textit{close\_door}.
+Add the code snippet to your \texttt{template.groovy} file:
+
+\begin{lstlisting}[language=Groovy, caption={Registering a Groovy Function (Groovy)}]
 bms.registerMethod("openCloseDoor", {
     def Trace t = bms.getTool().getTrace()
     def Trace newTrace = executeEvent(t, "open_door", []) ?: executeEvent(t, "close_door", [])
@@ -242,7 +269,8 @@ def Trace executeEvent(t,name,pred) {
 }
 \end{lstlisting}
 
-In Line 1 we register a new groovy method called \textit{openCloseDoor}.
+In Line 1 we register a new Groovy function called \textit{openCloseDoor}.
+The next lines show an example how we can use the ProB Java API.
 In Line 2 we get the current trace of the animation.
 In Line 3, we first try to execute the \textit{open\_door} event by means of a helper method called \textit{executeEvent} (Line 10 to 16).
 If the return value of the helper method is null (the event could not be executed), we try to execute the event \textit{close\_door}.
@@ -252,33 +280,25 @@ Line 6 returns a Json object that contains the state id of the new state.
 This information can used later at the JavaScript side after executing the registered \textit{openCloseDoor} method.
 
 Let's switch to the JavaScript side.
-Add Listing~\ref{lst:liftinteractive2} to your \texttt{template.js} file.
+Add the following code snippet to your \texttt{template.js} file:
+
+\begin{lstlisting}[language=JavaScript, caption={Call openCloseDoor Groovy Method (JavaScript)}]
+$("#door").click(function () {
+	bms.callMethod("openCloseDoor", {
+		callback: function (data) {
+			console.log("Callback: " + data)
+		}
+	})
+}).css("cursor", "pointer")
+\end{lstlisting}
+
 In Line 8 we register a new click function on the visual element with the id door.
 Here we also use the jQuery selector syntax.
 Line 9 calls our registered Groovy method \textit{openCloseDoor}.
-In Line 10 to 12 we register a success function that can handle the returned value of the registered Groovy method \textit{openCloseDoor}.
-In this case we alert the returned new state id.
+In Line 10 to 12 we pass a callback function that can handle the returned value of the registered Groovy method \textit{openCloseDoor}.
+In this case we print the returned new state id on the console.
 
-\begin{lstlisting}[float=ht,language=JavaScript, numbers=left,                   numbersep=5pt,           
-  numberstyle=\tiny, ,caption={Call openCloseDoor Groovy Method (JavaScript)},label=lst:liftinteractive2]
-require.config({
-    paths: {
-        'prob': '/bms/libs/prob/prob'
-    }
-});
-define(["require","prob"], function(require) {
-    var bms = require('bmotion')
-    $("#door").click(function() {
-     bms.callMethod("openCloseDoor", {
-         success : function(data) {
-             alert("New state id: " + data.newState)
-         }
-     });
-    });
-});
-\end{lstlisting}
-
-This is only a small example for adding interactivity to your visualisation.
-In particular you are not limited to this example.
+These are only small examples for adding interactivity to your visualisation.
+In particular you are not limited to these examples.
 You can download the final visualisation \file{LiftVisualisation.zip}{here}.
 

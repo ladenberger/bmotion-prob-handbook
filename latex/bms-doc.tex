@@ -53,27 +53,18 @@ morecomment=[s]{/}{/},%
 morestring=[b]",% 
 morestring=[b]',% 
 }[keywords,comments,strings]
-%
-%\lstdefinelanguage{B}% 
-%{morekeywords={MACHINE, REFINEMENT,OPERATIONS,INITIALISATION,END,BEGIN,PRE,IF,THEN,ELSE,VARIABLES,INVARIANT,SETS},% 
-%sensitive=true,% 
-%morecomment=[l]//,% 
-%morecomment=[s]{/}{/},% 
-%morestring=[b]",% 
-%morestring=[b]',% 
-%}[keywords,comments,strings]
-%
-%\lstset{
-%  language={Java},basicstyle=\ttfamily\small,,columns=fullflexible
-%}
-%\lstset{
-%  language={Groovy},basicstyle=\ttfamily\small,,columns=fullflexible
-%}
-%\lstset{
-% numberbychapter=false
-%}
+
+\lstdefinelanguage{B}% 
+{morekeywords={MACHINE, REFINEMENT,OPERATIONS,INITIALISATION,END,BEGIN,PRE,IF,THEN,ELSE,VARIABLES,INVARIANT,SETS},% 
+sensitive=true,% 
+morecomment=[l]//,% 
+morecomment=[s]{/}{/},% 
+morestring=[b]",% 
+morestring=[b]',% 
+}[keywords,comments,strings]
 
 \lstdefinelanguage{JavaScript}{
+  basicstyle=\ttfamily\small,
   keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
   keywordstyle=\color{magenta}\bfseries,
   ndkeywords={class, export, boolean, throw, implements, import, this},
@@ -88,16 +79,18 @@ morestring=[b]',%
   morestring=[b]"
 }
 
-
 \lstset{
+  columns=fullflexible,
+  numberbychapter=false,
   frame=top,frame=bottom,
-  %basicstyle=\small\normalfont\sffamily,    % the size of the fonts that are used for the code
+  basicstyle=\ttfamily\small,    % the size of the fonts that are used for the code
   stepnumber=1,                           % the step between two line-numbers. If it is 1 each line will be numbered
-  numbersep=10pt,                         % how far the line-numbers are from the code
+  numberstyle=\tiny,
+  numbersep=5pt,                         % how far the line-numbers are from the code
   tabsize=2,                              % tab size in blank spaces
   extendedchars=true,                     %
   breaklines=true,                        % sets automatic line breaking
-  captionpos=t,                           % sets the caption-position to top
+  captionpos=b,                           % sets the caption-position to top
   mathescape=false,
   stringstyle=\color{blue}\ttfamily, % Farbe der String
   keywordstyle=\color{magenta}\ttfamily, % Farbe der String
