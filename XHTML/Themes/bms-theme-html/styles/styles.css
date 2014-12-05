@@ -1,32 +1,37 @@
-pre {
+.bmotion-tutorial-content {
+    margin-top: 20px;
+}
+
+.bmotion-tutorial-content pre {
   background-color:#eee;
+  color: #2c3e50;
   overflow:auto;
   margin:1em 0 1em;
   padding:.5em 1em;
   font:normal normal 16px/18px "Courier New",Courier,Monospace;
 }
 
-pre code,
-pre .line-number {
+.bmotion-tutorial-content pre code,
+.bmotion-tutorial-content pre .line-number {
   /* Ukuran line-height antara teks di dalam tag <code> dan <span class="line-number"> harus sama! */
   font:normal normal 16px/18px "Courier New",Courier,Monospace;
   color:black;
   display:block;
 }
 
-pre .line-number {
+.bmotion-tutorial-content pre .line-number {
   float:left;
   margin:0 1em 0 -1em;
   border-right:1px solid;
   text-align:right;
 }
 
-pre .line-number span {
+.bmotion-tutorial-content pre .line-number span {
   display:block;
   padding:0 .5em 0 1em;
 }
 
-pre .cl {
+.bmotion-tutorial-content pre .cl {
   display:block;
   clear:both;
 }
@@ -37,11 +42,10 @@ pre .cl {
     font-style: italic;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: "Lucida Grande", Arial, Helvetica, sans-serif;
+.navigation { 
+  clear:both;
+  margin-bottom:15px;
 }
-
-.navigation { clear:both }
 .navigation td          { background-color: #ffffff;
                           color: #000000;
                           font-weight: bold;
@@ -61,7 +65,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
 }
 
-hr {color: black}
+.bmotion-tutorial-content hr {color: black}
 
 .minitoc {
     border-top: 1px solid black;
@@ -76,30 +80,6 @@ hr {color: black}
 /*************/
 /* Footnotes */
 /*************/
-/*
-a.footnote .footnotemark {
-   color: #ff8000; 
-}
-a.footnote:hover .footnotemark {
-   cursor: help;
-}
-a.footnote .footnotetext {
-   display: none;
-}
-a.footnote:hover .footnotetext { 
-   display: block;
-   position: absolute;
-   bottom: 0em; 
-   left: 0em; 
-   background-color: #F8F8CB; 
-   color: #000;
-   text-align: left;
-   border: 7px #ff8000 solid;
-   padding: 10px;
-   margin: 0px;
-   z-index: 20;
-}
-*/
 a.footnote {
     text-decoration: none;
 }
@@ -240,9 +220,6 @@ table.list td {
     margin-bottom: 0px;
 }
 
-/* Rules */
-hr {color: black}
-
 /* Image offset classes */
 .raise15 {margin-bottom: 10px}
 .raise14 {margin-bottom: 10px}
@@ -292,46 +269,20 @@ hr {color: black}
 .lower30 {margin-bottom: -20px}
 .lower20 {margin-bottom: -20px}
 
-td p:first-child, th p:first-child {
-    margin-top: 0px;
-    margin-bottom: 0px;
-}
-
-td p, th p {
-    margin-top: 1em;
-    margin-bottom: 0px;
-}
-
-p {
-    text-indent: 0em;
-    margin-top: 0px;
-    margin-bottom: 1em;
-    text-align: justify;
-	font-family: Georgia;
-	font-size: 120%;
-}
-
-img {
+.bmotion-tutorial-content img {
     border: none;
     vertical-align: baseline;
 }
 
-img.ieimgfix {
+.bmotion-tutorial-content img.ieimgfix {
     width: 0;
     visibility: hidden;
     vertical-align: top;
     display: none;
 }
 
-td img.ieimgfix {
+.bmotion-tutorial-content td img.ieimgfix {
     display: inline;
-}
-
-body { 
-    color: #000000;
-    background-color: #ffffff;
-    background:  url('../icons/background.png');
-	background-repeat:repeat-y;
 }
 
 /* Index */
@@ -379,21 +330,20 @@ color: #000;
 #navlist a:visited { color: #000; }
 
 /* (mj) Used for the Hint-Images */
-blockquote p span.rmfamily img {
+.bmotion-tutorial-content blockquote p span.rmfamily img {
   float: left;
-  position: absolute;
-  left: 10em;
+  margin-right:5px;
 }
 
 /* (mj) Used for making the Plugin-Boxes gray */
-blockquote.verse {
+.bmotion-tutorial-content blockquote.verse {
   background-color: #eeeeee;
   margin-left: 0px;
   margin-right: 0px;
 }
 
-blockquote.verse p span img {
-padding: 5px;
+.bmotion-tutorial-content blockquote.verse p span img {
+  padding: 5px;
 }
 
 /* (mj) Formatting Marginpar */
@@ -407,4 +357,14 @@ p.marginpar {
 
 .math.gen {
 	margin:3px;
+}
+
+.moreinfo {
+  text-align:center;
+  font-size:11px;
+}
+
+.moreinfo p {
+  width:175px;
+  margin:auto;
 }
