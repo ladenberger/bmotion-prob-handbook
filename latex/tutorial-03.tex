@@ -231,72 +231,73 @@ Add the code snippet to your \texttt{template.js} file:
 \newpage
 \begin{lstlisting}[language=JavaScript, caption={Example of an Interactive Feature (JavaScript)}]
 $("text[data-floor]").each(function () {
-	$(this).click(function () {
-		bms.executeEvent("push_call_button", {
-			predicate: "b=" + $(this).attr("data-floor"),
-			callback: function (data) {
-				console.log("Callback: " + data)
-			}
-		})
-	}).css("cursor", "pointer")
+	$(this).executeEvent("push_call_button", {
+		predicate: "b=" + $(this).attr("data-floor")
+	});
 });
 \end{lstlisting}
 
 Refresh your browser, to apply these changes and try to click on a floor label.
-This should call the Event-B event \textit{push\_call\_button} with the corresponding parameter.
-For instance, clicking on the floor Label ``Floor 1'' should execute the Event-B event \textit{push\_call\_button(1)}.
+This should call the Event-B event \textit{push\_call\_button} with the corresponding predicate.
+%For instance, clicking on the floor Label ``Floor 1'' should execute the Event-B event \textit{push\_call\_button(1)}.
 
 Let's add another interactive feature, where the user can click on the visual element that represents the door to open or close the door respectively.
-The first step consists of registering a new Groovy function that executes the corresponding event \textit{open\_door} or \textit{close\_door}.
-Add the code snippet to your \texttt{template.groovy} file:
-
-\begin{lstlisting}[language=Groovy, caption={Registering a Groovy Function (Groovy)}]
-bms.registerMethod("openCloseDoor", {
-    def Trace t = bms.getTool().getTrace()
-    def Trace newTrace = executeEvent(t, "open_door", []) ?: executeEvent(t, "close_door", [])
-    if (newTrace != null) {
-        animations.traceChange(newTrace)
-        return [newState: newTrace.getCurrentState().id]
-    }
-})
-
-def Trace executeEvent(t,name,pred) {
-    try {
-        t.execute(name, pred)
-    } catch(IllegalArgumentException e) {
-        null
-    }
-}
-\end{lstlisting}
-
-In Line 1 we register a new Groovy function called \textit{openCloseDoor}.
-The next lines show an example how we can use the ProB Java API.
-In Line 2 we get the current trace of the animation.
-In Line 3, we first try to execute the \textit{open\_door} event by means of a helper method called \textit{executeEvent} (Line 10 to 16).
-If the return value of the helper method is null (the event could not be executed), we try to execute the event \textit{close\_door}.
-If we success (we executed one of the both events), we trigger a trace change, causing to refresh the current animation (Line 5).
-This in turn changes the state and triggers our registered observers.
-Line 6 returns a Json object that contains the state id of the new state.
-This information can used later at the JavaScript side after executing the registered \textit{openCloseDoor} method.
-
-Let's switch to the JavaScript side.
+%The first step consists of registering a new Groovy function that executes the corresponding event \textit{open\_door} or \textit{close\_door}.
+%Add the code snippet to your \texttt{template.groovy} file:
+%\begin{lstlisting}[language=Groovy, caption={Registering a Groovy Function (Groovy)}]
+%bms.registerMethod("openCloseDoor", {
+%    def Trace t = bms.getTool().getTrace()
+%    def Trace newTrace = executeEvent(t, "open_door", []) ?: executeEvent(t, "close_door", [])
+%    if (newTrace != null) {
+%        animations.traceChange(newTrace)
+%        return [newState: newTrace.getCurrentState().id]
+%    }
+%})
+%
+%def Trace executeEvent(t,name,pred) {
+%    try {
+%        t.execute(name, pred)
+%    } catch(IllegalArgumentException e) {
+%        null
+%    }
+%}
+%\end{lstlisting}
+%In Line 1 we register a new Groovy function called \textit{openCloseDoor}.
+%The next lines show an example how we can use the ProB Java API.
+%In Line 2 we get the current trace of the animation.
+%In Line 3, we first try to execute the \textit{open\_door} event by means of a helper method called \textit{executeEvent} (Line 10 to 16).
+%If the return value of the helper method is null (the event could not be executed), we try to execute the event \textit{close\_door}.
+%If we success (we executed one of the both events), we trigger a trace change, causing to refresh the current animation (Line 5).
+%This in turn changes the state and triggers our registered observers.
+%Line 6 returns a Json object that contains the state id of the new state.
+%This information can used later at the JavaScript side after executing the registered \textit{openCloseDoor} method.
+%Let's switch to the JavaScript side.
 Add the following code snippet to your \texttt{template.js} file:
-
-\begin{lstlisting}[language=JavaScript, caption={Call openCloseDoor Groovy Method (JavaScript)}]
-$("#door").click(function () {
-	bms.callMethod("openCloseDoor", {
-		callback: function (data) {
-			console.log("Callback: " + data)
-		}
-	})
-}).css("cursor", "pointer")
+%\begin{lstlisting}[language=JavaScript, caption={Call openCloseDoor Groovy Method (JavaScript)}]
+%$("#door").click(function () {
+%	bms.callMethod("openCloseDoor", {
+%		callback: function (data) {
+%			console.log("Callback: " + data)
+%		}
+%	})
+%}).css("cursor", "pointer")
+%\end{lstlisting}
+\begin{lstlisting}[language=JavaScript, caption={Interaction with the Lift Door (JavaScript)}]
+$("#door").executeEvent("open_door", {
+	alternative: [ {name: "close_door"} ],
+	callback: function (data) {
+		console.log("Callback: " + data)
+	}
+});
 \end{lstlisting}
 
-In Line 1 we register a new click function on the visual element with the id door.
-Here we also use the jQuery selector syntax.
-Line 2 calls our registered Groovy method \textit{openCloseDoor}.
-In Line 3 to 5 we pass a callback function that can handle the returned value of the registered Groovy method \textit{openCloseDoor}.
-In this case we print the returned new state id on the console.
+In Line 1 we register a new execute event handler on the visual element with the id door.
+The execute event handler executes the event \textit{open\_door}, whenever it is enabled in the current state.
+In line 2 we register one alternative event \textit{close\_door}.
+The alternative event is executed, whenever the registered event \textit{open\_door} is disabled.
+%Line 2 calls our registered Groovy method \textit{openCloseDoor}.
+In Line 3 to 5 we pass a callback function that is called after an event (\textit{open\_door} or \textit{close\_door}) was executed.
+%In this case we print the returned new state id on the console.
 
 These are only small examples for adding interactivity to your visualisation.
 In particular you are not limited to these examples.
