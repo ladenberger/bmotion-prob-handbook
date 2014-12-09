@@ -231,15 +231,22 @@ Add the code snippet to your \texttt{template.js} file:
 \newpage
 \begin{lstlisting}[language=JavaScript, caption={Example of an Interactive Feature (JavaScript)}]
 $("text[data-floor]").each(function () {
-	$(this).executeEvent("push_call_button", {
-		predicate: "b=" + $(this).attr("data-floor")
+	$(this).executeEvent({ 
+				events: [{ 
+					name: "push_call_button", 
+					predicate: "b=" + $(this).attr("data-floor")
+				}]
 	});
 });
 \end{lstlisting}
-
-Refresh your browser, to apply these changes and try to click on a floor label.
-This should call the Event-B event \textit{push\_call\_button} with the corresponding predicate.
 %For instance, clicking on the floor Label ``Floor 1'' should execute the Event-B event \textit{push\_call\_button(1)}.
+In Line 1, we register an execute event handler for each visual element that matches the defined selector ``text[data-floor]''.
+In particular, the selector matches the three floor labels (see Figure~\ref{fig_tut_03_running1}).
+In Line 3 to 6 we define the event that should be executed after clicking on the corresponding floor label.
+We use the content of the attribute \textit{data-floor} of the corresponding floor label in order to define the parameter/predicate.
+
+Apply these changes by refreshing your browser and try to click on a floor label.
+This should call the Event-B event \textit{push\_call\_button} with the corresponding predicate/parameter.
 
 Let's add another interactive feature, where the user can click on the visual element that represents the door to open or close the door respectively.
 %The first step consists of registering a new Groovy function that executes the corresponding event \textit{open\_door} or \textit{close\_door}.
@@ -283,18 +290,17 @@ Add the following code snippet to your \texttt{template.js} file:
 %}).css("cursor", "pointer")
 %\end{lstlisting}
 \begin{lstlisting}[language=JavaScript, caption={Interaction with the Lift Door (JavaScript)}]
-$("#door").executeEvent("open_door", {
-	alternative: [ {name: "close_door"} ],
+$("#door").executeEvent({
+	events: [{name: "close_door"}, {name: "open_door"}],
 	callback: function (data) {
 		console.log("Callback: " + data)
 	}
 });
 \end{lstlisting}
 
-In Line 1 we register a new execute event handler on the visual element with the id door.
-The execute event handler executes the event \textit{open\_door}, whenever it is enabled in the current state.
-In line 2 we register one alternative event \textit{close\_door}.
-The alternative event is executed, whenever the registered event \textit{open\_door} is disabled.
+In Line 1, we register a new execute event handler on the visual element with the id door.
+The execute event handler first tries to execute the event \textit{open\_door}.
+In case the event is disabled, it tries to execute the next event \textit{close\_door}.
 %Line 2 calls our registered Groovy method \textit{openCloseDoor}.
 In Line 3 to 5 we pass a callback function that is called after an event (\textit{open\_door} or \textit{close\_door}) was executed.
 %In this case we print the returned new state id on the console.
