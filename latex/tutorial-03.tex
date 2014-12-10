@@ -165,8 +165,8 @@ As an example, consider the following observer written in Groovy:
 
 \begin{lstlisting}[float=ht,language=Groovy, caption={Transform Observer Displaying the Current Floor (Groovy)}]
 transform("#txt_cur_floor") {
-    set "text", { bms.eval("cur_floor").value }
-    register(bms)
+  set "text", { bms.eval("cur_floor").value }
+  register(bms)
 }
 \end{lstlisting}
 
@@ -185,19 +185,19 @@ Check out the following code:
 
 \begin{lstlisting}[float=ht,language=Groovy, caption={Transform Observer for the Lift Door (Groovy)}]
 transform("#door") {
-    set "fill", { (bms.eval("door_open").value == "TRUE") ? "white" : "lightgray" }
-    set "y", {
-        switch (bms.eval("cur_floor").value) {
-            case "-1": "275"
-                break
-            case "0": "175"
-                break
-            case "1": "60"
-                break
-            default: "275"
-        }
+  set "fill", {(bms.eval("door_open").value == "TRUE") ? "white" : "lightgray"}
+  set "y", {
+    switch (bms.eval("cur_floor").value) {
+      case "-1": "275"
+      break
+      case "0": "175"
+      break
+      case "1": "60"
+      break
+      default: "275"
     }
-    register(bms)
+  }
+  register(bms)
 }
 \end{lstlisting}
 
@@ -231,12 +231,12 @@ Add the code snippet to your \texttt{template.js} file:
 \newpage
 \begin{lstlisting}[language=JavaScript, caption={Example of an Interactive Feature (JavaScript)}]
 $("text[data-floor]").each(function () {
-	$(this).executeEvent({ 
-				events: [{ 
-					name: "push_call_button", 
-					predicate: "b=" + $(this).attr("data-floor")
-				}]
-	});
+  $(this).executeEvent({ 
+    events: [{ 
+      name: "push_call_button", 
+      predicate: "b=" + $(this).attr("data-floor")
+    }]
+  });
 });
 \end{lstlisting}
 %For instance, clicking on the floor Label ``Floor 1'' should execute the Event-B event \textit{push\_call\_button(1)}.
@@ -291,10 +291,10 @@ Add the following code snippet to your \texttt{template.js} file:
 %\end{lstlisting}
 \begin{lstlisting}[language=JavaScript, caption={Interaction with the Lift Door (JavaScript)}]
 $("#door").executeEvent({
-	events: [{name: "close_door"}, {name: "open_door"}],
-	callback: function (data) {
-		console.log("Callback: " + data)
-	}
+  events: [{name: "close_door"}, {name: "open_door"}],
+    callback: function (data) {
+      console.log("Callback: " + data)
+    }
 });
 \end{lstlisting}
 
