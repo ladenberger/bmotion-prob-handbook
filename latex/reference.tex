@@ -122,9 +122,9 @@ The user can also create an observer in JavaScript.
 The following sections explain the observers and their options.
 In general, an observer is assigned to a jQuery selector.
 
-\subsubsection{General Observer}
+\subsubsection{Transformer Observer}
 
-The general observer observes a list of expressions and triggers a function whenever a state change occurred.
+The transformer observer observes a list of expressions and triggers a function whenever a state change occurred.
 The result of the expressions are passed to the trigger function.
 The following options can be passed:
 
@@ -139,7 +139,7 @@ The following options can be passed:
 \end{tabular}
 
 \begin{lstlisting}[float=ht,language=JavaScript]
-$("#door").observe({
+$("#door").transform({
   expressions: ["cur_floor", "door_open"],
   trigger: function (origin, data) {
     var values = data.values
@@ -185,7 +185,7 @@ The user can also add an observer in JavaScript by means of the \textit{bms} API
 This is in particular useful, whenever the user needs to define the selector based on the result of an expression:
 
 \begin{lstlisting}[float=ht,language=JavaScript]
-bms.observe({
+bms.transform({
   expressions: ["myvar", "floor", "x>4"],
   trigger: function (data) {
   	var el = $("#" + data.values[0].value)
