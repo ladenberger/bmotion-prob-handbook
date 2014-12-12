@@ -22,8 +22,8 @@ In general, observers are defined in the Groovy script file.
 \subsubsection{Transformer Observer}
 \label{sec:transformer_observer}
 
-The transformer observer supports changing attributes of visual elements based on the current state of the animation.
-The following code snippet demonstrates the basic use of a transformer observer:
+The transformer observer supports the modification of attributes of visual elements based on the current state of the animation.
+The following code snippet demonstrates the basic use of the transformer observer:
 
 \begin{lstlisting}[float=ht,language=Groovy]
 transform("#myvisualelement") {
@@ -41,14 +41,12 @@ jQuery provides several possibilities to select visual elements.
 
 Line 2 to 3 are actions that are made on the visual elements which are matched by the defined selector.
 In this case the \textit{fill} attribute is set to the value \textit{green} and the \textit{stroke} attribute to \textit{red}.
-
-In line 4 we register the observer to the current visualisation.
+In line 4, we register the observer to the current visualisation.
 A registered observer is triggered after every state change, e.g. after executing an event.
 
 \paragraph{Groovy Closures.}
 %As we use the Groovy Scripting language for defining the observers, we can make use of the entire function and feature range of it.
-Transformer observers supports the use of Groovy closures for defining the selector or the value of an action.
-
+Transformer observers support the use of Groovy closures for defining the selector or the value of an action.
 The following code snippet demonstrates the use of closures for transformer observers:
 
 \begin{lstlisting}[float=ht,language=Groovy]
