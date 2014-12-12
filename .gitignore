@@ -18,6 +18,7 @@
 *.lol
 *.ini
 *.xml
+*.dvi
 *.directory
 .cache
 bms-doc.pdf
