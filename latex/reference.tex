@@ -120,24 +120,25 @@ bms.registerObserver(transformerObserver)
 \subsection{Observers in JavaScript}
 \label{sec:js_observers}
 
-The user can add an observer in JavaScript by means of the \textit{bms} API variable. An example:
+The user can also create an observer in JavaScript.
+The following sections explain the observers and their options.
+In general, an observer is assigned to a jQuery selector.
 
-\begin{lstlisting}[float=ht,language=JavaScript]
-bms.observe({
-  expressions: ["floor", "x>4"],
-  trigger: function (data) {
-  	var el = $("#myvisualelement")
-    el.html(data.values[0].value)
-    if(data.values[0].value === "TRUE") {
-      el.attr("fill","green")
-    } else {
-      el.attr("fill","red")
-    }
-  }
-});
-\end{lstlisting}
+\subsubsection{General Observer}
 
-The user can also assign an observer to an selector object:
+The general observer observes a list of expressions and triggers a function whenever a state change occurred.
+The result of the expressions are passed to the trigger function.
+The following options can be passed:
+
+\begin{tabular}{ l l l p{7cm} }
+  \textbf{Name} & \textbf{Type} & \textbf{Default} & \textbf{Description} \\
+  \hline\noalign{\medskip}
+  expressions & list & empty list & Define a list of expressions that should be evaluated and passed to the trigger function. Example: $['x < 4', 'card(x)']$.\\
+  \hline\noalign{\medskip}
+  cause & string & '\textit{AnimationChanged}' & The trigger cause. Possible values: '\textit{AnimationChanged}', '\textit{ModelChanged}' and '\textit{ModelInitialisation}'. \\
+  \hline\noalign{\medskip}
+  trigger & function &  & The trigger function will be called after every state change with its \textit{origin} reference set to the element that the observer is attached to and the requested \textit{data} (the result of the expressions). \\
+\end{tabular}
 
 \begin{lstlisting}[float=ht,language=JavaScript]
 $("#door").observe({
@@ -152,3 +153,52 @@ $("#door").observe({
     values[1].value === "TRUE" ? origin.attr("fill", "white") : origin.attr("fill", "lightgray")
 })
 \end{lstlisting}
+
+\subsubsection{Refinement Observer}
+
+The refinements observer observes a list of refinements (model names) and triggers an \textit{enable} function whenever the current model is in the list of refinements or a \textit{disable} function whenever the current model is not in the list of refinements.
+The following options can be passed:
+
+\begin{tabular}{ l l l p{7cm} }
+  \textbf{Name} & \textbf{Type} & \textbf{Default} & \textbf{Description} \\
+  \hline\noalign{\medskip}
+  refinements & list & empty list & Define a list of refinements (machine names) that should be observed.\\
+  \hline\noalign{\medskip}
+  enable & function &  & This function will be called after initialising or changing the model and whenever the current model is included in the list of refinements with its \textit{origin} reference set to the element that the observer is attached to.\\
+  \hline\noalign{\medskip}
+  disable & function &  & This function will be called after initialising or changing the model and whenever the current model is \textbf{NOT} included in the list of refinements with its \textit{origin} reference set to the element that the observer is attached to.\\
+\end{tabular}
+
+\begin{lstlisting}[float=ht,language=JavaScript]
+$("myvisualelement").observeRefinement({
+  refinements: ["Machine01", "Refinement02"],
+  enable: function (origin, data) {
+    origin.attr("opacity", "1")
+  },
+  disable: function (origin) {
+    origin.attr("opacity", "0.1")
+  }
+})
+\end{lstlisting}
+
+\subsubsection{Remark}
+
+The user can also add an observer in JavaScript by means of the \textit{bms} API variable. 
+This is in particular useful, whenever the user needs to define the selector based on the result of an expression:
+
+\begin{lstlisting}[float=ht,language=JavaScript]
+bms.observe({
+  expressions: ["myvar", "floor", "x>4"],
+  trigger: function (data) {
+  	var el = $("#" + data.values[0].value)
+    el.html(data.values[1].value)
+    if(data.values[2].value === "TRUE") {
+      el.attr("fill","green")
+    } else {
+      el.attr("fill","red")
+    }
+  }
+});
+\end{lstlisting}
+
+
