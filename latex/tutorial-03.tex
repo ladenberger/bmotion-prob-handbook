@@ -232,10 +232,10 @@ Add the code snippet to your \texttt{template.js} file:
 \begin{lstlisting}[language=JavaScript, caption={Example of an Interactive Feature (JavaScript)}]
 $("text[data-floor]").each(function () {
   $(this).executeEvent({ 
-    events: [{ 
-      name: "push_call_button", 
-      predicate: "b=" + $(this).attr("data-floor")
-    }]
+    events: [
+      { name: "push_call_button", 
+        predicate: "b=" + $(this).attr("data-floor") }
+    ]
   });
 });
 \end{lstlisting}
@@ -291,10 +291,13 @@ Add the following code snippet to your \texttt{template.js} file:
 %\end{lstlisting}
 \begin{lstlisting}[language=JavaScript, caption={Interaction with the Lift Door (JavaScript)}]
 $("#door").executeEvent({
-  events: [{name: "close_door"}, {name: "open_door"}],
-    callback: function (data) {
-      console.log("Callback: " + data)
-    }
+  events: [
+    { name: "close_door" }, 
+    { name: "open_door" }
+  ],
+  callback: function (data) {
+    console.log("Callback: " + data)
+  }
 });
 \end{lstlisting}
 
