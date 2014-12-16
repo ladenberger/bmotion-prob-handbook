@@ -230,20 +230,21 @@ Let's add an interactive feature, where the user can click on a floor label to o
 Add the code snippet to your \texttt{template.js} file:
 \newpage
 \begin{lstlisting}[language=JavaScript, caption={Example of an Interactive Feature (JavaScript)}]
-$("text[data-floor]").each(function () {
-  $(this).executeEvent({ 
-    events: [
-      { name: "push_call_button", 
-        predicate: "b=" + $(this).attr("data-floor") }
-    ]
-  });
+$("text[data-floor]").executeEvent({
+  events: [
+    { name: "push_call_button", 
+      predicate: function (origin) {
+        return "b=" + $(origin).attr("data-floor")
+      }
+    }
+  ]
 });
 \end{lstlisting}
 %For instance, clicking on the floor Label ``Floor 1'' should execute the Event-B event \textit{push\_call\_button(1)}.
 In Line 1, we register an execute event handler for each visual element that matches the defined selector ``text[data-floor]''.
 In particular, the selector matches the three floor labels (see Figure~\ref{fig_tut_03_running1}).
-In Line 3 to 6 we define the event that should be executed after clicking on the corresponding floor label.
-We use the content of the attribute \textit{data-floor} of the corresponding floor label in order to define the parameter/predicate.
+In Line 2 to 8 we define the event that should be executed after clicking on the corresponding floor label.
+We use the content of the attribute \textit{data-floor} of the corresponding floor label (\textit{origin}) in order to define the parameter/predicate.
 
 Apply these changes by refreshing your browser and try to click on a floor label.
 This should call the Event-B event \textit{push\_call\_button} with the corresponding predicate/parameter.
