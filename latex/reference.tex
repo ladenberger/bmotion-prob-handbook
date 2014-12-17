@@ -131,12 +131,14 @@ The following options can be passed:
 \begin{tabular}{ l l l p{7cm} }
   \textbf{Name} & \textbf{Type} & \textbf{Default} & \textbf{Description} \\
   \hline\noalign{\medskip}
-  expressions & list & empty list & Define a list of expressions that should be evaluated and passed to the trigger function. Example: $['x < 4', 'card(x)']$.\\
+  expressions & list / function* & empty list & Define a list of expressions that should be evaluated and passed to the trigger function. Example: $['x < 4', 'card(x)']$.\\
   \hline\noalign{\medskip}
-  cause & string & '\textit{AnimationChanged}' & The trigger cause. Possible values: '\textit{AnimationChanged}', '\textit{ModelChanged}' and '\textit{ModelInitialisation}'. \\
+  cause & string / function* & '\textit{AnimationChanged}' & The trigger cause. Possible values: '\textit{AnimationChanged}', '\textit{ModelChanged}' and '\textit{ModelInitialisation}'. \\
   \hline\noalign{\medskip}
   trigger & function &  & The trigger function will be called after every state change with its \textit{origin} reference set to the element that the observer is attached to and the requested \textit{data} (the result of the expressions). \\
 \end{tabular}
+
+*This attribute also accepts a function that should return its value.
 
 \begin{lstlisting}[float=ht,language=JavaScript]
 $("#door").transform({
@@ -160,12 +162,14 @@ The following options can be passed:
 \begin{tabular}{ l l l p{7cm} }
   \textbf{Name} & \textbf{Type} & \textbf{Default} & \textbf{Description} \\
   \hline\noalign{\medskip}
-  refinements & list & empty list & Define a list of refinements (machine names) that should be observed.\\
+  refinements & list / function* & empty list & Define a list of refinements (machine names) that should be observed.\\
   \hline\noalign{\medskip}
   enable & function &  & This function will be called after initialising or changing the model and whenever the current model is included in the list of refinements with its \textit{origin} reference set to the element that the observer is attached to.\\
   \hline\noalign{\medskip}
   disable & function &  & This function will be called after initialising or changing the model and whenever the current model is \textbf{NOT} included in the list of refinements with its \textit{origin} reference set to the element that the observer is attached to.\\
 \end{tabular}
+
+*This attribute also accepts a function that should return its value.
 
 \begin{lstlisting}[float=ht!,language=JavaScript]
 $("myvisualelement").observeRefinement({
@@ -218,12 +222,14 @@ The following options can be passed:
   \hline\noalign{\medskip}
   events & list & empty list & Define a list of events with \textit{name} and \textit{predicate} that should be bind with the matched visual elements. \\
   \hline\noalign{\medskip}
-  \hspace{0.5cm} name & string / function & & The name of the event. If the value is a function it takes the return value of the function.\\
+  \hspace{0.5cm} name & string / function* & & The name of the event. If the value is a function it takes the return value of the function.\\
   \hline\noalign{\medskip}
-  \hspace{0.5cm}  predicate & string / function & & The predicate that defines the parameters of the event to be executed. If the value is a function it takes the return value of the function.\\
+  \hspace{0.5cm}  predicate & string / function* & & The predicate that defines the parameters of the event to be executed. If the value is a function it takes the return value of the function.\\
   \hline\noalign{\medskip}
   callback & function &  & The callback function is called whenever a bind event was executed.
 \end{tabular}
+
+*This attribute also accepts a function that should return its value.
 
 \begin{lstlisting}[float=ht!,language=JavaScript]
 $("text[data-some]").executeEvent({
