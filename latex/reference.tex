@@ -199,4 +199,39 @@ bms.transform({
 });
 \end{lstlisting}
 
+\section{Interactivity}
+\label{sec:interactivity}
 
+\subsection{Execute Events}
+\label{sec:execute_events}
+
+\begin{tabular}{ l l l p{7cm} }
+  \textbf{Name} & \textbf{Type} & \textbf{Default} & \textbf{Description} \\
+  \hline\noalign{\medskip}
+  events & list & empty list & Define a list of events with \textit{name} and \textit{predicate} that should be bind with the matched visual elements. \\
+  \hline\noalign{\medskip}
+  \hspace{0.5cm} name & string / function & & The name of the event. If the value is a function it takes the return value of the function.\\
+  \hline\noalign{\medskip}
+  \hspace{0.5cm}  predicate & string / function & & The predicate that defines the parameters of the event to be executed. If the value is a function it takes the return value of the function.\\
+  \hline\noalign{\medskip}
+  callback & function &  & The callback function is called whenever a bind event was executed.
+\end{tabular}
+
+\begin{lstlisting}[float=ht,language=JavaScript]
+$("text[data-some]").executeEvent({
+  events: [
+    { 
+      name: "event1", 
+      predicate: function (origin) {
+        return "x=" + $(origin).attr("data-some") 
+      }
+    },
+    {
+      name: "event2", 
+      predicate: function (origin) {
+        return "x=" + $(origin).attr("data-some")
+      }
+    } 
+  ]
+});
+\end{lstlisting}
