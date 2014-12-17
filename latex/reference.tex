@@ -167,7 +167,7 @@ The following options can be passed:
   disable & function &  & This function will be called after initialising or changing the model and whenever the current model is \textbf{NOT} included in the list of refinements with its \textit{origin} reference set to the element that the observer is attached to.\\
 \end{tabular}
 
-\begin{lstlisting}[float=ht,language=JavaScript]
+\begin{lstlisting}[float=ht!,language=JavaScript]
 $("myvisualelement").observeRefinement({
   refinements: ["Machine01", "Refinement02"],
   enable: function (origin, data) {
@@ -184,11 +184,11 @@ $("myvisualelement").observeRefinement({
 The user can also add an observer in JavaScript by means of the \textit{bms} API variable. 
 This is in particular useful, whenever the user needs to define the selector based on the result of an expression:
 
-\begin{lstlisting}[float=ht,language=JavaScript]
+\begin{lstlisting}[float=ht!,language=JavaScript]
 bms.transform({
   expressions: ["myvar", "floor", "x>4"],
   trigger: function (data) {
-  	var el = $("#" + data.values[0].value)
+    var el = $("#" + data.values[0].value)
     el.html(data.values[1].value)
     if(data.values[2].value === "TRUE") {
       el.attr("fill","green")
@@ -199,12 +199,20 @@ bms.transform({
 });
 \end{lstlisting}
 
+\pagebreak
+
 \section{Interactivity}
 \label{sec:interactivity}
 
 \subsection{Execute Events}
 \label{sec:execute_events}
 
+The execute event handler executes an event after clicking on the matched element.
+The user can also define a list of events.
+In this case, a tooltip that lists the available events (disabled and enabled) will be shown when hovering the matched element.
+The following options can be passed:
+
+\vspace{0.5cm}
 \begin{tabular}{ l l l p{7cm} }
   \textbf{Name} & \textbf{Type} & \textbf{Default} & \textbf{Description} \\
   \hline\noalign{\medskip}
@@ -217,7 +225,7 @@ bms.transform({
   callback & function &  & The callback function is called whenever a bind event was executed.
 \end{tabular}
 
-\begin{lstlisting}[float=ht,language=JavaScript]
+\begin{lstlisting}[float=ht!,language=JavaScript]
 $("text[data-some]").executeEvent({
   events: [
     { 
