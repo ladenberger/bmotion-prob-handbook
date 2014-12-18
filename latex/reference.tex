@@ -124,14 +124,14 @@ In general, an observer is assigned to a jQuery selector.
 
 \subsubsection{Transformer Observer}
 
-The transformer observer observes a list of expressions and triggers a function whenever a state change occurred.
-The result of the expressions are passed to the trigger function.
+The transformer observer observes a list of formulas (i.e. expressions or predicates) and triggers a function whenever a state change occurred.
+The result of the formulas are passed to the trigger function.
 The following options can be passed:
 
 \begin{tabular}{ l l l p{7cm} }
   \textbf{Name} & \textbf{Type} & \textbf{Default} & \textbf{Description} \\
   \hline\noalign{\medskip}
-  expressions & list / function* & empty list & Define a list of expressions that should be evaluated and passed to the trigger function. Example: $['x < 4', 'card(x)']$.\\
+  formulas & list / function* & empty list & Define a list of expressions that should be evaluated and passed to the trigger function. Example: $['x < 4', 'card(x)']$.\\
   \hline\noalign{\medskip}
   cause & string / function* & '\textit{AnimationChanged}' & The trigger cause. Possible values: '\textit{AnimationChanged}', '\textit{ModelChanged}' and '\textit{ModelInitialisation}'. \\
   \hline\noalign{\medskip}
@@ -142,7 +142,7 @@ The following options can be passed:
 
 \begin{lstlisting}[float=ht,language=JavaScript]
 $("#door").transform({
-  expressions: ["cur_floor", "door_open"],
+  formulas: ["cur_floor", "door_open"],
   trigger: function (origin, data) {
     var values = data.values
     switch (values[0].value) {
