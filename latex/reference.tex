@@ -122,9 +122,9 @@ The user can also create an observer in JavaScript.
 The following sections explain the observers and their options.
 In general, an observer is assigned to a jQuery selector.
 
-\subsubsection{Transformer Observer}
+\subsubsection{Formula Observer}
 
-The transformer observer observes a list of formulas (i.e. expressions or predicates) and triggers a function whenever a state change occurred.
+The formula observer observes a list of formulas (i.e. expressions or predicates) and triggers a function whenever a state change occurred.
 The result of the formulas are passed to the trigger function.
 The following options can be passed:
 
@@ -141,7 +141,7 @@ The following options can be passed:
 *This attribute also accepts a function that should return its value.
 
 \begin{lstlisting}[float=ht,language=JavaScript]
-$("#door").transform({
+$("#door").observe({
   formulas: ["cur_floor", "door_open"],
   trigger: function (origin, data) {
     var values = data.values
@@ -153,6 +153,44 @@ $("#door").transform({
     values[1].value === "TRUE" ? origin.attr("fill", "white") : origin.attr("fill", "lightgray")
 })
 \end{lstlisting}
+
+\subsubsection{Predicate Observer}
+
+The predicate observer accepts a predicate and applies a list of transformers depending on the result of the predicate in the current state.
+
+\begin{tabular}{ l l l p{7cm} }
+  \textbf{Name} & \textbf{Type} & \textbf{Default} & \textbf{Description} \\
+  \hline\noalign{\medskip}
+  predicate & string / function* & & The actual predicate that should be evaluated in each state.\\
+  \hline\noalign{\medskip}
+  cause & string / function* & '\textit{AnimationChanged}' & The trigger cause. Possible values: '\textit{AnimationChanged}', '\textit{ModelChanged}' and '\textit{ModelInitialisation}'. \\
+  \hline\noalign{\medskip}
+  true & list / function** & & A list of transformers (\textit{attr} and \textit{value} pairs) that should be applied on the matched element whenever the defined predicate evaluates to true. Example: 
+  [\{attr: "fill", value: "white"\}, \{attr: "stroke", value: "green"\}]\\
+  \hline\noalign{\medskip}
+  false & list / function** & & A list of transformers (\textit{attr} and \textit{value} pairs) that should be applied on the matched element whenever the defined predicate evaluates to false. Example: 
+  [\{attr: "fill", value: "white"\}, \{attr: "stroke", value: "green"\}]\\
+  \hline\noalign{\medskip}
+  callback & function &  & The callback function is called after each state change.
+\end{tabular}
+
+*This attribute also accepts a function that should return its value.
+
+**This attribute also accepts a function that is called based on the result of the defined predicate.
+
+\begin{lstlisting}[float=ht,language=JavaScript]
+$("#door").observePredicate({
+  predicate: "door_open",
+  true: [
+    {attr: "fill", value: "white"}
+  ],
+  false: [
+    {attr: "fill", value: "lightgray"}
+  ]
+});
+\end{lstlisting}
+
+\subsubsection{Expression Observer}
 
 \subsubsection{Refinement Observer}
 
@@ -189,8 +227,8 @@ The user can also add an observer in JavaScript by means of the \textit{bms} API
 This is in particular useful, whenever the user needs to define the selector based on the result of an expression:
 
 \begin{lstlisting}[float=ht!,language=JavaScript]
-bms.transform({
-  expressions: ["myvar", "floor", "x>4"],
+bms.observe({
+  formulas: ["myvar", "floor", "x>4"],
   trigger: function (data) {
     var el = $("#" + data.values[0].value)
     el.html(data.values[1].value)
@@ -225,6 +263,8 @@ The following options can be passed:
   \hspace{0.5cm} name & string / function* & & The name of the event. If the value is a function it takes the return value of the function.\\
   \hline\noalign{\medskip}
   \hspace{0.5cm}  predicate & string / function* & & The predicate that defines the parameters of the event to be executed. If the value is a function it takes the return value of the function.\\
+  \hline\noalign{\medskip}
+  tooltip & boolean & true & Enable (\textit{true}) or disable (\textit{false}) tooltip when hovering the matched element.\\
   \hline\noalign{\medskip}
   callback & function &  & The callback function is called whenever a bind event was executed.
 \end{tabular}
