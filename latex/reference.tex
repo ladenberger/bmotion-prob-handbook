@@ -141,7 +141,7 @@ The following options can be passed:
 *This attribute also accepts a function that should return its value.
 
 \begin{lstlisting}[float=ht,language=JavaScript]
-$("#door").observe({
+$("#door").observe("formula", {
   formulas: ["cur_floor", "door_open"],
   trigger: function (origin, data) {
     var values = data.values
@@ -179,7 +179,7 @@ The predicate observer accepts a predicate and applies a list of transformers de
 **This attribute also accepts a function that is called based on the result of the defined predicate.
 
 \begin{lstlisting}[float=ht,language=JavaScript]
-$("#door").observePredicate({
+$("#door").observe("predicate", {
   predicate: "door_open",
   true: [
     {attr: "fill", value: "white"}
@@ -210,7 +210,7 @@ The following options can be passed:
 *This attribute also accepts a function that should return its value.
 
 \begin{lstlisting}[float=ht!,language=JavaScript]
-$("myvisualelement").observeRefinement({
+$("myvisualelement").observe("refinement", {
   refinements: ["Machine01", "Refinement02"],
   enable: function (origin, data) {
     origin.attr("opacity", "1")
@@ -227,7 +227,7 @@ The user can also add an observer in JavaScript by means of the \textit{bms} API
 This is in particular useful, whenever the user needs to define the selector based on the result of an expression:
 
 \begin{lstlisting}[float=ht!,language=JavaScript]
-bms.observe({
+bms.observe("formula", {
   formulas: ["myvar", "floor", "x>4"],
   trigger: function (data) {
     var el = $("#" + data.values[0].value)
