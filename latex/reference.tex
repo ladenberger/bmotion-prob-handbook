@@ -227,7 +227,7 @@ The user can also add an observer in JavaScript by means of the \textit{bms} API
 This is in particular useful, whenever the user needs to define the selector based on the result of an expression:
 
 \begin{lstlisting}[float=ht!,language=JavaScript]
-bms.observe("formula", {
+prob.observe("formula", {
   formulas: ["myvar", "floor", "x>4"],
   trigger: function (data) {
     var el = $("#" + data.values[0].value)
