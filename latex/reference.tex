@@ -277,13 +277,13 @@ $("text[data-some]").executeEvent({
     { 
       name: "event1", 
       predicate: function (origin) {
-        return "x=" + $(origin).attr("data-some") 
+        return "x=" + origin.attr("data-some") 
       }
     },
     {
       name: "event2", 
       predicate: function (origin) {
-        return "x=" + $(origin).attr("data-some")
+        return "x=" + origin.attr("data-some")
       }
     } 
   ]
