@@ -133,7 +133,7 @@ The following options can be passed:
   \hline\noalign{\medskip}
   formulas & list / function* & empty list & Define a list of expressions that should be evaluated and passed to the trigger function. Example: $['x < 4', 'card(x)']$.\\
   \hline\noalign{\medskip}
-  cause & string / function* & '\textit{AnimationChanged}' & The trigger cause. Possible values: '\textit{AnimationChanged}', '\textit{ModelChanged}' and '\textit{ModelInitialisation}'. \\
+  cause & string / function* & '\textit{AnimationChanged}' & The trigger cause. Possible values: '\textit{AnimationChanged}', '\textit{ModelChanged}' and '\textit{ModelInitialised}'. \\
   \hline\noalign{\medskip}
   trigger & function &  & The trigger function will be called after every state change with its \textit{origin} reference set to the element that the observer is attached to and the requested \textit{data} (the result of the expressions). \\
 \end{tabular}
@@ -163,7 +163,7 @@ The predicate observer accepts a predicate and applies a list of transformers de
   \hline\noalign{\medskip}
   predicate & string / function* & & The actual predicate that should be evaluated in each state.\\
   \hline\noalign{\medskip}
-  cause & string / function* & '\textit{AnimationChanged}' & The trigger cause. Possible values: '\textit{AnimationChanged}', '\textit{ModelChanged}' and '\textit{ModelInitialisation}'. \\
+  cause & string / function* & '\textit{AnimationChanged}' & The trigger cause. Possible values: '\textit{AnimationChanged}', '\textit{ModelChanged}' and '\textit{ModelInitialised}'. \\
   \hline\noalign{\medskip}
   true & list / function** & & A list of transformers (\textit{attr} and \textit{value} pairs) that should be applied on the matched element whenever the defined predicate evaluates to true. Example: 
   [\{attr: "fill", value: "white"\}, \{attr: "stroke", value: "green"\}]\\
