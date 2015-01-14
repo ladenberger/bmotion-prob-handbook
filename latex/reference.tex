@@ -293,17 +293,18 @@ $("text[data-some]").executeEvent({
 \section{Building a Standalone Visualisation}
 \label{sec:build_standalone}
 
-\begin{enumerate}
-\item Clone the BMotion Studio for ProB standalone Github repository\footnote{\url{https://github.com/ladenberger/bmotion-prob-standalone}}.
-\item Put your visualisation into the folder ``resources/workspace''.
-\item Run the following command, where XXX is the path to the html template file in the resources folder (e.g. ``myvis/vis.html''):
+Clone the BMotion Studio for ProB standalone Github repository\footnote{\url{https://github.com/ladenberger/bmotion-prob-standalone}} and put your visualisation into the folder ``resources/workspace''.
+In the root folder run the following command, where XXX is the path to the html template file in the ``resources/workspace'' folder (e.g. ``myvis/vis.html''):
 \begin{lstlisting}[language=bash]
-gradle -Pvisualisation="myvis/vis.html" buildAll
+gradle -Pvisualisation="XXX" buildAll
 \end{lstlisting}
-\item If you don't have gradle installed, you can use the gradlew script provided:
+
+If you don't have gradle installed, you can use the gradlew script provided:
 \begin{lstlisting}[language=bash]
-./gradlew -Pvisualisation="myvis/vis.html" buildAll
+./gradlew -Pvisualisation="XXX" buildAll
 \end{lstlisting}
-\end{enumerate}
+
+This should build the binaries without a gradle installation on your computer.
+The gradle script will produce a zipped standalone version for all platforms. The zip files are located in the build/distributions folder.
 
 
