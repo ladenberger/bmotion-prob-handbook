@@ -1,32 +1,47 @@
-\section{Let's Start: Creating a Visualisation}
-\label{tutorial_03}
+\section{Tutorial}
+\label{tutorial_b}
 
-\tick{\textbf{Goals:} The objective of this section is to create a visualisation for an Event-B model of a simple lift system.}
+The objective of this chapter is to get you to a stage where you can use BMotion Studio to visualize Event-B or Classical-B models. 
+We expect that you have already downloaded the BMotion Studio tool (see Section~\ref{installation}).
+ 
+%We expect you to have a basic understanding of logic and an idea why doing formal modelling is a good idea.  
+You should be able to work through the tutorial with no or little outside help.
 
-\subsection{Creating a new Visualisation Template}
+We encourage you not to download solutions to the examples but instead to actively build them up yourself as the tutorial progresses.
 
-The easiest way to create a new visualisation template is to duplicate the default template \texttt{b\_template} that is included in the \texttt{workspace} folder of your \bms~installation.
+If something is unclear, remember to check the Reference (\ref{reference_b}) for more information.
+
+\subsection{Preparation}
+
+Let's start by creating a new visualisation template as described in Section~\ref{vis_template}.
 Just duplicate the \texttt{b\_template} folder and rename it to \texttt{lift}.
-After refreshing your browser, the a new folder called \texttt{lift} should appear in your workspace (see Figure~\ref{fig_tut_01_workspace}).
-Navigate to the \texttt{lift} folder. 
-The folder contains three files:
-\begin{itemize}
-\item \texttt{template.html}: The HTML file is the root file of your visualisation. It contains the actual visualisation and it's configuration.
-\item \texttt{template.groovy}: The Groovy script file is the place where the user can communicate with the formal model by means of the ProB Java API\footnote{\url{http://www.stups.hhu.de/ProB/index.php5/ProB_Java_API}}.
-For instance, the user may register methods that can be called in the JavaScript file.
-%The Groovy script file is the place where you can setup the communication between your visualisation and the ProB animator.
-%In particular, the Groovy script file is the link between the formal model and the visualisation.
-%It allows you to programmatically control the ProB animator and to access the actual formal model being visualised.
-%In addition, you can register functions that can be called from the visualisation, e.g. executing an Event-B event after pressing a button in the visualisation.
-\item \texttt{template.js}: In the JavaScript file you can setup observers and actions.
-Moreover, the user can take advantage of the entire JavaScript language.
-There exist are a lot of libraries for JavaScript that you can apply to create custom visualisations.
-For instance, it exists libraries for manipulating the DOM of an HTML document, or for generating chart and plot diagrams.
-%In addition, you can call functions that are registered in the Groovy script file.
-%This enables you to add some interactivity to your visualisation.
-%For instance, pressing a button in your visualisation could cause the execution of an Event-B event.
-\end{itemize}
+After refreshing your browser, a new folder called \texttt{lift} should appear in your workspace (see Figure~\ref{fig_tut_01_workspace}).
 
+%\subsection{Creating a new Visualisation Template}
+%
+%Let's start by creating a new visualisation template.
+%The easiest way to create a new visualisation template is to duplicate the default template \texttt{b\_template} that is included in the \texttt{workspace} folder of your \bms~installation.
+%Just duplicate the \texttt{b\_template} folder and rename it to \texttt{lift}.
+%After refreshing your browser, a new folder called \texttt{lift} should appear in your workspace (see Figure~\ref{fig_tut_01_workspace}).
+%Navigate to the \texttt{lift} folder. 
+%The folder contains three files:
+%\begin{itemize}
+%\item \texttt{template.html}: The HTML file is the root file of your visualisation. It contains the actual visualisation and it's configuration.
+%\item \texttt{template.groovy}: The Groovy script file is the place where the user can communicate with the formal model by means of the ProB Java API\footnote{\url{http://www.stups.hhu.de/ProB/index.php5/ProB_Java_API}}.
+%For instance, the user may register methods that can be called in the JavaScript file.
+%%The Groovy script file is the place where you can setup the communication between your visualisation and the ProB animator.
+%%In particular, the Groovy script file is the link between the formal model and the visualisation.
+%%It allows you to programmatically control the ProB animator and to access the actual formal model being visualised.
+%%In addition, you can register functions that can be called from the visualisation, e.g. executing an Event-B event after pressing a button in the visualisation.
+%\item \texttt{template.js}: In the JavaScript file you can setup observers and actions.
+%Moreover, the user can take advantage of the entire JavaScript language.
+%There exist are a lot of libraries for JavaScript that you can apply to create custom visualisations.
+%For instance, it exists libraries for manipulating the DOM of an HTML document, or for generating chart and plot diagrams.
+%%In addition, you can call functions that are registered in the Groovy script file.
+%%This enables you to add some interactivity to your visualisation.
+%%For instance, pressing a button in your visualisation could cause the execution of an Event-B event.
+%\end{itemize}
+%
 \begin{figure}[!ht]
 \begin{center}
 	\includegraphics[width=12cm]{img/tutorial/tut_01.png}
@@ -43,115 +58,42 @@ The door of the lift can be closed and opened - all in response to the pressing 
 You can download the Event-B model \file{EventBLift.zip}{here}.
 Decompress it and put the files into a new folder called \texttt{model} relative to your \texttt{template.html} file in your workspace.
 
-\subsection{Linking a Model with the Visualisation}
+\subsection{Linking the Model with the Visualisation}
 
-The next step consists of linking the model with the visualisation.
-For this, open the \texttt{template.html} file with a text editor of your choice and add the following line within the head tag:
+The first step consists of linking the model with the visualisation.
+For this, open the \texttt{template.html} file with an HTML/text editor of your choice and add the following line within the head tag:
 
 \begin{lstlisting}[language=html]
 <meta name="bms.model" content="model/MLift.bcm" />
 \end{lstlisting}
 
 We link the visualisation with the Event-B machine called ``MLift''.
-Linking a model within the \texttt{template.html} file automatically loads the model, when starting the visualisation.
-Your \texttt{template.html} file should look like:
 
-\begin{lstlisting}[language=html]
-<html bms-app>
-  <head>
-      <title>BMotion Studio for ProB</title>
-      <meta name="bms.model" content="model/MLift.bcm" />
-      <meta name="bms.tool" content="BAnimation" />
-      <meta name="bms.script" content="template.groovy" />
-      <script src="/bms/libs/requirejs/require.js"></script>
-      <script>
-        require(['/bms/libs/prob/config.js'], function () {
-          require(['template']);
-        });
-      </script>
-  </head>
-  <body>
-  </body>
-</html>
-\end{lstlisting}
-
-\info{The meta tag \textit{bms.script} (line 6) contains the link to the Groovy script file and the meta tag \textit{bms.tool} (line 5) defines the formalism or the simulator respectively that should be used. In this case we are creating a visualisation for a ``BAnimation'' (Classical-B or and Event-B).}
-
-\subsection{Creating the Actual Visualisation}
-
-The next step consists of creating the actual visualisation.
-The user is not restricted to an editor in order to create a visualisation.
-The user can make use of any tool that support the creation of SVG graphics or HTML documents.
-For this tutorial we are going to use the Inkspace\footnote{\url{https://inkscape.org}} editor. Inkscape is an editor for creating vector graphics that is available for Windows, Mac OS X and Linux.
-It's free and open source.
-With Inkscape the user can export the vector graphic into the SVG format.
-
-%\info{We are currently working on a build-in graphical editor for creating SVG graphics and for managing observers.}
-
-\begin{figure}[!ht]
-\begin{center}
-	\includegraphics[width=12cm]{img/tutorial/tut_02.png}
-	\caption{Creating an SVG graphic with Inkscape}
-	\label{fig_tut_02_inkscape}
-\end{center}
-\end{figure}
-
-%Please download the prepared \file{lift.svg}{lift.svg} file and put it relative to your \texttt{template.html} file in your workspace.
-%Add the following tag within the body tag in your \texttt{template.html} file:
-%\begin{lstlisting}[language=html]
-%<object data="lift.svg" type="image/svg+xml" data-bms="svg">
-%</object>
-%\end{lstlisting}
+\subsection{Create the Actual Visualisation}
 
 Please download the prepared \file{lift.svg}{lift.svg} file and open it with Inkscape as demonstrated in Figure~\ref{fig_tut_02_inkscape}.
 Feel free to modify and explore the SVG graphic.
-In order to link visual elements of the SVG graphic with the formal model, we have to give them identifiers. 
+In order to link visual elements of the SVG graphic with the formal model later, we have to give them identifiers. 
 For this, select an element, open the context menu and select \textsf{Object Properties}.
 A popup window should be opened as demonstrated in Figure~\ref{fig_tut_02_inkscape}.
 As an example, we give the visual element that represents the door, the id ``door''.
 In Section~\ref{sec_creation_observers} we explain how we can use this information in order to create the link between the formal model and the visualisation by means of observers.
 If you are satisfied with your SVG graphic, save it as a plain SVG graphic with \textsf{File $\rangle$ Save As}.
-Select \textsf{Plan SVG (*.svg)} as an output format and click on the \textsf{Save} button.
+Select \textsf{Plain SVG (*.svg)} as an output format and click on the \textsf{Save} button.
 You can save the SVG file anywhere on your local system. 
-Open the SVG file with a text editor of your choice and put the SVG code within the body tag in the \texttt{template.html} file located in your workspace.
-%Your \texttt{template.html} file should look like in Listing~\ref{lst:lifthtml}.
-
-%\begin{lstlisting}[float=ht,language=html, ,caption={Template HTML file with Lift SVG graphic},label=lst:lifthtml]
-%<html>
-%  <head>
-%      <title>BMotion Studio for ProB</title>
-%      <meta name="bms.model" content="model/MLift.bcm" />
-%      <meta name="bms.tool" content="BAnimation" />
-%      <meta name="bms.script" content="template.groovy" />
-%      <script data-main="template" src="/bms/libs/requirejs/require.js"></script>
-%  </head>
-%  <body>
-%      <svg width="325" height="430" xmlns="http://www.w3.org/2000/svg">
-%            <rect stroke="#000000" id="svg_1" height="331" width="192" y="37" x="39" fill="#ffffff" />
-%            <line id="svg_2" y2="267" x2="270" y1="267" x1="0" stroke-dasharray="2,2" stroke="#000000" fill="none" />
-%            <line id="svg_4" y2="157" x2="270" y1="157" x1="0" stroke-dasharray="2,2" stroke="#000000" fill="none" />
-%            <rect fill="lightgray" stroke="#000000" x="101" y="275" width="70" height="80" id="door" />
-%            <text font-weight="normal" xml:space="preserve" text-anchor="middle" font-family="Monospace" font-size="14" id="txt_floor1" y="110" x="280" stroke-dasharray="2,2" stroke-width="0" stroke="#000000" fill="#000000">Floor 1</text>
-%            <text id="txt_floor0" font-weight="normal" xml:space="preserve" text-anchor="middle" font-family="Monospace" font-size="14" y="220" x="280" stroke-dasharray="2,2" stroke-width="0" stroke="#000000" fill="#000000">Floor 0</text>
-%            <text id="txt_floor-1" font-weight="normal" xml:space="preserve" text-anchor="middle" font-family="Monospace" font-size="14" y="330" x="280" stroke-dasharray="2,2" stroke-width="0" stroke="#000000" fill="#000000">Floor -1</text>
-%            <text fill="#000000" stroke="#000" stroke-width="0" x="145" y="407.5" id="txt_cur_floor" font-size="15" font-family="Helvetica, Arial, sans-serif" text-anchor="left" xml:space="preserve">CUR_FLOOR</text>
-%            <text fill="#000000" stroke="#000" stroke-width="0" x="36.5" y="407.5" id="svg_3" font-size="15" font-family="Helvetica, Arial, sans-serif" text-anchor="left" xml:space="preserve">Current Floor:</text>
-%    </svg>
-%  </body>
-%</html>
-%\end{lstlisting}
+Open the SVG file with an editor of your choice and put the SVG code within the body tag in the \texttt{template.html} file located in your workspace.
 
 \subsection{Starting the Visualisation}
 
 Let's try out the visualisation!
-In your browser, navigate to the \texttt{lift} folder and click on the \texttt{template.html} file.
+In your browser, navigate to the folder \texttt{lift} folder and click on the \texttt{template.html} file.
 
 The visualisation should start.
 At the right bottom you will find a menu called \textsf{Open View} for opening different ProB related views.
 For instance, Figure~\ref{fig_tut_03_running1} shows the running Lift visualisation with the ProB Events view opened.
 
 At the moment nothing spectacular happens when changing the state (i.e. executing events in the Event view), because no link between visual elements and the formal model exists yet.
-In the next Section we learn creating observers.
+In the next Section we learn hot to create observers.
 
 \begin{figure}[!ht]
 \begin{center}
@@ -248,9 +190,9 @@ For instance, Figure~\ref{fig_tut_04_running2} shows the lift visualisation wher
 \end{center}
 \end{figure}
 
-\subsection{Add Interactivity}
+\subsection{Adding Interactivity}
 
-In this Section we learn how we can enhance our visualisation with interactive features, like executing some Event-B events by clicking on some buttons.
+In this Section we learn how we can enhance our visualisation with interactive features, e.g. executing some Event-B events by clicking on some buttons.
 
 Let's add an interactive feature, where the user can click on a floor label to order the lift on the corresponding floor.
 Add the code snippet to your \texttt{template.js} file:
@@ -271,7 +213,7 @@ $("text[data-floor]").executeEvent({
 In line 1 we register an execute event handler for each visual element that matches the defined selector ``text[data-floor]''.
 In particular, the selector matches the three floor labels (see Figure~\ref{fig_tut_03_running1}).
 In line 2 to 15 we define the event that should be executed after clicking on the corresponding floor label.
-We use the content of the attribute \textit{data-floor} of the corresponding floor label (\textit{origin}) in order to define the parameter/predicate.
+We use the content of the attribute \textit{data-floor} of the corresponding floor label (\textit{origin}) in order to define the parameter/predicate (line 6).
 
 Apply these changes by refreshing your browser and try to click on a floor label.
 This should call the Event-B event \textit{push\_call\_button} with the corresponding predicate/parameter.
@@ -322,21 +264,17 @@ $("#door").executeEvent({
   events: [
     { name: "close_door" }, 
     { name: "open_door" }
-  ],
-  callback: function (data) {
-    console.log("Callback: " + data)
-  }
+  ]
 });
 \end{lstlisting}
 
 In line 1 we register a new execute event handler on the visual element with the id door.
-The execute event handler first tries to execute the event \textit{open\_door}.
-In case the event is disabled, it tries to execute the next event \textit{close\_door}.
+The execute event handler first tries to execute the event \textit{close\_door}.
+In case the event is disabled, it tries to execute the next event \textit{open\_door}.
 %Line 2 calls our registered Groovy method \textit{openCloseDoor}.
-In Line 3 to 5 we pass a callback function that is called after an event (\textit{open\_door} or \textit{close\_door}) was executed.
+%In Line 3 to 5 we pass a callback function that is called after an event (\textit{open\_door} or \textit{close\_door}) was executed.
 %In this case we print the returned new state id on the console.
 
 These are only small examples for adding interactivity to your visualisation.
 You are not limited to these examples.
 You can download the final visualisation \file{LiftVisualisation.zip}{here}.
-

@@ -1,126 +1,124 @@
-\chapter{Reference}
-\label{reference}
+\section{Reference}
+\label{reference_b}
 
-\section{The BMotion Studio API}
-\label{sec:bmsapi}
+%\subsection{Observers}
+%\label{sec:observers}
+%
+%Observers are used to link visual elements with the model. 
+%An observer is notified whenever a model has changed its state, i.e. whenever an event has been executed. 
+%In response, the observer will query the model's state and triggers actions on the linked visual elements in respect to the new state. 
+%
+%\subsection{Observers in Groovy}
+%\label{sec:groovy_observers}
 
-(tbd)
+%In general, observers are defined in the Groovy script file.
+%\bms~comes with some predefined observers that are described in the following sections.
 
-\section{Observers}
-\label{sec:observers}
+%\subsubsection{Transformer Observer}
+%\label{sec:transformer_observer}
+
+%The transformer observer supports the modification of attributes of visual elements based on the %current state of the animation.
+%The following code snippet demonstrates the basic use of the transformer observer:
+
+%\begin{lstlisting}[float=ht,language=Groovy]
+%transform("#myvisualelement") {
+%    set "fill", "green"
+%    set "stroke", "red"
+%    register(bms)
+%}
+%\end{lstlisting}
+
+%In line 1 we define a jQuery selector to select the visual elements which should be transformed.
+%In this case we select a visual element with the id \textit{myvisualelement} (in jQuery the prefix %``\#'' denotes that we want to select and element by its id).
+%jQuery provides several possibilities to select visual elements.
+
+%\info{The jQuery selector API documentation\footnote{\url{http://api.jquery.com/category/selectors/}} provides an overview and a detailed documentation about selectors.}
+
+%Line 2 to 3 are actions that are made on the visual elements which are matched by the defined selector.
+%In this case the \textit{fill} attribute is set to the value \textit{green} and the \textit{stroke} attribute to \textit{red}.
+%In line 4, we register the observer to the current visualisation.
+%A registered observer is triggered after every state change, e.g. after executing an event.
+%
+%\paragraph{Groovy Closures.}
+%%As we use the Groovy Scripting language for defining the observers, we can make use of the entire function and feature range of it.
+%Transformer observers support the use of Groovy closures for defining the selector or the value of an action.
+%The following code snippet demonstrates the use of closures for transformer observers:
+%
+%\begin{lstlisting}[float=ht,language=Groovy]
+%transform("#myvisualelement") {
+%  set "fill", { (bms.eval("1 < x").value == "TRUE") ? "white" : "lightgray" }
+%  set "y", {
+%    switch (bms.eval("x").value) {
+%      case "0": "15"
+%        break
+%      case "1": "20"
+%        break
+%      case "2": "25"
+%        break
+%      default: "0"
+%    }
+%  }
+%  register(bms)
+%}
+%\end{lstlisting}
+%
+%In Groovy a closure is encapsulated in curly brackets.
+%Line 2 and 3 show two examples for using closures for defining the value of the attribute \textit{fill} and \textit{y} respectively.
+%Closures are evaluated after every state change in consequence of triggering the transformer observer.
+%As an example, in line 2 the closure evaluates the expression $1 < x$.
+%The value of the \textit{fill} attribute is set to \textit{white} whenever the expression evaluates to \textit{TRUE} and otherwise to \textit{lightgray}.
+%
+%
+%\subsubsection{Method Observer}
+%\label{sec:method_observer}
+%
+%The following code snippet gives an example of the method observer:
+%
+%\begin{lstlisting}[float=ht,language=Groovy]
+%callMethod("mymethod") {
+%  data([foo: "bar"])
+%  register(bms)
+%}
+%\end{lstlisting}
+%
+%\subsubsection{Custom Observer}
+%\label{sec:custom_observers}
+%
+%The following code snippet gives an example of a custom observer:
+%\begin{lstlisting}[float=ht,language=Groovy]
+%def customObserver = [ 
+%  apply: { bms ->  println "Triggering custom observer." } 
+%] as BMotionObserver
+%bms.registerObserver(customObserver)
+%\end{lstlisting}
+%
+%You can also create a custom transformer observer:
+%\begin{lstlisting}[float=ht,language=Groovy]
+%def transformerObserver = [
+%  update: { bms ->
+%    def transformers = []
+%    def result = bms.translate("relation")					
+%    result.value.each { obj ->
+%      transformers += transform("#" + obj.first) {
+%        set "transform", "translate(" + obj.second + ")"
+%        update(bms)
+%      }
+%    }
+%    return transformers
+%  }
+%] as BMotionTransformer
+%bms.registerObserver(transformerObserver)
+%\end{lstlisting}
+
+\subsection{Observers}
 
 Observers are used to link visual elements with the model. 
 An observer is notified whenever a model has changed its state, i.e. whenever an event has been executed. 
 In response, the observer will query the model's state and triggers actions on the linked visual elements in respect to the new state. 
 
-\subsection{Observers in Groovy}
-\label{sec:groovy_observers}
-
-In general, observers are defined in the Groovy script file.
+In general, observers are defined in the JavaScript file. 
 \bms~comes with some predefined observers that are described in the following sections.
-
-\subsubsection{Transformer Observer}
-\label{sec:transformer_observer}
-
-The transformer observer supports the modification of attributes of visual elements based on the current state of the animation.
-The following code snippet demonstrates the basic use of the transformer observer:
-
-\begin{lstlisting}[float=ht,language=Groovy]
-transform("#myvisualelement") {
-    set "fill", "green"
-    set "stroke", "red"
-    register(bms)
-}
-\end{lstlisting}
-
-In line 1 we define a jQuery selector to select the visual elements which should be transformed.
-In this case we select a visual element with the id \textit{myvisualelement} (in jQuery the prefix ``\#'' denotes that we want to select and element by its id).
-jQuery provides several possibilities to select visual elements.
-
-\info{The jQuery selector API documentation\footnote{\url{http://api.jquery.com/category/selectors/}} provides an overview and a detailed documentation about selectors.}
-
-Line 2 to 3 are actions that are made on the visual elements which are matched by the defined selector.
-In this case the \textit{fill} attribute is set to the value \textit{green} and the \textit{stroke} attribute to \textit{red}.
-In line 4, we register the observer to the current visualisation.
-A registered observer is triggered after every state change, e.g. after executing an event.
-
-\paragraph{Groovy Closures.}
-%As we use the Groovy Scripting language for defining the observers, we can make use of the entire function and feature range of it.
-Transformer observers support the use of Groovy closures for defining the selector or the value of an action.
-The following code snippet demonstrates the use of closures for transformer observers:
-
-\begin{lstlisting}[float=ht,language=Groovy]
-transform("#myvisualelement") {
-  set "fill", { (bms.eval("1 < x").value == "TRUE") ? "white" : "lightgray" }
-  set "y", {
-    switch (bms.eval("x").value) {
-      case "0": "15"
-        break
-      case "1": "20"
-        break
-      case "2": "25"
-        break
-      default: "0"
-    }
-  }
-  register(bms)
-}
-\end{lstlisting}
-
-In Groovy a closure is encapsulated in curly brackets.
-Line 2 and 3 show two examples for using closures for defining the value of the attribute \textit{fill} and \textit{y} respectively.
-Closures are evaluated after every state change in consequence of triggering the transformer observer.
-As an example, in line 2 the closure evaluates the expression $1 < x$.
-The value of the \textit{fill} attribute is set to \textit{white} whenever the expression evaluates to \textit{TRUE} and otherwise to \textit{lightgray}.
-
-
-\subsubsection{Method Observer}
-\label{sec:method_observer}
-
-The following code snippet gives an example of the method observer:
-
-\begin{lstlisting}[float=ht,language=Groovy]
-callMethod("mymethod") {
-  data([foo: "bar"])
-  register(bms)
-}
-\end{lstlisting}
-
-\subsubsection{Custom Observer}
-\label{sec:custom_observers}
-
-The following code snippet gives an example of a custom observer:
-\begin{lstlisting}[float=ht,language=Groovy]
-def customObserver = [ 
-  apply: { bms ->  println "Triggering custom observer." } 
-] as BMotionObserver
-bms.registerObserver(customObserver)
-\end{lstlisting}
-
-You can also create a custom transformer observer:
-\begin{lstlisting}[float=ht,language=Groovy]
-def transformerObserver = [
-  update: { bms ->
-    def transformers = []
-    def result = bms.translate("relation")					
-    result.value.each { obj ->
-      transformers += transform("#" + obj.first) {
-        set "transform", "translate(" + obj.second + ")"
-        update(bms)
-      }
-    }
-    return transformers
-  }
-] as BMotionTransformer
-bms.registerObserver(transformerObserver)
-\end{lstlisting}
-
-\subsection{Observers in JavaScript}
-\label{sec:js_observers}
-
-The user can also create an observer in JavaScript.
-The following sections explain the observers and their options.
-In general, an observer is assigned to a jQuery selector.
+%In general, an observer is assigned to a jQuery selector.
 
 \subsubsection{Formula Observer}
 
@@ -190,8 +188,6 @@ $("#door").observe("predicate", {
 });
 \end{lstlisting}
 
-\subsubsection{Expression Observer}
-
 \subsubsection{Refinement Observer}
 
 The refinements observer observes a list of refinements (model names) and triggers an \textit{enable} function whenever the current model is in the list of refinements or a \textit{disable} function whenever the current model is not in the list of refinements.
@@ -243,11 +239,9 @@ prob.observe("formula", {
 
 \pagebreak
 
-\section{Interactivity}
-\label{sec:interactivity}
+\subsection{Interactivity}
 
-\subsection{Execute Events}
-\label{sec:execute_events}
+\subsubsection{Execute Events}
 
 The execute event handler executes an event after clicking on the matched element.
 The user can also define a list of events.
@@ -289,22 +283,3 @@ $("text[data-some]").executeEvent({
   ]
 });
 \end{lstlisting}
-
-\section{Building a Standalone Visualisation}
-\label{sec:build_standalone}
-
-Clone the BMotion Studio for ProB standalone Github repository\footnote{\url{https://github.com/ladenberger/bmotion-prob-standalone}} and put your visualisation into the folder ``resources/workspace''.
-In the root folder run the following command, where XXX is the path to the html template file in the ``resources/workspace'' folder (e.g. ``myvis/vis.html''):
-\begin{lstlisting}[language=bash]
-gradle -Pvisualisation="XXX" buildAll
-\end{lstlisting}
-
-If you don't have gradle installed, you can use the gradlew script provided:
-\begin{lstlisting}[language=bash]
-./gradlew -Pvisualisation="XXX" buildAll
-\end{lstlisting}
-
-This should build the binaries without a gradle installation on your computer.
-The gradle script will produce a zipped standalone version for all platforms. The zip files are located in the build/distributions folder.
-
-

@@ -227,9 +227,182 @@ ADVANCE is building on an existing formal modelling language - Event-B - and its
 
 % \input{style-guide}
 
-\input{tutorial}
+\section{Background}
 
-\input{reference}
+\subsection{BMotion Studio}
+
+\begin{figure}[!ht]
+\begin{center}
+	\includegraphics[width=14cm]{img/tutorial/bms_architecture}
+	\caption{\bms~Architecture}
+	\label{fig_tut_00_architecture}
+\end{center}
+\end{figure}
+
+Figure~\ref{fig_tut_00_architecture} shows an overview of the architecture of \bms. 
+In \bms, a visualisation is described by a visualisation template that contains visual elements and observers. 
+Visual elements may be, for instance, shapes or images that represent some aspects of the model. 
+For example, when modelling a communication protocol, circles may be used for representing the communicating entities of the protocol and arrows for the message exchanges between the entities. 
+\bms~supports web technologies like Scalable Vector Graphics (SVG)\footnote{\url{http://www.w3.org/TR/SVG11}} and Cascading Style Sheets (CSS)\footnote{\url{http://www.w3.org/TR/css-2010}} for this purpose. 
+SVG is an XML-based markup language for describing two-dimensional vector graphics. 
+It comes with a number of visual elements like shapes, images and paths.
+CSS is a language that can be used to describe the style of SVG visual elements (e.g. the colour or the dimension). 
+
+Observers are used to link visual elements with the model. 
+An observer is notified whenever a model has changed its state, i.e. whenever an event has been executed. 
+In response, the observer will query the model's state and triggers actions on the linked visual elements in respect to the new state. 
+
+\subsection{Formal Modelling}
+
+We are concerned with \textit{formalizing specifications}.  This allows us a more rigorous analysis (thereby improving the quality) and allows the reuse of the specification to develop an implementation.  This comes at the cost of higher up-front investments.
+
+This differs from the traditional development process. In a formal development, we transfer some effort from the test phase (where the implementation is verified) to the specification phase (where the specification in relation to the requirements is verified).
+
+\subsection{Predicate Logic}
+\label{predicate_logic}
+\index{predicate logic}
+
+Predicate logic is a mathematical logic containing variables that can be quantified.
+
+Event-B supports first-order logic which is, technically speaking, just one type of predicate logic.  
+
+\subsection{Event-B}
+\label{eventb}
+\index{Event-B}
+
+Event-B is a notation for formal modelling based around an abstract machine notation (\index{abstract machine notation}).
+
+Event-B is considered an evolution of B (also known as Classical B). It is a simpler notation which is easier to learn and use. It comes with tool support in the form of the Rodin Platform.
+
+\subsection{Classical-B}
+\label{classicalb}
+\index{Classical-B}
+
+\subsection{CSP}
+\label{csp}
+\index{CSP}
+
+\subsection{ProB Animator}
+\label{prob_animator}
+
+ProB is a validation toolset for the B method including an animator, a modelchecker and other useful tools to allow users to gain confidence in their specifications. One of the components of ProB is animation. The animation component allows the user to check the presence of desired functionality and to inspect the behaviour of a specification by "clicking through" the states of the specification. ProB also provides other useful tools such as a tool to visualize graphically any predicate as a tree or a tool for graphical state representation. Such tools, especially the tool for the graphical state representation can give a better understanding of the model.
+
+\section{First Steps}
+\label{first_steps}
+
+\subsection{Installation}
+\label{installation}
+
+Start off by downloading \bms~for your operating system. 
+You can find the latest version of the tool at \url{http://www.stups.hhu.de/ProB/index.php5/BMotion_Studio}.
+Decompress the archive and expand the directory if necessary. 
+
+%\warning{Do not change the location and structure of the files and directories within the folder!}
+
+Navigate to the \texttt{bin} folder and start the tool by entering the bash command:
+
+\begin{lstlisting}[language=bash]
+.\bmotion-prob
+\end{lstlisting}
+
+\info{Windows users should execute the \texttt{bmotion-prob.bat} file.}
+
+That's all! 
+Your default browser should open and show the default workspace.
+The workspace contains the following predefined folders:
+
+\begin{itemize}
+\item \texttt{lib}: This folder contains JavaScript libraries that are needed for BMotion Studio.
+\item \texttt{b\_template}: A visualisation template for creating visualisations for Classical-B and Event-B models.
+\item \texttt{csp\_template}: A visualisation template for creating visualisations for CSP models.
+\end{itemize}
+
+\subsection{Creating a new Visualisation Template}
+\label{vis_template}
+
+%Let's start by creating a new visualisation template.
+The easiest way to create a new visualisation template is to duplicate one of the default templates  \texttt{b\_template} (for Event-B or Classical-B visualisations) or \texttt{csp\_template} (for CSP-M visualisations) that are included in the \texttt{workspace} folder of your \bms~installation.
+Just duplicate the folder.
+After refreshing your browser, the newly created folder should appear in your workspace.
+Navigate to the folder. 
+The folder contains three files:
+\begin{itemize}
+\item \texttt{template.html}: The HTML file is the root file of your visualisation. It contains the actual visualisation and it's configuration.
+\item \texttt{template.groovy}: The Groovy script file is the place where the user can communicate with the formal model by means of the ProB Java API\footnote{\url{http://www.stups.hhu.de/ProB/index.php5/ProB_Java_API}}.
+For instance, the user may register methods that can be called in the JavaScript file.
+%The Groovy script file is the place where you can setup the communication between your visualisation and the ProB animator.
+%In particular, the Groovy script file is the link between the formal model and the visualisation.
+%It allows you to programmatically control the ProB animator and to access the actual formal model being visualised.
+%In addition, you can register functions that can be called from the visualisation, e.g. executing an Event-B event after pressing a button in the visualisation.
+\item \texttt{template.js}: In the JavaScript file you can setup observers and actions.
+Moreover, the user can take advantage of the entire JavaScript language.
+There exist are a lot of libraries for JavaScript that you can apply to create custom visualisations.
+For instance, it exists libraries for manipulating the DOM of an HTML document, or for generating chart and plot diagrams.
+%In addition, you can call functions that are registered in the Groovy script file.
+%This enables you to add some interactivity to your visualisation.
+%For instance, pressing a button in your visualisation could cause the execution of an Event-B event.
+\end{itemize}
+
+Here is an example HTML file:
+
+\begin{lstlisting}[language=html]
+<html bms-app>
+  <head>
+      <title>BMotion Studio for ProB</title>
+      <meta name="bms.tool" content="BAnimation" />
+      <meta name="bms.script" content="template.groovy" />
+      <script src="/bms/libs/requirejs/require.js"></script>
+      <script>
+        require(['/bms/libs/prob/config.js'], function () {
+          require(['template']);
+        });
+      </script>
+  </head>
+  <body>
+  </body>
+</html>
+\end{lstlisting}
+
+The meta tag \textit{bms.tool} (line 4) defines the formalism or the simulator respectively that should be used. 
+Two values are allowed: ``BAnimation'' for creating visualisations of Event-B or Classical-B models and ``CSPAnimation'' for creating visualisations of CSP-M models.
+The meta tag \textit{bms.script} (line 5) contains the link to the Groovy script file.
+Finally, in line 9 we define the path to the JavaScript file.
+
+\subsection{Linking a Model with the Visualisation}
+
+In order to link a model with a visualisation, open the HTML file with an HTML/text editor of your choice and add the following line within the head tag, where XXX is the relative path to your model file (e.g. ``model/my-model.mch''):
+
+\begin{lstlisting}[language=html]
+<meta name="bms.model" content="XXX" />
+\end{lstlisting}
+
+Linking a model within the html file automatically loads the model, when starting the visualisation.
+
+\subsection{Creating a Visualisation}
+\label{create_vis}
+
+The user is not restricted to an editor in order to create a visualisation.
+The user can make use of any tool that support the creation of SVG graphics or HTML documents.
+For the tutorials (Section~\ref{tutorial_b} and~\ref{tutorial_csp}) we are going to use the Inkspace\footnote{\url{https://inkscape.org}} editor. Inkscape is an editor for creating vector graphics that is available for Windows, Mac OS X and Linux.
+It's free and open source.
+With Inkscape the user can export the vector graphic into the SVG format.
+
+\begin{figure}[!ht]
+\begin{center}
+	\includegraphics[width=12cm]{img/tutorial/tut_02.png}
+	\caption{Creating an SVG graphic with Inkscape}
+	\label{fig_tut_02_inkscape}
+\end{center}
+\end{figure}
+
+\chapter{BMotion Studio for Event-B and Classical-B}
+\label{bms4b}
+
+\input{b}
+
+%\chapter{BMotion Studio for CSP}
+%\label{bms4csp}
+%\input{csp}
 
 \input{faq}
 
