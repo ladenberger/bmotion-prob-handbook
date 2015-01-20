@@ -89,7 +89,7 @@ For instance, the node with ID ``n-3'' will be coloured in grey when the event $
 
 \subsection{Creating Observers}
 
-Start with adding a new CSP event observer on the visual element that matches the selector ``\#bully''.
+Start by adding a new CSP event observer to the visual element that matches the selector ``\#bully''.
 Add the following JavaScript code to your \texttt{template.js} file:
 
 \begin{lstlisting}[language=JavaScript]
@@ -101,7 +101,8 @@ $("#bully").observe("csp-event", {
 The visual element that matches the selector ``\#bully'' defines the parent for the CSP event observer.
 In particular, the selector matches the SVG element (the actual visualisation) that we added in the previous Section~\ref{tutorial_csp_create_vis}.
 
-In order to associate a \textit{status} event from the CSP specification with a node in the visualisation, we use the selector ``\#n-\{\{a1\}\}'' in the definition of the respective observer. The construct ``\{\{a1\}\}'' is used in the selector for obtaining the value of the first argument of the respective \textit{status} event.
+In order to associate a \textit{status} event from the CSP specification with a node in the visualisation, we use the selector ``\#n-\{\{a1\}\}'' in the definition of the respective observer. 
+The construct ``\{\{a1\}\}'' is used in the selector for obtaining the value of the first argument of the respective \textit{status} event.
 For example, the observer for changing a status of a node to \texttt{failed} can be defined as follows:
 
 \begin{lstlisting}[language=JavaScript]
@@ -116,18 +117,32 @@ For example, the observer for changing a status of a node to \texttt{failed} can
 }
 \end{lstlisting}
 
-Add this observer in the list of observers.
+\begin{figure}[h!]\centering
+	\includegraphics[width=16cm]{img/tutorial/bully1}
+	\caption{The Bully Algorithm Visualisation}
+	\label{fig:bully1}
+\end{figure}
 
-In a similar fashion we have defined the observers for the other node status changes. 
+Add this observer to the list of observers.
+In line 2 we define the user-defined expression that constitutes the set of observed events.
+In this case the expression defines the set of events $\{fail.0, fail.1, fail.2, fail.3\}$ with $N=4$.
+Whenever the current processed event is a member of this set, the actions (defined in line 3 to 8) are executed.
+In particular, the observer executes only one action that sets the fill attribute of the visual element that matches the selector to lightgray.
+Consider line 4: We define the selector based on the value of the first parameter (\{\{a1\}\}) of the current processed event.
+For example, if the current processed event is \textit{fail.3}, the selector will be defined as ``\#n-3''.
+Refresh your browser and open the ProB Events view (\textsf{Open View $\rangle$ Events}).
+Start the \textit{Network} process, execute the \textit{fail.3} event and see that happens with your visualisation.
+The corresponding node should be coloured in lightgray as demonstrated in Figure~\ref{fig:bully1}.
+In a similar fashion we can define the observers for the other node status changes. 
 
 For creating the \textit{message} observers we need to consider both arguments of the \textit{message} events.
-The types of the messages are distinguished by different stroke patterns (see Fig. \ref{fig:BullyVisState}).
+The types of the messages are distinguished by different colours (see Figure \ref{fig:BullyVisState}).
 Thus, each \textit{message} observer, except for the \textit{coordinator} observer (this observer has three actions), has two actions: one action for appearing the arrow (the line and arrowhead constituting the respective arrow in the visualisation) and one action for changing the color of the arrow.
-For instance, the observer for visualising the election message can be defined as follows:
+For instance, the observer for visualising the test message can be defined as follows:
 
 \begin{lstlisting}[language=JavaScript]
 {
-  exp: "{election.x.y | x <- {0..N-1}, y <- {0..N-1}}",
+  exp: "{test.x.y | x <- {0..N-1}, y <- {0..N-1}}",
   actions: [
     { selector: "#l-{{a1}}-{{a2}}, #p-{{a2}}",
       attr: "class",
@@ -135,11 +150,38 @@ For instance, the observer for visualising the election message can be defined a
     },
     { selector: "#l-{{a1}}-{{a2}}",
       attr: "stroke",
-      value: "blue"
+      value: "cyan"
     }
   ]
 }
 \end{lstlisting}
+
+\begin{figure}[h!]\centering
+	\includegraphics[width=16cm]{img/tutorial/bully2}
+	\caption{The Bully Algorithm Visualisation}
+	\label{fig:bully2}
+\end{figure}
+
+Add the observer to the set of observers.
+The first action (line 4 to 7) sets the attribute class to the value ``visible''.
+In the next step we need to define the visible and hidden classes respectively.
+Add the following code within your head tag:
+
+\begin{lstlisting}[language=html]
+<style type="text/css">
+  .hidden {
+    visible:hidden;
+  }
+  .visible {
+    visible:visible;
+  }
+</style>
+\end{lstlisting}
+
+Refresh your browser and see what happens with your visualisation.
+For instance, execute the event \textit{test.0.3}.
+A directed cyan coloured arrow from node 0 to 3 should be displayed as demonstrated in Figure~\ref{fig:bully2}.
+In a similar fashion we can define the observers for the other message types. 
 
 To provide a clear visualisation an additional observer has been added to hide all arrows after performing an arbitrary event.
 This observer is applied on the currently processed event before all other defined observers:
