@@ -111,7 +111,7 @@ An observer is notified whenever a model has changed its state, i.e. whenever an
 In response, the observer will query the model's state and triggers actions on the linked visual elements in respect to the new state.
 As an example, consider the following observer written in JavaScript:
 
-\begin{lstlisting}[float=ht,language=JavaScript, caption={Formula Observer Displaying the Current Floor (JavaScript)}]
+\begin{lstlisting}[language=JavaScript, caption={Formula Observer Displaying the Current Floor (JavaScript)}]
 $("#txt_cur_floor").observe("formula", {
   formulas: ["cur_floor"],
   trigger: function (origin, data) {
@@ -138,7 +138,7 @@ The function changes the text of the element to the current value of the variabl
 Let's create another observer.
 Check out the following code:
 
-\begin{lstlisting}[float=ht,language=JavaScript, caption={Formula Observer for the Lift Door (JavaScript)}]
+\begin{lstlisting}[language=JavaScript, caption={Formula Observer for the Lift Door (JavaScript)}]
 $("#door").observe("formula", {
   formulas: ["cur_floor", "door_open"],
   trigger: function (origin, data) {
