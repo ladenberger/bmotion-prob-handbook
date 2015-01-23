@@ -114,8 +114,8 @@ As an example, consider the following observer written in JavaScript:
 \begin{lstlisting}[language=JavaScript, caption={Formula Observer Displaying the Current Floor (JavaScript)}]
 $("#txt_cur_floor").observe("formula", {
   formulas: ["cur_floor"],
-  trigger: function (origin, data) {
-    origin.text(data.values[0].value)
+  trigger: function (origin, res) {
+    origin.text(res[0])
   }
 });
 \end{lstlisting}
@@ -141,9 +141,9 @@ Check out the following code:
 \begin{lstlisting}[language=JavaScript, caption={Formula Observer for the Lift Door (JavaScript)}]
 $("#door").observe("formula", {
   formulas: ["cur_floor", "door_open"],
-  trigger: function (origin, data) {
+  trigger: function (origin, res) {
     
-    switch (data.values[0].value) {
+    switch (res[0]) {
       case "0":
         origin.attr("y", "175");
         break;
@@ -155,7 +155,7 @@ $("#door").observe("formula", {
         break;
     }
     
-    if(data.values[1].value === "TRUE") {
+    if(res[1] === "TRUE") {
       origin.attr("fill", "white");
     } else {
       origin.attr("fill", "lightgray");

@@ -141,14 +141,13 @@ The following options can be passed:
 \begin{lstlisting}[language=JavaScript]
 $("#door").observe("formula", {
   formulas: ["cur_floor", "door_open"],
-  trigger: function (origin, data) {
-    var values = data.values
-    switch (values[0].value) {
+  trigger: function (origin, res) {
+    switch (res[0]) {
       case "-1": origin.attr("y", "275"); break
       case "0": origin.attr("y", "175"); break
       case "1": origin.attr("y", "60"); break
     }
-    values[1].value === "TRUE" ? origin.attr("fill", "white") : origin.attr("fill", "lightgray")
+    res[1] === "TRUE" ? origin.attr("fill", "white") : origin.attr("fill", "lightgray")
   }
 })
 \end{lstlisting}
@@ -226,10 +225,10 @@ This is in particular useful, whenever the user needs to define the selector bas
 \begin{lstlisting}[language=JavaScript]
 prob.observe("formula", {
   formulas: ["myvar", "floor", "x>4"],
-  trigger: function (data) {
-    var el = $("#" + data.values[0].value)
-    el.html(data.values[1].value)
-    if(data.values[2].value === "TRUE") {
+  trigger: function (res) {
+    var el = $("#" + res[0])
+    el.html(res[1])
+    if(res[2] === "TRUE") {
       el.attr("fill","green")
     } else {
       el.attr("fill","red")
