@@ -6,7 +6,7 @@
 %
 %Observers are used to link visual elements with the model. 
 %An observer is notified whenever a model has changed its state, i.e. whenever an event has been executed. 
-%In response, the observer will query the model's state and triggers actions on the linked visual elements in respect to the new state. 
+%In response, the observer will query the model's state and triggers actions on the linked graphical elements in respect to the new state. 
 %
 %\subsection{Observers in Groovy}
 %\label{sec:groovy_observers}
@@ -17,7 +17,7 @@
 %\subsubsection{Transformer Observer}
 %\label{sec:transformer_observer}
 
-%The transformer observer supports the modification of attributes of visual elements based on the %current state of the animation.
+%The transformer observer supports the modification of attributes of graphical elements based on the %current state of the animation.
 %The following code snippet demonstrates the basic use of the transformer observer:
 
 %\begin{lstlisting}[float=ht,language=Groovy]
@@ -28,13 +28,13 @@
 %}
 %\end{lstlisting}
 
-%In line 1 we define a jQuery selector to select the visual elements which should be transformed.
+%In line 1 we define a jQuery selector to select the graphical elements which should be transformed.
 %In this case we select a visual element with the id \textit{myvisualelement} (in jQuery the prefix %``\#'' denotes that we want to select and element by its id).
-%jQuery provides several possibilities to select visual elements.
+%jQuery provides several possibilities to select graphical elements.
 
 %\info{The jQuery selector API documentation\footnote{\url{http://api.jquery.com/category/selectors/}} provides an overview and a detailed documentation about selectors.}
 
-%Line 2 to 3 are actions that are made on the visual elements which are matched by the defined selector.
+%Line 2 to 3 are actions that are made on the graphical elements which are matched by the defined selector.
 %In this case the \textit{fill} attribute is set to the value \textit{green} and the \textit{stroke} attribute to \textit{red}.
 %In line 4, we register the observer to the current visualisation.
 %A registered observer is triggered after every state change, e.g. after executing an event.
@@ -112,9 +112,9 @@
 
 \subsection{Observers}
 
-Observers are used to link visual elements with the model. 
+Observers are used to link graphical elements with the model. 
 An observer is notified whenever a model has changed its state, i.e. whenever an event has been executed. 
-In response, the observer will query the model's state and triggers actions on the linked visual elements in respect to the new state. 
+In response, the observer will query the model's state and triggers actions on the linked graphical elements in respect to the new state. 
 
 In general, observers are defined in the JavaScript file. 
 \bms~comes with some predefined observers that are described in the following sections.
@@ -217,25 +217,25 @@ $("myvisualelement").observe("refinement", {
 })
 \end{lstlisting}
 
-\subsubsection{Remark}
-
-All JavaScript observers can also be created by means of the \textit{prob} API variable. 
-This is in particular useful, whenever the user needs to define the selector based on the result of an expression:
-
-\begin{lstlisting}[language=JavaScript]
-prob.observe("formula", {
-  formulas: ["myvar", "floor", "x>4"],
-  trigger: function (res) {
-    var el = $("#" + res[0])
-    el.html(res[1])
-    if(res[2] === "TRUE") {
-      el.attr("fill","green")
-    } else {
-      el.attr("fill","red")
-    }
-  }
-});
-\end{lstlisting}
+%\subsubsection{Remark}
+%
+%All JavaScript observers can also be created by means of the \textit{prob} API variable. 
+%This is in particular useful, whenever the user needs to define the selector based on the result of an expression:
+%
+%\begin{lstlisting}[language=JavaScript]
+%prob.observe("formula", {
+%  formulas: ["myvar", "floor", "x>4"],
+%  trigger: function (res) {
+%    var el = $("#" + res[0])
+%    el.html(res[1])
+%    if(res[2] === "TRUE") {
+%      el.attr("fill","green")
+%    } else {
+%      el.attr("fill","red")
+%    }
+%  }
+%});
+%\end{lstlisting}
 
 \pagebreak
 
@@ -252,7 +252,7 @@ The following options can be passed:
 \begin{tabular}{ l l l p{7cm} }
   \textbf{Name} & \textbf{Type} & \textbf{Default} & \textbf{Description} \\
   \hline\noalign{\medskip}
-  events & list & empty list & Define a list of events with \textit{name} and \textit{predicate} that should be bind with the matched visual elements. \\
+  events & list & empty list & Define a list of events with \textit{name} and \textit{predicate} that should be bind with the matched graphical elements. \\
   \hline\noalign{\medskip}
   : name & string / function* & & The name of the event. If the value is a function it takes the return value of the function.\\
   \hline\noalign{\medskip}
