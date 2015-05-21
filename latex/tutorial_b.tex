@@ -57,7 +57,7 @@ We are going to create a visualization	for a simple lift system that allows move
 The door of the lift can be closed and opened - all in response to the pressing of floor call and cage send buttons.
 
 You can download the Event-B model \file{EventBLift.zip}{here}.
-Decompress it and put the files into a new folder called \texttt{model} relative to your \texttt{index.html} file.
+Decompress the archive and put the files into a new folder called \texttt{model} relative to your \texttt{index.html} file.
 
 \subsection{Link the Model with the Visualization}
 
@@ -86,7 +86,7 @@ Just drag and drop the \texttt{bmotion.json} file on the marked area or open it 
 %In your browser, navigate to the folder \texttt{lift} folder and click on the \texttt{template.html} file.
 The visualization should start.
 At the right bottom you will find a menu called \textsf{Open View} for opening different ProB related views.
-For instance, Figure~\ref{fig_tut_03_running1} shows the running Lift visualization with the ProB Events view opened.
+For instance, Figure~\ref{fig_tut_03_running1} shows the running lift visualization with the ProB Events view opened.
 
 At the moment nothing spectacular happens when changing the state (i.e. executing events in the Event view), because no link between graphical elements and the formal model exists yet.
 In the next Section we learn how to create observers.
@@ -117,8 +117,8 @@ $("#txt_cur_floor").observe("formula", {
 \end{lstlisting}
 
 We are going to explain the JavaScript code line by line.
-In line 1 we register a formula observer on the graphical element with the id \textit{txt\_cur\_floor} that is located in our \texttt{template.html} file.
-%Line 1 means that we want to transform the graphical element with the id \textit{txt\_cur\_floor} that is located in our \texttt{template.html} file.
+In line 1 we register a formula observer on the graphical element with the id \textit{txt\_cur\_floor} that is located in our \texttt{index.html} file.
+%Line 1 means that we want to transform the graphical element with the id \textit{txt\_cur\_floor} that is located in our \texttt{index.html} file.
 \bms~follows the jQuery selector syntax\footnote{\url{http://api.jquery.com/category/selectors}} to select elements.
 The prefix ``\#'' denotes that we want to select an element by its id.
 In line 2 we define a list of observed formulas.
@@ -191,7 +191,7 @@ For instance, Figure~\ref{fig_tut_04_running2} shows the lift visualization wher
 In this Section we learn how we can enhance our visualization with interactive features, e.g. executing some Event-B events by clicking on some buttons.
 
 Let's add an interactive feature, where the user can click on a floor label to order the lift on the corresponding floor.
-Add the code snippet to your \texttt{script.js} file:
+Add this code snippet to your \texttt{script.js} file:
 \newpage
 \begin{lstlisting}[language=JavaScript, caption={Example of an Interactive Feature (JavaScript)}]
 $("text[data-floor]").executeEvent({
@@ -208,10 +208,10 @@ $("text[data-floor]").executeEvent({
 %For instance, clicking on the floor Label ``Floor 1'' should execute the Event-B event \textit{push\_call\_button(1)}.
 In line 1 we register an execute event handler for each graphical element that matches the defined selector ``text[data-floor]''.
 In particular, the selector matches the three floor labels (see Figure~\ref{fig_tut_03_running1}).
-In line 2 to 15 we define the event that should be executed after clicking on the corresponding floor label.
+In line 2 to 9 we define the event that should be executed after clicking on the corresponding floor label.
 We use the content of the attribute \textit{data-floor} of the corresponding floor label (\textit{origin}) in order to define the parameter/predicate (line 6).
 
-Apply these changes by refreshing your browser and try to click on a floor label.
+Apply these changes by clicking on the \texttt{Reload} button and try to click on a floor label.
 This should call the Event-B event \textit{push\_call\_button} with the corresponding predicate/parameter.
 
 Let's add another interactive feature, where the user can click on the graphical element that represents the door to open or close the door respectively.
