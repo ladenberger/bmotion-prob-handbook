@@ -15,8 +15,16 @@ Navigate to the \texttt{server/bin} folder and start the server by entering the 
 
 \info{Windows users should execute the \texttt{standalone.bat} file.}
 
-Now, navigate to the \texttt{client} folder and start the client by opening the \texttt{bmotion-prob} program.
-That's all! 
+Now, navigate to the \texttt{client} folder and start the client by executing the \texttt{bmotion-prob} program.
+%You should see the window presented in Figure~\ref{fig_bms_client}.
+
+%\begin{figure}[!ht]
+%\begin{center}
+%	\includegraphics[width=12cm]{img/tutorial/tut_02.png}
+%	\caption{\bms\ Client}
+%	\label{fig_bms_client}
+%\end{center}
+%\end{figure} 
 
 %Your default browser should open and show the default workspace.
 %The workspace contains the following predefined folders:
@@ -31,7 +39,7 @@ That's all!
 
 Let's start by creating a new visualization template.
 The easiest way to create a new visualization template is to download the \file{bms-b-template.zip}{predefined template}.
-Decompress the archive, expand the directory if necessary and navigate into the decompressed folder.
+Decompress the archive, expand the directory if necessary and navigate to the decompressed folder.
 The folder contains some files:
 
 %	duplicate one of the default templates  \texttt{b\_template} (for Event-B or Classical-B visualizations) or \texttt{csp\_template} (for CSP-M visualizations) that are included in the \texttt{workspace} folder of your \bms~installation.
@@ -48,8 +56,8 @@ The folder contains some files:
 %It allows you to programmatically control the ProB animator and to access the actual formal model being visualised.
 
 \paragraph{\texttt{bmotion.json:}}
-The bmotion.json file is the root file of every \bms\ visualization.
-It contains the configuration.
+The \texttt{bmotion.json} file is the root file of every \bms\ visualization.
+It contains the configuration formatted using JSON (JavaScript Object Notation)\footnote{\url{http://www.json.org}.}.
 The following options are available:
 
 \begin{tabular}{ l l l p{7cm} }
@@ -57,20 +65,22 @@ The following options are available:
   \hline\noalign{\medskip}
   name & string & & The name of the visualization.\\
   \hline\noalign{\medskip}
-  template & string & & The relative path to the HTML visualization file. \\
+  template* & string & & The relative path to the HTML visualization file. \\
   \hline\noalign{\medskip}
-  model & string & & The relative path to the model. \\
+  model* & string & & The relative path to the model. \\
   \hline\noalign{\medskip}
   tool & string & BAnimation & The formalism / tool to be used. Currently two values are allowed: \textit{BAnimation} for creating visualizations of Event-B or Classical-B models and \textit{CSPAnimation} for creating visualizations of CSP-M models.\\
 \end{tabular}
 
+*These options are required.
+
 \vspace*{0.5cm}
 
-Example \texttt{bmotion.json} file with minimal configuration:
+A minimal configuration of the \texttt{bmotion.json} file should contain the path to the template and the path to the model to be visualized.
+Here is an example \texttt{bmotion.json} file with a minimal configuration:
 
 \begin{lstlisting}[language=JavaScript]
 {
-  "name": "MyVisualization",
   "template": "index.html",
   "model": "model/model.mch"
 }
@@ -81,11 +91,11 @@ Example \texttt{bmotion.json} file with minimal configuration:
 In the JavaScript file you can setup observers and actions (see Section~\ref{reference_b}).
 Moreover, the user can take advantage of the entire JavaScript language.
 There exist are a lot of libraries for JavaScript that you can apply to create custom visualizations.
-For instance, it exists libraries for manipulating the DOM of an HTML document, or for generating chart and plot diagrams.
+For instance, it exists libraries for generating chart and plot diagrams.
 %In addition, you can call functions that are registered in the Groovy script file.
 %This enables you to add some interactivity to your visualization.
 %For instance, pressing a button in your visualization could cause the execution of an Event-B event.
-Example \texttt{script.js} file with minimal configuration:
+Here is an example \texttt{script.js} file with a minimal configuration:
 
 \begin{lstlisting}[language=JavaScript]
 requirejs(['bmotion.vis'], function () {
@@ -98,11 +108,10 @@ requirejs(['bmotion.vis'], function () {
 \paragraph{\texttt{index.html:}}
 %The HTML file is the root file of your visualization. It contains the actual visualization.
 The HTML file contains the actual visualization.
-Example \texttt{index.html} file with minimal configuration:
+Here is an example \texttt{index.html} file with a minimal configuration:
 
 \begin{lstlisting}[language=html]
-<!DOCTYPE html>
-<html data-bms-visualization>
+<html data-bms-visualisation>
   <head>
     <title>BMotion Studio Visualization</title>
   </head>
@@ -112,8 +121,9 @@ Example \texttt{index.html} file with minimal configuration:
 </html>
 \end{lstlisting}
 
-Please note the attribute ``data-bms-visualization'' in line 2 which is needed for running the visualization.
-In line 7 we link the \texttt{script.js} file with the visualization.
+Please note the attribute \textit{data-bms-visualisation} in line 1.
+Every \bms\ visualization template file should contain the empty attribute \textit{data-bms-visualisation}.
+In addition, every \bms\ visualizations template file should contain a reference to your \texttt{scripts.js} file as demonstarted in line 7.
 
 %The meta tag \textit{bms.tool} (line 4) defines the formalism or the simulator respectively that should be used. 
 %Two values are allowed: ``BAnimation'' for creating visualizations of Event-B or Classical-B models and ``CSPAnimation'' for creating visualizations of CSP-M models.
@@ -124,7 +134,8 @@ The user is not restricted to an editor in order to create a visualization.
 The user can make use of any tool that supports the creation of SVG graphics or HTML documents.
 For the tutorials (Section~\ref{tutorial_b} and~\ref{tutorial_csp}) we are going to use the Inkspace\footnote{\url{https://inkscape.org}} editor. Inkscape is an editor for creating vector graphics that is available for Windows, Mac OS X and Linux.
 It's free and open source.
-With Inkscape the user can export the vector graphic into the SVG format and include into the HTML file.
+With Inkscape the user can export the vector graphic into the SVG format.
+The SVG code can then be included in the \texttt{index.html} file.
 
 \begin{figure}[!ht]
 \begin{center}
@@ -135,12 +146,14 @@ With Inkscape the user can export the vector graphic into the SVG format and inc
 \end{figure} 
 
 \paragraph{\texttt{bmotion.vis.js and require.js:}}
-These JavaScript libraries are needed for running the visualization.
-Do not edit them!
+JavaScript libraries that are needed for running the visualization.
+Please do not edit them!
 
-\section{Link a Model with a Visualization}
+%\section{Link a Model with a Visualization}
+%
+%In order to link a model with the visualization, open the \texttt{bmotion.json} file with an editor of your choice and adapt the \textit{model} property.
+%The model \textit{model} property should contain the path to your model file (e.g. \texttt{mymodel/model.mch}).
+%The model should be places relative to your bmotion.json file.
+%Linking a model within the \texttt{bmotion.json} file will automatically load the model, when starting the visualization.
 
-In order to link a model with a visualization, open the \texttt{bmotion.json} file with an editor of your choice and set the \textit{model} path (e.g. ``model/my-model.mch''):
-Linking a model within the \texttt{bmotion.json} file will automatically load the model, when starting the visualization.
-
-To create a link between graphical elements and the model, please checkout the Section \ref{tutorial_b} for Event-B and Classical-B or \ref{tutorial_csp} for CSP.
+%To create a link between graphical elements and the model, please checkout the Section \ref{tutorial_b} for Event-B and Classical-B or \ref{tutorial_csp} for CSP.

@@ -6,16 +6,13 @@ We expect that you have already downloaded the BMotion Studio tool (see Section~
  
 %We expect you to have a basic understanding of logic and an idea why doing formal modelling is a good idea.  
 You should be able to work through the tutorial with no or little outside help.
-
 We encourage you not to download solutions to the examples but instead to actively build them up yourself as the tutorial progresses.
-
 If something is unclear, remember to check the Reference (\ref{reference_b}) for more information.
 
 \subsection{Preparation}
 
 Let's start by creating a new visualization template as described in Section~\ref{vis_template}.
-Just download the \file{bms-b-template.zip}{predefined template}.
-Decompress the archive and rename the folder to \texttt{lift}.
+Just download the \file{bms-b-template.zip}{predefined template}, decompress the archive and rename the folder to \texttt{lift}.
 %After refreshing your browser, a new folder called \texttt{lift} should appear in your workspace (see Figure~\ref{fig_tut_01_workspace}).
 
 %\subsection{Creating a new visualization Template}
@@ -62,34 +59,36 @@ Decompress the archive and put the files into a new folder called \texttt{model}
 \subsection{Link the Model with the Visualization}
 
 The first step consists of linking the model with the visualization.
-For this, open the \texttt{bmotion.json} file with an editor of your choice and set the \textit{model} property to ``model/MLift.bcm''.
+For this, open the \texttt{bmotion.json} file with an editor of your choice and set the \textit{model} path property to ``model/MLift.bcm''.
 This links the visualization with the Event-B machine called ``MLift''.
+Linking a model within the \texttt{bmotion.json} file will automatically load the model, when starting the visualization (see Section~\ref{sec:stat_vis}).
 
 \subsection{Create the Actual Visualization}
 
 Please download the prepared \file{lift.svg}{lift.svg} file and open it with Inkscape as demonstrated in Figure~\ref{fig_tut_02_inkscape}.
 Feel free to modify and explore the SVG graphic.
-In order to link visual elements of the SVG graphic with the formal model later, we have to give them identifiers. 
-For this, select an element, open the context menu and select \textsf{Object Properties}.
+In order to link graphical elements of the SVG graphic with the formal model later, we have to give them identifiers. 
+For this, select an element in Inkscape, open the context menu and select \textsf{Object Properties}.
 A popup window should be opened as demonstrated in Figure~\ref{fig_tut_02_inkscape}.
-As an example, we give the graphical element that represents the door, the id ``door''.
-In Section~\ref{sec_creation_observers} we explain how we can use this information in order to create the link between the formal model and the visualization by means of observers.
+As an example, we give the graphical element that represents the door (the gray filled rectangle), the id ``door''.
+In Section~\ref{sec_creation_observers} we explain how we can use this information in order to establish \textit{observers}.
 If you are satisfied with your SVG graphic, save it as a plain SVG graphic with \textsf{File $\rangle$ Save As}.
 Select \textsf{Plain SVG (*.svg)} as an output format and click on the \textsf{Save} button.
 You can save the SVG file anywhere on your local system. 
-Open the SVG file with an editor of your choice and put the SVG code within the body tag in the \texttt{index.html} file.
+Open the SVG file with an editor of your choice, copy the SVG code and paste it within the body tag in the \texttt{index.html} file.
 
 \subsection{Start the Visualization}
+\label{sec:stat_vis}
 
-Let's try out the visualization!
+Let's try out the visualization for the first time!
 Just drag and drop the \texttt{bmotion.json} file on the marked area or open it via the file dialog.
 %In your browser, navigate to the folder \texttt{lift} folder and click on the \texttt{template.html} file.
 The visualization should start.
 At the right bottom you will find a menu called \textsf{Open View} for opening different ProB related views.
 For instance, Figure~\ref{fig_tut_03_running1} shows the running lift visualization with the ProB Events view opened.
 
-At the moment nothing spectacular happens when changing the state (i.e. executing events in the Event view), because no link between graphical elements and the formal model exists yet.
-In the next Section we learn how to create observers.
+At the moment nothing spectacular happens when changing the state (i.e. executing events in the Event view), because no observers were created.
+In the next Section we learn how we can link graphical elements with the formal model by establishing observers.
 
 \begin{figure}[!ht]
 \begin{center}
@@ -105,13 +104,14 @@ In the next Section we learn how to create observers.
 Observers are used to link graphical elements with the model. 
 An observer is notified whenever the model has changed its state, i.e. whenever an event has been executed. 
 In response, the observer will query the model's state and triggers actions on the linked graphical elements in respect to the new state.
-As an example, consider the following observer written in JavaScript:
+Observers are written in JavaScript and should be placed in the \texttt{script.js} file.
+As an example, consider the following observer:
 
 \begin{lstlisting}[language=JavaScript, caption={Formula Observer Displaying the Current Floor (JavaScript)}]
 $("#txt_cur_floor").observe("formula", {
   formulas: ["cur_floor"],
-  trigger: function (origin, res) {
-    origin.text(res[0])
+  trigger: function (origin, result) {
+    origin.text(result[0])
   }
 });
 \end{lstlisting}
@@ -123,8 +123,9 @@ In line 1 we register a formula observer on the graphical element with the id \t
 The prefix ``\#'' denotes that we want to select an element by its id.
 In line 2 we define a list of observed formulas.
 In this case we observe the variable \textit{cur\_floor}.
-In line 3 to 5 we define a trigger function that is called after every state change with its \textit{origin} reference to the element that the observer is attached to and the requested \textit{data} (the result of the formulas).
-The function changes the text of the element to the current value of the variable \textit{cur\_floor}.
+In line 3 to 5 we define a trigger function that is called after every state change with its \textit{origin} (the origin parameter holds a reference to the element that the observer is attached to\footnote{Checkout the jQuery API for more information \url{https://api.jquery.com}.}) and the \textit{result} (the result parameter contains the results of the defined formulas in an array, e.g. use \textit{result[0]} to obtain the result of the first formula).
+The trigger function changes the text of the graphical element (\textit{origin}) to the current value of the variable \textit{cur\_floor} (\textit{result[0]}).
+%Reload the visualization by clicking on the \texttt{Reload} button and play with the visualization by executing some events.
 %Line 2 affects that the attribute \textit{text} will be set to the value that is returned by the followed closure.
 %In particular, the closure evaluates the expression \textit{cur\_floor} in the current state and returns the value to be set.
 %In other words, the observer sets the current value of the variable \textit{cur\_floor} into the visual text element with the id \textit{txt\_cur\_floor}.
@@ -137,9 +138,9 @@ Check out the following code:
 \begin{lstlisting}[language=JavaScript, caption={Formula Observer for the Lift Door (JavaScript)}]
 $("#door").observe("formula", {
   formulas: ["cur_floor", "door_open"],
-  trigger: function (origin, res) {
+  trigger: function (origin, result) {
     
-    switch (res[0]) {
+    switch (result[0]) {
       case "0":
         origin.attr("y", "175");
         break;
@@ -151,7 +152,7 @@ $("#door").observe("formula", {
         break;
     }
     
-    if(res[1] === "TRUE") {
+    if(result[1] === "TRUE") {
       origin.attr("fill", "white");
     } else {
       origin.attr("fill", "lightgray");
@@ -164,9 +165,9 @@ $("#door").observe("formula", {
 In line 1 we register a formula observer on the graphical element with the id \textit{door}, similar to the previous defined observer.
 %Line 1 means that we want to transform the graphical element with the id \textit{door}, similar to the previous observer.
 In line 2 we define the set of observed formulas (\textit{cur\_floor} and \textit{door\_open}).
-In line 3 to 23 we define a trigger function.
-In particular, line 5 to 15 will switch the \textit{y} coordinate of the door (denoting the movement of the door between floors) according to the current value of the variable \textit{cur\_floor}.
-Lines 17 to 21 affect that the attribute \textit{fill} of the door will be set to ``white'' (denoting the door is open) whenever the formula \textit{door\_open} evaluates to \textit{TRUE} in the current state, otherwise to ``lightgray'' (denoting the door is closed).
+In line 3 to 23 we define a trigger function, that makes the following action:
+Line 5 to 15 will switch the \textit{y} coordinate of the door (denoting the movement of the door between floors) according to the current value of the variable \textit{cur\_floor} (\textit{result[0]}).
+Lines 17 to 21 affect that the attribute \textit{fill} of the door will be set to ``white'' (denoting the door is open) whenever the formula \textit{door\_open} evaluates to \textit{TRUE} in the current state (\textit{result[1]}), otherwise to ``lightgray'' (denoting the door is closed).
 %Whenever the expression \textit{door\_open} evaluates to \textit{TRUE}, the value \textit{white} (denoting the door is opened) is returned, otherwise the value \textit{lightgray} (denoting the door is closed) is returned.
 %Line 3 to 17 will switch the \textit{y} coordinate of the door (denoting the movement of the door between floors) according to the evaluation result of the expression \textit{cur\_floor}.
 %In line 18 we register the observer.
@@ -174,7 +175,7 @@ Lines 17 to 21 affect that the attribute \textit{fill} of the door will be set t
 
 Add both snippets to your \texttt{script.js} file and click on the \texttt{Reload} button.
 Let's see how this affects the visualization:
-Setup and initialise the machine using the ProB events view.
+Setup and initialize the machine using the ProB events view.
 Execute some events and see what happens.
 For instance, Figure~\ref{fig_tut_04_running2} shows the lift visualization where the lift is on floor 0 and the door is open.
 
@@ -186,9 +187,9 @@ For instance, Figure~\ref{fig_tut_04_running2} shows the lift visualization wher
 \end{center}
 \end{figure}
 
-\subsection{Add Interactivity}
+\subsection{Add Event Handler}
 
-In this Section we learn how we can enhance our visualization with interactive features, e.g. executing some Event-B events by clicking on some buttons.
+In this Section we learn how we can enhance our visualization with interactive features, e.g. executing an Event-B event by clicking on a graphical element.
 
 Let's add an interactive feature, where the user can click on a floor label to order the lift on the corresponding floor.
 Add this code snippet to your \texttt{script.js} file:
@@ -209,8 +210,12 @@ $("text[data-floor]").executeEvent({
 %For instance, clicking on the floor Label ``Floor 1'' should execute the Event-B event \textit{push\_call\_button(1)}.
 In line 1 we register an execute event handler for each graphical element that matches the defined selector ``text[data-floor]''.
 In particular, the selector matches the three floor labels (see Figure~\ref{fig_tut_03_running1}).
-In line 2 to 9 we define the event that should be executed after clicking on the corresponding floor label.
-We use the content of the attribute \textit{data-floor} of the corresponding floor label (\textit{origin}) in order to define the parameter/predicate (line 6).
+In line 2 to 9 we define the list of events that should be wired with the graphical elements.
+Every event should contain the \textit{name}.
+In addition, the user may enter a \textit{predicate} that defines the event's arguments.
+If the user defines more than one event, a tooltip will be shown with a list of the defined events after clicking on the graphical element.
+In our example we define only one event with the \textit{name} $push\_call\_button$ and the \textit{predicate} that is determined by a closure that passes a reference to the element (\textit{origin}).
+In particular, we use the value of the attribute \textit{data-floor} of the corresponding floor label (\textit{origin}) to define the event parameter (line 6).
 
 Apply these changes by clicking on the \texttt{Reload} button and try to click on a floor label.
 This should call the Event-B event \textit{push\_call\_button} with the corresponding predicate/parameter.
