@@ -55,33 +55,18 @@ The folder contains some files:
 %In particular, the Groovy script file is the link between the formal model and the visualization.
 %It allows you to programmatically control the ProB animator and to access the actual formal model being visualised.
 
-\paragraph{\texttt{bmotion.json:}}
+\subsection{\texttt{bmotion.json:}}
 The \texttt{bmotion.json} file is the root file of every \bms\ visualization.
 It contains the configuration formatted using JSON (JavaScript Object Notation)\footnote{\url{http://www.json.org}.}.
-The following options are available:
 
-\begin{tabular}{ l l l p{7cm} }
-  \textbf{Name} & \textbf{Type} & \textbf{Default} & \textbf{Description} \\
-  \hline\noalign{\medskip}
-  name & string & & The name of the visualization.\\
-  \hline\noalign{\medskip}
-  template* & string & & The relative path to the HTML visualization file. \\
-  \hline\noalign{\medskip}
-  model* & string & & The relative path to the model. \\
-  \hline\noalign{\medskip}
-  tool & string & BAnimation & The formalism / tool to be used. Currently two values are allowed: \textit{BAnimation} for creating visualizations of Event-B or Classical-B models and \textit{CSPAnimation} for creating visualizations of CSP-M models.\\
-\end{tabular}
-
-*These options are required.
-
-\vspace*{0.5cm}
+\info{Section~\ref{sec:manifest} contains a full list of available options.}
 
 A minimal configuration of the \texttt{bmotion.json} file should contain the path to the template and the path to the model to be visualized.
 Here is an example \texttt{bmotion.json} file with a minimal configuration:
 
 \begin{lstlisting}[language=JavaScript]
 {
-  "template": "index.html",
+  "template": "template.html",
   "model": "model/model.mch"
 }
 \end{lstlisting}
@@ -105,10 +90,10 @@ requirejs(['bmotion.vis'], function () {
 
 %The \textit{prob} parameter is the access point to the BMotion Studio for ProB API.
 
-\paragraph{\texttt{index.html:}}
+\paragraph{\texttt{template.html:}}
 %The HTML file is the root file of your visualization. It contains the actual visualization.
 The HTML file contains the actual visualization.
-Here is an example \texttt{index.html} file with a minimal configuration:
+Here is an example \texttt{template.html} file with a minimal configuration:
 
 \begin{lstlisting}[language=html]
 <html data-bms-visualisation>
@@ -135,7 +120,7 @@ The user can make use of any tool that supports the creation of SVG graphics or 
 For the tutorials (Section~\ref{tutorial_b} and~\ref{tutorial_csp}) we are going to use the Inkspace\footnote{\url{https://inkscape.org}} editor. Inkscape is an editor for creating vector graphics that is available for Windows, Mac OS X and Linux.
 It's free and open source.
 With Inkscape the user can export the vector graphic into the SVG format.
-The SVG code can then be included in the \texttt{index.html} file.
+The SVG code can then be included in the \texttt{template.html} file.
 
 \begin{figure}[!ht]
 \begin{center}
