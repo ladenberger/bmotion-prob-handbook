@@ -4,25 +4,15 @@
 \subsection{\texttt{bmotion.json} Manifest}
 \label{sec:manifest}
 
-The options (and defaults) are:
+The \texttt{bmotion.json} file is the root file of every \bms\ visualization.
+It contains the configuration formatted using JSON (JavaScript Object Notation)\footnote{\url{http://www.json.org}.}.
+The following options (and defaults) are available:
 
-\paragraph{name (Type: String, Default value: MyVisualization)}
-\mbox{}\\\\
-The name of the visualization.
-
-\paragraph{template (Type: String, Default value: template.html)}
-\mbox{}\\\\
-The relative path to the HTML visualization file  (e.g. ``template.html'').
-
-\paragraph{model (Type: String, \textit{Required})}
-\mbox{}\\\\
-The relative path to the model file (e.g. ``model/mymodel.mch'').
-
-\paragraph{tool (Type: String, Default value: BAnimation)}
-\mbox{}\\\\
-The formalism / tool to be used. Currently two values and formalism are supported: \textit{BAnimation} for creating visualizations of Event-B or Classical-B models and \textit{CSPAnimation} for creating visualizations of CSP-M models.
-
-\paragraph{autoOpen (Type: Array, Default value: ['Events'])}
-\mbox{}\\\\
-Specify the ProB views which should be opened automatically when starting the visualization. 
+\begin{itemize}
+	\item[] \textbf{name (Type: String, Default value MyVisualization):}\\The name of the visualization. 
+	\item[] \textbf{template (Type: String, Default value: template.html):}\\The relative path to the HTML visualization file  (e.g. ``template.html'').
+	\item[] \textbf{model (Type: String, \textit{Required}):}\\The relative path to the model file (e.g. ``model/mymodel.mch'').
+	\item[] \textbf{tool (Type: String, Default value: BAnimation):}\\The formalism / tool to be used. Currently two values and formalism are supported: \textit{BAnimation} for creating visualizations of Event-B or Classical-B models and \textit{CSPAnimation} for creating visualizations of CSP-M models.
+	\item[] \textbf{autoOpen (Type: Array, Default value: ['Events']):}\\Specify the ProB views which should be opened automatically when starting the visualization. 
 The following views are available: \textit{CurrentTrace}, \textit{Events}, \textit{StateInspector}, \textit{CurrentAnimations}, \textit{GroovyConsoleSession}, \textit{ModelCheckingUI}.
+\end{itemize}
