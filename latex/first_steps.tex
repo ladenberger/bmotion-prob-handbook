@@ -4,19 +4,17 @@
 Start off by downloading \bms~for your operating system. 
 You can find the latest version of the tool at \url{http://www.stups.hhu.de/ProB/index.php5/BMotion_Studio}.
 Decompress the archive and expand the directory if necessary. 
-
 %\warning{Do not change the location and structure of the files and directories within the folder!}
-
-Navigate to the \texttt{server/bin} folder and start the server by entering the bash command:
-
-\begin{lstlisting}[language=bash]
-.\standalone
-\end{lstlisting}
-
-\info{Windows users should execute the \texttt{standalone.bat} file.}
-
-Now, navigate to the \texttt{client} folder and start the client by executing the \texttt{bmotion-prob} program.
-The window shown in Figure~\ref{fig_bms_client} should popup.
+%Navigate to the \texttt{server/bin} folder and start the server by entering the bash command:
+%
+%\begin{lstlisting}[language=bash]
+%.\standalone
+%\end{lstlisting}
+%
+%\info{Windows users should execute the \texttt{standalone.bat} file.}
+Navigate to the application folder and start \bms~by executing the \texttt{bmotion-prob} binary.
+%Now, navigate to the \texttt{client} folder and start the client by executing the \texttt{bmotion-prob} program.
+After a short loading time you should see the window shown in Figure~\ref{fig_bms_client}.
 
 \begin{figure}[!ht]
 \begin{center}
@@ -37,8 +35,9 @@ The window shown in Figure~\ref{fig_bms_client} should popup.
 \section{Create a new Visualization Template}
 \label{vis_template}
 
-Let's start by creating a new visualization template.
-The easiest way to create a new visualization template is to download the \file{bms-b-template.zip}{predefined template}.
+%Let's start by creating a new visualization template.
+You can download the \file{bms-b-template.zip}{predefined template} as a starting point to create a new visualization template.
+%The easiest way to create a new visualization template is to download the \file{bms-b-template.zip}{predefined template}.
 Decompress the archive, expand the directory if necessary and navigate to the decompressed folder.
 The folder contains some files:
 
@@ -61,12 +60,11 @@ It contains the configuration formatted using JSON (JavaScript Object Notation)\
 
 \info{Section~\ref{sec:manifest} contains a full list of available options.}
 
-A minimal configuration of the \texttt{bmotion.json} file should contain the path to the template and the path to the model to be visualized.
+A minimal configuration of the \texttt{bmotion.json} file should contain the path to the  model to be visualized.
 Here is an example \texttt{bmotion.json} file with a minimal configuration:
 
 \begin{lstlisting}[language=JavaScript]
 {
-  "template": "template.html",
   "model": "model/model.mch"
 }
 \end{lstlisting}
@@ -108,7 +106,7 @@ Here is an example \texttt{template.html} file with a minimal configuration:
 
 Please note the attribute \textit{data-bms-visualisation} in line 1.
 Every \bms\ visualization template file should contain the empty attribute \textit{data-bms-visualisation}.
-In addition, every \bms\ visualizations template file should contain a reference to your \texttt{scripts.js} file as demonstarted in line 7.
+In addition, every \bms\ visualizations template file should contain a reference to your \texttt{scripts.js} (see line 6).
 
 %The meta tag \textit{bms.tool} (line 4) defines the formalism or the simulator respectively that should be used. 
 %Two values are allowed: ``BAnimation'' for creating visualizations of Event-B or Classical-B models and ``CSPAnimation'' for creating visualizations of CSP-M models.
