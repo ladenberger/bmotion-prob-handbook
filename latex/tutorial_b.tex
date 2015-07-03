@@ -54,7 +54,7 @@ We are going to create a visualization	for a simple lift system that allows move
 The door of the lift can be closed and opened - all in response to the pressing of floor call and cage send buttons.
 
 You can download the Event-B model \file{EventBLift.zip}{here}.
-Decompress the archive and put the files into a new folder called \texttt{model} relative to your \texttt{index.html} file.
+Decompress the archive and put the files into a new folder called \texttt{model} relative to your \texttt{template.html} file.
 
 \subsection{Link the Model with the Visualization}
 
@@ -75,7 +75,7 @@ In Section~\ref{sec_creation_observers} we explain how we can use this informati
 If you are satisfied with your SVG graphic, save it as a plain SVG graphic with \textsf{File $\rangle$ Save As}.
 Select \textsf{Plain SVG (*.svg)} as an output format and click on the \textsf{Save} button.
 You can save the SVG file anywhere on your local system. 
-Open the SVG file with an editor of your choice, copy the SVG code and paste it within the body tag in the \texttt{index.html} file.
+Open the SVG file with an editor of your choice, copy the SVG code and paste it within the body tag in the \texttt{template.html} file.
 
 \subsection{Start the Visualization}
 \label{sec:stat_vis}
@@ -108,7 +108,8 @@ Observers are written in JavaScript and should be placed in the \texttt{script.j
 As an example, consider the following observer:
 
 \begin{lstlisting}[language=JavaScript, caption={Formula Observer Displaying the Current Floor (JavaScript)}]
-$("#txt_cur_floor").observe("formula", {
+bms.observe("formula", {
+  selector: "#txt_cur_floor",
   formulas: ["cur_floor"],
   trigger: function (origin, result) {
     origin.text(result[0])
@@ -117,13 +118,13 @@ $("#txt_cur_floor").observe("formula", {
 \end{lstlisting}
 
 We are going to explain the JavaScript code line by line.
-In line 1 we register a formula observer on the graphical element with the id \textit{txt\_cur\_floor} that is located in our \texttt{index.html} file.
+In line 1 we register a formula observer on the graphical element with the id \textit{txt\_cur\_floor} (line 2) that is located in our \texttt{template.html} file.
 %Line 1 means that we want to transform the graphical element with the id \textit{txt\_cur\_floor} that is located in our \texttt{index.html} file.
 \bms~follows the jQuery selector syntax\footnote{\url{http://api.jquery.com/category/selectors}} to select elements.
 The prefix ``\#'' denotes that we want to select an element by its id.
-In line 2 we define a list of observed formulas.
+In line 3 we define a list of observed formulas.
 In this case we observe the variable \textit{cur\_floor}.
-In line 3 to 5 we define a trigger function that is called after every state change with its \textit{origin} (the origin parameter holds a reference to the element that the observer is attached to\footnote{Checkout the jQuery API for more information \url{https://api.jquery.com}.}) and the \textit{result} (the result parameter contains the results of the defined formulas in an array, e.g. use \textit{result[0]} to obtain the result of the first formula).
+In line 4 to 6 we define a trigger function that is called after every state change with its \textit{origin} (the origin parameter holds a reference to the element that the observer is attached to\footnote{Checkout the jQuery API for more information \url{https://api.jquery.com}.}) and the \textit{result} (the result parameter contains the results of the defined formulas in an array, e.g. use \textit{result[0]} to obtain the result of the first formula).
 The trigger function changes the text of the graphical element (\textit{origin}) to the current value of the variable \textit{cur\_floor} (\textit{result[0]}).
 %Reload the visualization by clicking on the \texttt{Reload} button and play with the visualization by executing some events.
 %Line 2 affects that the attribute \textit{text} will be set to the value that is returned by the followed closure.
@@ -136,7 +137,8 @@ Let's create another observer.
 Check out the following code:
 
 \begin{lstlisting}[language=JavaScript, caption={Formula Observer for the Lift Door (JavaScript)}]
-$("#door").observe("formula", {
+bms.observe("formula", {
+  selector: "#door",
   formulas: ["cur_floor", "door_open"],
   trigger: function (origin, result) {
     
@@ -162,12 +164,12 @@ $("#door").observe("formula", {
 });
 \end{lstlisting}
 
-In line 1 we register a formula observer on the graphical element with the id \textit{door}, similar to the previous defined observer.
+In line 1 we register a formula observer on the graphical element with the id \textit{door} (line 2), similar to the previous defined observer.
 %Line 1 means that we want to transform the graphical element with the id \textit{door}, similar to the previous observer.
-In line 2 we define the set of observed formulas (\textit{cur\_floor} and \textit{door\_open}).
-In line 3 to 23 we define a trigger function, that makes the following action:
+In line 3 we define the set of observed formulas (\textit{cur\_floor} and \textit{door\_open}).
+In line 4 to 24 we define a trigger function, that makes the following action:
 Line 5 to 15 will switch the \textit{y} coordinate of the door (denoting the movement of the door between floors) according to the current value of the variable \textit{cur\_floor} (\textit{result[0]}).
-Lines 17 to 21 affect that the attribute \textit{fill} of the door will be set to ``white'' (denoting the door is open) whenever the formula \textit{door\_open} evaluates to \textit{TRUE} in the current state (\textit{result[1]}), otherwise to ``lightgray'' (denoting the door is closed).
+Lines 18 to 22 affect that the attribute \textit{fill} of the door will be set to ``white'' (denoting the door is open) whenever the formula \textit{door\_open} evaluates to \textit{TRUE} in the current state (\textit{result[1]}), otherwise to ``lightgray'' (denoting the door is closed).
 %Whenever the expression \textit{door\_open} evaluates to \textit{TRUE}, the value \textit{white} (denoting the door is opened) is returned, otherwise the value \textit{lightgray} (denoting the door is closed) is returned.
 %Line 3 to 17 will switch the \textit{y} coordinate of the door (denoting the movement of the door between floors) according to the evaluation result of the expression \textit{cur\_floor}.
 %In line 18 we register the observer.
@@ -195,7 +197,8 @@ Let's add an interactive feature, where the user can click on a floor label to o
 Add this code snippet to your \texttt{script.js} file:
 \newpage
 \begin{lstlisting}[language=JavaScript, caption={Example of an Interactive Feature (JavaScript)}]
-$("text[data-floor]").executeEvent({
+bms.executeEvent({
+  selector: "text[data-floor]",
   events: [
     {
       name: "push_call_button", 
@@ -208,9 +211,9 @@ $("text[data-floor]").executeEvent({
 \end{lstlisting}
 
 %For instance, clicking on the floor Label ``Floor 1'' should execute the Event-B event \textit{push\_call\_button(1)}.
-In line 1 we register an execute event handler for each graphical element that matches the defined selector ``text[data-floor]''.
+In line 1 we register an execute event handler for each graphical element that matches the defined selector ``text[data-floor]'' (line 2).
 In particular, the selector matches the three floor labels (see Figure~\ref{fig_tut_03_running1}).
-In line 2 to 9 we define the list of events that should be wired with the graphical elements.
+In line 3 to 10 we define the list of events that should be wired with the graphical elements.
 Every event should contain the \textit{name}.
 In addition, the user may enter a \textit{predicate} that defines the event's arguments.
 If the user defines more than one event, a tooltip will be shown with a list of the defined events after clicking on the graphical element.
@@ -262,7 +265,8 @@ Add the following code snippet to your \texttt{script.js} file:
 %}).css("cursor", "pointer")
 %\end{lstlisting}
 \begin{lstlisting}[language=JavaScript, caption={Interaction with the Lift Door (JavaScript)}]
-$("#door").executeEvent({
+bms.executeEvent({
+  selector: "#door",
   events: [
     { name: "close_door" }, 
     { name: "open_door" }
@@ -270,15 +274,16 @@ $("#door").executeEvent({
 });
 \end{lstlisting}
 
-In line 1 we register a new execute event handler on the graphical element with the id door.
+%In line 1 we register a new execute event handler on the graphical element with the id ``door'' (line 2).
+%In line 3 to 6 we define two events.
 The execute event handler first tries to execute the event \textit{close\_door}.
 In case the event is disabled, it tries to execute the next event \textit{open\_door}.
 %Line 2 calls our registered Groovy method \textit{openCloseDoor}.
 %In Line 3 to 5 we pass a callback function that is called after an event (\textit{open\_door} or \textit{close\_door}) was executed.
 %In this case we print the returned new state id on the console.
 
-These are only small examples for adding interactivity to your visualization.
-You are not limited to these examples.
+%These are only small examples for adding interactivity to your visualization.
+%You are not limited to these examples.
 
 \subsection{Final visualization}
 

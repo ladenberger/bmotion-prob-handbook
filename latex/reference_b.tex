@@ -129,6 +129,8 @@ The following options can be passed:
 \begin{tabular}{ l l l p{7cm} }
   \textbf{Name} & \textbf{Type} & \textbf{Default} & \textbf{Description} \\
   \hline\noalign{\medskip}
+  selector & string / function* & & jQuery selector \\
+  \hline\noalign{\medskip}
   formulas & list / function* & empty list & Define a list of expressions that should be evaluated and passed to the trigger function. Example: $['x < 4', 'card(x)']$.\\
   \hline\noalign{\medskip}
   cause & string / function* & '\textit{AnimationChanged}' & The trigger cause. Possible values: '\textit{AnimationChanged}', '\textit{ModelChanged}' and '\textit{ModelInitialised}'. \\
@@ -139,7 +141,8 @@ The following options can be passed:
 *This attribute also accepts a function that should return its value.
 
 \begin{lstlisting}[language=JavaScript]
-$("#door").observe("formula", {
+bms.observe("formula", {
+  selector: "#door",
   formulas: ["cur_floor", "door_open"],
   trigger: function (origin, res) {
     switch (res[0]) {
@@ -152,70 +155,70 @@ $("#door").observe("formula", {
 })
 \end{lstlisting}
 
-\subsubsection{Predicate Observer}
-
-The predicate observer accepts a predicate and applies a list of transformers depending on the result of the predicate in the current state.
-
-\begin{tabular}{ l l l p{7cm} }
-  \textbf{Name} & \textbf{Type} & \textbf{Default} & \textbf{Description} \\
-  \hline\noalign{\medskip}
-  predicate & string / function* & & The actual predicate that should be evaluated in each state.\\
-  \hline\noalign{\medskip}
-  cause & string / function* & '\textit{AnimationChanged}' & The trigger cause. Possible values: '\textit{AnimationChanged}', '\textit{ModelChanged}' and '\textit{ModelInitialised}'. \\
-  \hline\noalign{\medskip}
-  true & list / function** & & A list of transformers (\textit{attr} and \textit{value} pairs) that should be applied on the matched element whenever the defined predicate evaluates to true. Example: 
-  [\{attr: "fill", value: "white"\}, \{attr: "stroke", value: "green"\}]\\
-  \hline\noalign{\medskip}
-  false & list / function** & & A list of transformers (\textit{attr} and \textit{value} pairs) that should be applied on the matched element whenever the defined predicate evaluates to false. Example: 
-  [\{attr: "fill", value: "white"\}, \{attr: "stroke", value: "green"\}]\\
-  \hline\noalign{\medskip}
-  callback & function &  & The callback function is called after each state change.
-\end{tabular}
-
-*This attribute also accepts a function that should return its value.
-
-**This attribute also accepts a function that is called based on the result of the defined predicate.
-
-\begin{lstlisting}[language=JavaScript]
-$("#door").observe("predicate", {
-  predicate: "door_open",
-  true: [
-    {attr: "fill", value: "white"}
-  ],
-  false: [
-    {attr: "fill", value: "lightgray"}
-  ]
-});
-\end{lstlisting}
-
-\subsubsection{Refinement Observer}
-
-The refinements observer observes a list of refinements (model names) and triggers an \textit{enable} function whenever the current model is in the list of refinements or a \textit{disable} function whenever the current model is not in the list of refinements.
-The following options can be passed:
-
-\begin{tabular}{ l l l p{7cm} }
-  \textbf{Name} & \textbf{Type} & \textbf{Default} & \textbf{Description} \\
-  \hline\noalign{\medskip}
-  refinements & list / function* & empty list & Define a list of refinements (machine names) that should be observed.\\
-  \hline\noalign{\medskip}
-  enable & function &  & This function will be called after initialising or changing the model and whenever the current model is included in the list of refinements with its \textit{origin} reference set to the element that the observer is attached to.\\
-  \hline\noalign{\medskip}
-  disable & function &  & This function will be called after initialising or changing the model and whenever the current model is \textbf{NOT} included in the list of refinements with its \textit{origin} reference set to the element that the observer is attached to.\\
-\end{tabular}
-
-*This attribute also accepts a function that should return its value.
-
-\begin{lstlisting}[language=JavaScript]
-$("myvisualelement").observe("refinement", {
-  refinements: ["Machine01", "Refinement02"],
-  enable: function (origin, data) {
-    origin.attr("opacity", "1")
-  },
-  disable: function (origin) {
-    origin.attr("opacity", "0.1")
-  }
-})
-\end{lstlisting}
+%\subsubsection{Predicate Observer}
+%
+%The predicate observer accepts a predicate and applies a list of transformers depending on the result of the predicate in the current state.
+%
+%\begin{tabular}{ l l l p{7cm} }
+%  \textbf{Name} & \textbf{Type} & \textbf{Default} & \textbf{Description} \\
+%  \hline\noalign{\medskip}
+%  predicate & string / function* & & The actual predicate that should be evaluated in each state.\\
+%  \hline\noalign{\medskip}
+%  cause & string / function* & '\textit{AnimationChanged}' & The trigger cause. Possible values: '\textit{AnimationChanged}', '\textit{ModelChanged}' and '\textit{ModelInitialised}'. \\
+%  \hline\noalign{\medskip}
+%  true & list / function** & & A list of transformers (\textit{attr} and \textit{value} pairs) that should be applied on the matched element whenever the defined predicate evaluates to true. Example: 
+%  [\{attr: "fill", value: "white"\}, \{attr: "stroke", value: "green"\}]\\
+%  \hline\noalign{\medskip}
+%  false & list / function** & & A list of transformers (\textit{attr} and \textit{value} pairs) that should be applied on the matched element whenever the defined predicate evaluates to false. Example: 
+%  [\{attr: "fill", value: "white"\}, \{attr: "stroke", value: "green"\}]\\
+%  \hline\noalign{\medskip}
+%  callback & function &  & The callback function is called after each state change.
+%\end{tabular}
+%
+%*This attribute also accepts a function that should return its value.
+%
+%**This attribute also accepts a function that is called based on the result of the defined predicate.
+%
+%\begin{lstlisting}[language=JavaScript]
+%$("#door").observe("predicate", {
+%  predicate: "door_open",
+%  true: [
+%    {attr: "fill", value: "white"}
+%  ],
+%  false: [
+%    {attr: "fill", value: "lightgray"}
+%  ]
+%});
+%\end{lstlisting}
+%
+%\subsubsection{Refinement Observer}
+%
+%The refinements observer observes a list of refinements (model names) and triggers an \textit{enable} function whenever the current model is in the list of refinements or a \textit{disable} function whenever the current model is not in the list of refinements.
+%The following options can be passed:
+%
+%\begin{tabular}{ l l l p{7cm} }
+%  \textbf{Name} & \textbf{Type} & \textbf{Default} & \textbf{Description} \\
+%  \hline\noalign{\medskip}
+%  refinements & list / function* & empty list & Define a list of refinements (machine names) that should be observed.\\
+%  \hline\noalign{\medskip}
+%  enable & function &  & This function will be called after initialising or changing the model and whenever the current model is included in the list of refinements with its \textit{origin} reference set to the element that the observer is attached to.\\
+%  \hline\noalign{\medskip}
+%  disable & function &  & This function will be called after initialising or changing the model and whenever the current model is \textbf{NOT} included in the list of refinements with its \textit{origin} reference set to the element that the observer is attached to.\\
+%\end{tabular}
+%
+%*This attribute also accepts a function that should return its value.
+%
+%\begin{lstlisting}[language=JavaScript]
+%$("myvisualelement").observe("refinement", {
+%  refinements: ["Machine01", "Refinement02"],
+%  enable: function (origin, data) {
+%    origin.attr("opacity", "1")
+%  },
+%  disable: function (origin) {
+%    origin.attr("opacity", "0.1")
+%  }
+%})
+%\end{lstlisting}
 
 %\subsubsection{Remark}
 %
@@ -252,6 +255,8 @@ The following options can be passed:
 \begin{tabular}{ l l l p{7cm} }
   \textbf{Name} & \textbf{Type} & \textbf{Default} & \textbf{Description} \\
   \hline\noalign{\medskip}
+  selector & string / function* & & jQuery selector \\
+  \hline\noalign{\medskip}  
   events & list & empty list & Define a list of events with \textit{name} and \textit{predicate} that should be bind with the matched graphical elements. \\
   \hline\noalign{\medskip}
   : name & string / function* & & The name of the event. If the value is a function it takes the return value of the function.\\
@@ -266,7 +271,8 @@ The following options can be passed:
 *This attribute also accepts a function that should return its value.
 
 \begin{lstlisting}[language=JavaScript]
-$("text[data-some]").executeEvent({
+bms.executeEvent({
+  selector: "text[data-some]",
   events: [
     { 
       name: "event1", 
