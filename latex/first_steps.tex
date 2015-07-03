@@ -110,9 +110,8 @@ Here is an example \texttt{template.html} file with a minimal configuration:
 </html>
 \end{lstlisting}
 
-Please note the attribute \textit{data-bms-visualisation} in line 1.
-Every \bms\ visualization template file should contain the empty attribute \textit{data-bms-visualisation}.
-In addition, every \bms\ visualization template file should contain a reference to your \texttt{scripts.js} (see line 6).
+Please note the empty attribute \textit{data-bms-visualisation} in line 1 and the \textit{script} tag in line 6.
+Every \bms\ visualization template file should contain the empty attribute \textit{data-bms-visualisation} (line  1) and a reference to your \texttt{scripts.js} (line 6).
 
 %The meta tag \textit{bms.tool} (line 4) defines the formalism or the simulator respectively that should be used. 
 %Two values are allowed: ``BAnimation'' for creating visualizations of Event-B or Classical-B models and ``CSPAnimation'' for creating visualizations of CSP-M models.
@@ -134,7 +133,7 @@ The SVG code can then be included in the \texttt{template.html} file.
 \end{center}
 \end{figure} 
 
-\paragraph{\texttt{bmotion.vis.js and require.js:}}
+\paragraph{\texttt{bmotion.template.js and require.js:}}
 JavaScript libraries that are needed for running the visualization.
 Please do not edit them!
 
