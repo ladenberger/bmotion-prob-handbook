@@ -133,6 +133,8 @@ The following options can be passed:
   \hline\noalign{\medskip}
   formulas & list / function* & empty list & Define a list of expressions that should be evaluated and passed to the trigger function. Example: $['x < 4', 'card(x)']$.\\
   \hline\noalign{\medskip}
+  translate & boolean & false & Translate formula results to JavaScript data-structures (e.g. array). \\
+  \hline\noalign{\medskip}
   cause & string / function* & '\textit{AnimationChanged}' & The trigger cause. Possible values: '\textit{AnimationChanged}', '\textit{ModelChanged}' and '\textit{ModelInitialised}'. \\
   \hline\noalign{\medskip}
   trigger & function &  & The trigger function will be called after every state change with its \textit{origin} reference set to the element that the observer is attached to and the requested \textit{data} (the result of the expressions). \\
