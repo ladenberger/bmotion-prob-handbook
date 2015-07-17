@@ -196,10 +196,12 @@ For instance, Figure~\ref{fig_tut_04_running2} shows the lift visualization wher
 
 In this Section we learn how we can enhance our visualization with interactive features, e.g. executing an Event-B event by clicking on a graphical element.
 
+\info{Checkout Section~\ref{b_event_handler} for more details about event handlers.}
+
 Let's add an interactive feature, where the user can click on a floor label to order the lift on the corresponding floor.
 Add this code snippet to your \texttt{script.js} file:
 \newpage
-\begin{lstlisting}[language=JavaScript, caption={Example of an Interactive Feature (JavaScript)}]
+\begin{lstlisting}[language=JavaScript, caption={Example of an Execute Event Handler (JavaScript)}]
 bms.executeEvent({
   selector: "text[data-floor]",
   events: [
