@@ -111,6 +111,7 @@
 %\end{lstlisting}
 
 \subsection{Observers}
+\label{b_observers}
 
 Observers are used to link graphical elements with the model. 
 An observer is notified whenever a model has changed its state, i.e. whenever an event has been executed. 
@@ -118,13 +119,13 @@ In response, the observer will query the model's state and triggers actions on t
 
 In general, observers are defined in the JavaScript file. 
 \bms~comes with some predefined observers that are described in the following sections.
-%In general, an observer is assigned to a jQuery selector.
 
 \subsubsection{Formula Observer}
 
 The formula observer \textit{observes} a list of formulas (i.e. expressions, predicates or single variables) and triggers a function whenever a state change occurred.
 The result of the formulas are passed to the trigger function.
-The following options can be passed:
+For instance, the trigger function can change the attributes of the graphical elements (e.g. the colour or position) according to the results of the formulas in the respective state.
+The following options can be passed to the formula observer:
 
 \begin{itemize}
 
@@ -253,7 +254,8 @@ bms.observe("formula", {
 
 \pagebreak
 
-\subsection{Interactivity}
+\subsection{Event Handler}
+\label{b_event_handler}
 
 \subsubsection{Execute Events}
 
