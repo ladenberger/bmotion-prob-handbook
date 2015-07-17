@@ -122,37 +122,46 @@ In general, observers are defined in the JavaScript file.
 
 \subsubsection{Formula Observer}
 
-The formula observer observes a list of formulas (i.e. expressions or predicates) and triggers a function whenever a state change occurred.
+The formula observer \textit{observes} a list of formulas (i.e. expressions, predicates or single variables) and triggers a function whenever a state change occurred.
 The result of the formulas are passed to the trigger function.
 The following options can be passed:
 
-\begin{tabular}{ l l l p{7cm} }
-  \textbf{Name} & \textbf{Type} & \textbf{Default} & \textbf{Description} \\
-  \hline\noalign{\medskip}
-  selector & string / function* & & jQuery selector \\
-  \hline\noalign{\medskip}
-  formulas & list / function* & empty list & Define a list of expressions that should be evaluated and passed to the trigger function. Example: $['x < 4', 'card(x)']$.\\
-  \hline\noalign{\medskip}
-  translate & boolean & false & Translate formula results to JavaScript data-structures (e.g. array). \\
-  \hline\noalign{\medskip}
-  cause & string / function* & '\textit{AnimationChanged}' & The trigger cause. Possible values: '\textit{AnimationChanged}', '\textit{ModelChanged}' and '\textit{ModelInitialised}'. \\
-  \hline\noalign{\medskip}
-  trigger & function &  & The trigger function will be called after every state change with its \textit{origin} reference set to the element that the observer is attached to and the requested \textit{data} (the result of the expressions). \\
-\end{tabular}
+\begin{itemize}
 
-*This attribute also accepts a function that should return its value.
+	\item[] \textbf{selector (Type: string):}\\ A \textit{selector} that matches a set of graphical elements in the visualization (e.g. images or shapes). 
+A selector follows the syntax provided by jQuery\footnote{For more information about jQuery and selectors we refer the reader to the jQuery
+API documentation http://api.jquery.com/category/selectors/.}. 
+For instance, to match the graphical element with the ID ``elem1'' (each element should have a unique ID in the visualization) the user can define the selector ``\#elem1''.
+The prefix ``\#'' is used for matching a graphical element by its ID in jQuery.
+
+\item[] \textbf{formulas (Type: list):}\\
+Define a list of formulas (e.g. expressions, predicates or single variables) which should be evaluated in each state.
+The results of the formulas are passed to the trigger function.
+Example: $['x < 4', 'card(x)']$
+
+\item[] \textbf{translate (Type: boolean, Default: false):}\\
+In general the result of the formulas are passed as strings to the trigger function.
+Set this option to \textit{true} to translate B-structures to JavaScript structures.
+
+\item[] \textbf{trigger (Type: function):}\\
+The trigger function will be called after every state change with its \textit{origin} reference set to the graphical element that the observer is attached to and the requested \textit{data} (the results of the formulas).
+ 
+\end{itemize}
+
+Example formula observer:
 
 \begin{lstlisting}[language=JavaScript]
 bms.observe("formula", {
   selector: "#door",
   formulas: ["cur_floor", "door_open"],
-  trigger: function (origin, res) {
-    switch (res[0]) {
-      case "-1": origin.attr("y", "275"); break
-      case "0": origin.attr("y", "175"); break
-      case "1": origin.attr("y", "60"); break
+  translate: true,
+  trigger: function (origin, data) {
+    switch (data[0]) {
+      case -1: origin.attr("y", "275"); break
+      case 0: origin.attr("y", "175"); break
+      case 1: origin.attr("y", "60"); break
     }
-    res[1] === "TRUE" ? origin.attr("fill", "white") : origin.attr("fill", "lightgray")
+    data[1] ? origin.attr("fill", "white") : origin.attr("fill", "lightgray")
   }
 })
 \end{lstlisting}
@@ -253,24 +262,54 @@ The user can also define a list of events.
 In this case, a tooltip that lists the available events (disabled and enabled) will be shown when hovering the matched element.
 The following options can be passed:
 
-\vspace{0.5cm}
-\begin{tabular}{ l l l p{7cm} }
-  \textbf{Name} & \textbf{Type} & \textbf{Default} & \textbf{Description} \\
-  \hline\noalign{\medskip}
-  selector & string / function* & & jQuery selector \\
-  \hline\noalign{\medskip}  
-  events & list & empty list & Define a list of events with \textit{name} and \textit{predicate} that should be bind with the matched graphical elements. \\
-  \hline\noalign{\medskip}
-  : name & string / function* & & The name of the event. If the value is a function it takes the return value of the function.\\
-  \hline\noalign{\medskip}
-  : predicate & string / function* & & The predicate that defines the parameters of the event to be executed. If the value is a function it takes the return value of the function.\\
-  \hline\noalign{\medskip}
-  tooltip & boolean & true & Enable (\textit{true}) or disable (\textit{false}) tooltip when hovering the matched element.\\
-  \hline\noalign{\medskip}
-  callback & function &  & The callback function is called whenever a bind event was executed.
-\end{tabular}
+\begin{itemize}
 
-*This attribute also accepts a function that should return its value.
+\item[] \textbf{selector (Type: string):}\\ A \textit{selector} that matches a set of graphical elements in the visualization (e.g. images or shapes). 
+A selector follows the syntax provided by jQuery\footnote{For more information about jQuery and selectors we refer the reader to the jQuery
+API documentation http://api.jquery.com/category/selectors/.}. 
+For instance, to match the graphical element with the ID ``elem1'' (each element should have a unique ID in the visualization) the user can define the selector ``\#elem1''.
+The prefix ``\#'' is used for matching a graphical element by its ID in jQuery.
+
+\item[] \textbf{events (Type: list):}\\
+Define a list of events with \textit{name} and \textit{predicate} that should be bind with the matched graphical elements.
+
+\begin{itemize}
+
+\item[] \textbf{name (Type: string):}\\
+The name of the event. 
+If the value is a function it takes the return value of the function.
+
+\item[] \textbf{predicate (Type: string):}\\
+The predicate that defines the parameters of the event to be executed.
+If the value is a function it takes the return value of the function.
+
+\end{itemize}
+
+\item[] \textbf{tooltip (Type: boolean, Default: true):}\\
+ Enable (\textit{true}) or disable (\textit{false}) tooltip when hovering the matched element.
+	
+\end{itemize}
+
+%\vspace{0.5cm}
+%\begin{tabular}{ l l l p{7cm} }
+%  \textbf{Name} & \textbf{Type} & \textbf{Default} & \textbf{Description} \\
+%  \hline\noalign{\medskip}
+%  selector & string / function* & & jQuery selector \\
+%  \hline\noalign{\medskip}  
+%  events & list & empty list & Define a list of events with \textit{name} and \textit{predicate} that should be bind with the matched graphical elements. \\
+%  \hline\noalign{\medskip}
+%  : name & string / function* & & The name of the event. If the value is a function it takes the return value of the function.\\
+%  \hline\noalign{\medskip}
+%  : predicate & string / function* & & The predicate that defines the parameters of the event to be executed. If the value is a function it takes the return value of the function.\\
+%  \hline\noalign{\medskip}
+%  tooltip & boolean & true & Enable (\textit{true}) or disable (\textit{false}) tooltip when hovering the matched element.\\
+%  \hline\noalign{\medskip}
+%  callback & function &  & The callback function is called whenever a bind event was executed.
+%\end{tabular}
+%
+%*This attribute also accepts a function that should return its value.
+
+Example execute event handler:
 
 \begin{lstlisting}[language=JavaScript]
 bms.executeEvent({
@@ -282,12 +321,8 @@ bms.executeEvent({
         return "x=" + origin.attr("data-some") 
       }
     },
-    {
-      name: "event2", 
-      predicate: function (origin) {
-        return "x=" + origin.attr("data-some")
-      }
-    } 
+    { name: "event2", predicate: "y=3" },
+    { name: "event3" } 
   ]
 });
 \end{lstlisting}
