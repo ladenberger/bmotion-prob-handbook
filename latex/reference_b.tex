@@ -145,7 +145,8 @@ In general the result of the formulas are passed as strings to the trigger funct
 Set this option to \textit{true} to translate B-structures to JavaScript structures.
 
 \item[] \textbf{trigger (Type: function):}\\
-The trigger function will be called after every state change with its \textit{origin} reference set to the graphical element that the observer is attached to and the requested \textit{data} (the results of the formulas).
+The trigger function will be called after every state change with its \textit{origin} reference set to the graphical element that the observer is attached to and the \textit{results} of the formulas.
+The results parameter contains the results of the defined formulas in an array, e.g. use \textit{results[0]} to obtain the result of the first formula
  
 \end{itemize}
 
@@ -156,13 +157,17 @@ bms.observe("formula", {
   selector: "#door",
   formulas: ["cur_floor", "door_open"],
   translate: true,
-  trigger: function (origin, data) {
-    switch (data[0]) {
+  trigger: function (origin, results) {
+    switch (results[0]) {
       case -1: origin.attr("y", "275"); break
       case 0: origin.attr("y", "175"); break
       case 1: origin.attr("y", "60"); break
     }
-    data[1] ? origin.attr("fill", "white") : origin.attr("fill", "lightgray")
+    if(results[1]) {
+      origin.attr("fill", "white");
+    } else {
+      origin.attr("fill", "lightgray");
+    }
   }
 })
 \end{lstlisting}

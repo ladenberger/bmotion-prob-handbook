@@ -104,8 +104,8 @@ In the next Section we learn how we can link graphical elements with the formal 
 Observers are used to link graphical elements with the model. 
 An observer is notified whenever the model has changed its state, i.e. whenever an event has been executed. 
 In response, the observer will query the model's state and triggers actions on the linked graphical elements in respect to the new state.
-Observers are written in JavaScript and should be placed in the \texttt{script.js} file.
-As an example, consider the following observer:
+In general, observers are defined in the JavaScript file and should be places in the \texttt{script.js} file. 
+As an example, consider the following \textit{formula observer}:
 
 \begin{lstlisting}[language=JavaScript, caption={Formula Observer Displaying the Current Floor (JavaScript)}]
 bms.observe("formula", {
@@ -117,14 +117,17 @@ bms.observe("formula", {
 });
 \end{lstlisting}
 
+\info{Checkout Section~\ref{b_observers} for more details about observers.}
+
 We are going to explain the JavaScript code line by line.
 In line 1 we register a formula observer on the graphical element with the id \textit{txt\_cur\_floor} (line 2) that is located in our \texttt{template.html} file.
 %Line 1 means that we want to transform the graphical element with the id \textit{txt\_cur\_floor} that is located in our \texttt{index.html} file.
-\bms~follows the jQuery selector syntax\footnote{\url{http://api.jquery.com/category/selectors}} to select elements.
+\bms~follows the jQuery selector syntax\footnote{For more information about jQuery and selectors we refer the reader to the jQuery
+API documentation http://api.jquery.com/category/selectors/.} to select graphical elements.
 The prefix ``\#'' denotes that we want to select an element by its id.
 In line 3 we define a list of observed formulas.
 In this case we observe the variable \textit{cur\_floor}.
-In line 4 to 6 we define a trigger function that is called after every state change with its \textit{origin} (the origin parameter holds a reference to the element that the observer is attached to\footnote{Checkout the jQuery API for more information \url{https://api.jquery.com}.}) and the \textit{result} (the result parameter contains the results of the defined formulas in an array, e.g. use \textit{result[0]} to obtain the result of the first formula).
+In line 4 to 6 we define a trigger function that is called after every state change with its \textit{origin} (the origin parameter holds a reference to the graphical element that the observer is attached to) and the \textit{result} (the result parameter contains the results of the defined formulas in an array, e.g. use \textit{result[0]} to obtain the result of the first formula).
 The trigger function changes the text of the graphical element (\textit{origin}) to the current value of the variable \textit{cur\_floor} (\textit{result[0]}).
 %Reload the visualization by clicking on the \texttt{Reload} button and play with the visualization by executing some events.
 %Line 2 affects that the attribute \textit{text} will be set to the value that is returned by the followed closure.
@@ -134,7 +137,7 @@ The trigger function changes the text of the graphical element (\textit{origin})
 %All registered observer will be triggered after every state change.
 
 Let's create another observer.
-Check out the following code:
+Check out the following JavaScript snippet:
 
 \begin{lstlisting}[language=JavaScript, caption={Formula Observer for the Lift Door (JavaScript)}]
 bms.observe("formula", {
@@ -164,7 +167,7 @@ bms.observe("formula", {
 });
 \end{lstlisting}
 
-In line 1 we register a formula observer on the graphical element with the id \textit{door} (line 2), similar to the previous defined observer.
+In line 1 we register a formula observer on the graphical element that matches the selector ``\#door'' (line 2) (similar to the previous defined formula observer).
 %Line 1 means that we want to transform the graphical element with the id \textit{door}, similar to the previous observer.
 In line 3 we define the set of observed formulas (\textit{cur\_floor} and \textit{door\_open}).
 In line 4 to 24 we define a trigger function, that makes the following action:
@@ -175,8 +178,8 @@ Lines 18 to 22 affect that the attribute \textit{fill} of the door will be set t
 %In line 18 we register the observer.
 %You can use the entire Groovy power and feature range for defining your observers.
 
-Add both snippets to your \texttt{script.js} file and click on the \texttt{Reload} button.
-Let's see how this affects the visualization:
+Add both snippets to your \texttt{script.js} file, save the file and click on the \texttt{Reload} button.
+Let's see how this affects our visualization:
 Setup and initialize the machine using the ProB events view.
 Execute some events and see what happens.
 For instance, Figure~\ref{fig_tut_04_running2} shows the lift visualization where the lift is on floor 0 and the door is open.
