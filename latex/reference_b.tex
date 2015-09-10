@@ -129,22 +129,22 @@ The following options can be passed to the formula observer:
 
 \begin{itemize}
 
-	\item[] \textbf{selector (Type: string):}\\ A \textit{selector} that matches a set of graphical elements in the visualization (e.g. images or shapes). 
+	\item[] \textbf{selector [Type: string]:}\\ A \textit{selector} that matches a set of graphical elements in the visualization (e.g. images or shapes). 
 A selector follows the syntax provided by jQuery\footnote{For more information about jQuery and selectors we refer the reader to the jQuery
 API documentation http://api.jquery.com/category/selectors/.}. 
 For instance, to match the graphical element with the ID ``elem1'' (each element should have a unique ID in the visualization) the user can define the selector ``\#elem1''.
 The prefix ``\#'' is used for matching a graphical element by its ID in jQuery.
 
-\item[] \textbf{formulas (Type: list):}\\
+\item[] \textbf{formulas [Type: list]:}\\
 Define a list of formulas (e.g. expressions, predicates or single variables) which should be evaluated in each state.
 The results of the formulas are passed to the trigger function.
 Example: $['x < 4', 'card(x)']$
 
-\item[] \textbf{translate (Type: boolean, Default: false):}\\
+\item[] \textbf{translate [Type: boolean, Default: false]:}\\
 In general the result of the formulas are passed as strings to the trigger function.
 Set this option to \textit{true} to translate B-structures to JavaScript structures.
 
-\item[] \textbf{trigger (Type: function):}\\
+\item[] \textbf{trigger [Type: function(origin, results)]:}\\
 The trigger function will be called after every state change with its \textit{origin} reference set to the graphical element that the observer is attached to and the \textit{results} of the formulas.
 The results parameter contains the results of the defined formulas in an array, e.g. use \textit{results[0]} to obtain the result of the first formula
  
@@ -271,29 +271,34 @@ The following options can be passed:
 
 \begin{itemize}
 
-\item[] \textbf{selector (Type: string):}\\ A \textit{selector} that matches a set of graphical elements in the visualization (e.g. images or shapes). 
+\item[] \textbf{selector [Type: string]:}\\ A \textit{selector} that matches a set of graphical elements in the visualization (e.g. images or shapes). 
 A selector follows the syntax provided by jQuery\footnote{For more information about jQuery and selectors we refer the reader to the jQuery
 API documentation http://api.jquery.com/category/selectors/.}. 
 For instance, to match the graphical element with the ID ``elem1'' (each element should have a unique ID in the visualization) the user can define the selector ``\#elem1''.
 The prefix ``\#'' is used for matching a graphical element by its ID in jQuery.
 
-\item[] \textbf{events (Type: list):}\\
+\item[] \textbf{events [Type: list]:}\\
 Define a list of events with \textit{name} and \textit{predicate} that should be bind with the matched graphical elements.
 
 \begin{itemize}
 
-\item[] \textbf{name (Type: string):}\\
+\item[] \textbf{name [Type: string]:}\\
 The name of the event. 
 If the value is a function it takes the return value of the function.
 
-\item[] \textbf{predicate (Type: string):}\\
+\item[] \textbf{predicate [Type: string]:}\\
 The predicate that defines the parameters of the event to be executed.
 If the value is a function it takes the return value of the function.
 
 \end{itemize}
 
-\item[] \textbf{tooltip (Type: boolean, Default: true):}\\
+\item[] \textbf{tooltip [Type: boolean, Default: true]:}\\
  Enable (\textit{true}) or disable (\textit{false}) tooltip when hovering the matched element.
+
+\item[] \textbf{label [Type: function(event, origin)]:}\\
+A function that returns a custom label to be shown in the tooltip.
+You can also return an HTML element, e.g. \textit{span} or \textit{strong}.
+ The function provides two arguments: \textit{event} a json object containing some data of the respective event and \textit{origin} as the reference to the graphical element where the execute event handler is attached to.
 	
 \end{itemize}
 
@@ -330,6 +335,9 @@ bms.executeEvent({
     },
     { name: "event2", predicate: "y=3" },
     { name: "event3" } 
-  ]
+  ],
+  function(event, origin) {
+     return "<strong>" + event.name + "." + event.predicate + "</strong>";
+  }
 });
 \end{lstlisting}
