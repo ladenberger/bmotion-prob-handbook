@@ -54,7 +54,7 @@ We are going to create a visualization	for a simple lift system that allows move
 The door of the lift can be closed and opened - all in response to the pressing of floor call and cage send buttons.
 
 You can download the Event-B model \file{EventBLift.zip}{here}.
-Decompress the archive and put the files into a new folder called \texttt{model} relative to your \texttt{template.html} file.
+Decompress the archive and put the files into a new folder called \texttt{model} relative to your \texttt{index.html} file.
 
 \subsection{Link the Model with the Visualization}
 
@@ -75,7 +75,7 @@ In Section~\ref{sec_creation_observers} we explain how we can use this informati
 If you are satisfied with your SVG graphic, save it as a plain SVG graphic with \textsf{File $\rangle$ Save As}.
 Select \textsf{Plain SVG (*.svg)} as an output format and click on the \textsf{Save} button.
 You can save the SVG file anywhere on your local system. 
-Open the SVG file with an editor of your choice, copy the SVG code and paste it within the body tag in the \texttt{template.html} file.
+Open the SVG file with an editor of your choice, copy the SVG code and paste it within the body tag in the \texttt{index.html} file.
 
 \subsection{Start the Visualization}
 \label{sec:stat_vis}
@@ -120,7 +120,7 @@ bms.observe("formula", {
 \info{Checkout Section~\ref{b_observers} for more details about observers.}
 
 We are going to explain the JavaScript code line by line.
-In line 1 we register a formula observer on the graphical element with the id \textit{txt\_cur\_floor} (line 2) that is located in our \texttt{template.html} file.
+In line 1 we register a formula observer on the graphical element with the id \textit{txt\_cur\_floor} (line 2) that is located in our \texttt{index.html} file.
 %Line 1 means that we want to transform the graphical element with the id \textit{txt\_cur\_floor} that is located in our \texttt{index.html} file.
 \bms~follows the jQuery selector syntax\footnote{For more information about jQuery and selectors we refer the reader to the jQuery
 API documentation http://api.jquery.com/category/selectors/.} to select graphical elements.
