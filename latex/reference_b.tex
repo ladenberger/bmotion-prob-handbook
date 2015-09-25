@@ -336,7 +336,7 @@ bms.executeEvent({
     { name: "event2", predicate: "y=3" },
     { name: "event3" } 
   ],
-  function(event, origin) {
+  label: function(event, origin) {
      return "<strong>" + event.name + "." + event.predicate + "</strong>";
   }
 });
