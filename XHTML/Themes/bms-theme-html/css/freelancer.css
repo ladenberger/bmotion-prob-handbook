@@ -403,7 +403,7 @@ section.success {
 
 @media (min-width:767px) {
   #content {
-    padding-top:190px;
+    padding-top:150px;
     padding-bottom:10px;
   }
 }
@@ -417,7 +417,7 @@ section.success {
 
 @media (max-width:767px) {
   #content {
-    padding-top:75px;
+    padding-top:100px;
     padding-bottom:10px;
   }
 }
