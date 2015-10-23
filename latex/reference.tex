@@ -1,11 +1,12 @@
 \section{Reference}
 \label{reference}
 
-\subsection{\texttt{bmotion.json} Manifest}
+\subsection{\texttt{bmotion.json} Manifest File}
 \label{sec:manifest}
 
-The \texttt{bmotion.json} file is the root file of every \bms\ visualization.
-It contains the configuration formatted using JSON (JavaScript Object Notation)\footnote{\url{http://www.json.org}.}.
+Every visualization should provide a \texttt{bmotion.json} manifest file.
+The \texttt{bmotion.json} manifest file is the root file of every \bms\ visualization.
+It contains the configuration for the visualization formatted using JSON (JavaScript Object Notation)\footnote{\url{http://www.json.org}.}.
 The following options (and defaults) are available:
 
 \begin{itemize}
@@ -53,3 +54,27 @@ Example \texttt{bmotion.json} manifest file:
   "tool": "BAnimation"
 }
 \end{lstlisting}
+
+\subsection{\texttt{bmotion.json} Configuration File}
+\label{sec:configfile}
+
+The \texttt{bmotion.json} config file is located in the \texttt{resources} folder of your \bms\ installation.
+It contains the configuration for the \bms\ application formatted using JSON (JavaScript Object Notation)\footnote{\url{http://www.json.org}.}.
+\textbf{Please note: Normally, the user should not edit this file!}
+The following options (and defaults) are available:
+
+\begin{itemize}
+
+	\item[] \textbf{socket [Type: object]:}\\ Settings for websocket server. The following options are available:
+	\begin{itemize}
+		\item[] \textbf{host [Type: String, Default value: localhost]:}\\ The host for the websocket server.
+		\item[] \textbf{port [Type: String, Default value: 19090]:}\\ The port for the websocket server.
+	\end{itemize}
+
+	\item[] \textbf{prob [Type: object]:}\\ Settings for websocket server. The following options are available:
+	\begin{itemize}
+		\item[] \textbf{host [Type: String, Default value: localhost]:}\\ The host for the ProB2 server.
+		\item[] \textbf{binary [Type: String, Default value: ./cli/]:}\\ Path to ProB binary.
+	\end{itemize}
+
+\end{itemize}
