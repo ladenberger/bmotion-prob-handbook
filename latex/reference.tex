@@ -1,12 +1,13 @@
 \section{Reference}
 \label{reference}
 
-\subsection{\texttt{bmotion.json} Manifest File}
+\subsection{\bms\ Manifest File}
 \label{sec:manifest}
 
-Every visualization should provide a \texttt{bmotion.json} manifest file.
-The \texttt{bmotion.json} manifest file is the root file of every \bms\ visualization.
+The \bms\ manifest file is the root file of every \bms\ visualization.
+Every visualization should provide at least one manifest file.
 It contains the configuration for the visualization formatted using JSON (JavaScript Object Notation)\footnote{\url{http://www.json.org}.}.
+Hence, the manifest filename must end with \texttt{.json} (denoting a JSON file).
 The following options (and defaults) are available:
 
 \begin{itemize}
@@ -27,7 +28,7 @@ The following views are available: \textit{CurrentTrace}, \textit{Events}, \text
 	\item[] \textbf{tool [Type: String, Default value: BAnimation]:}\\The formalism / tool to be used. Currently two values and formalism are supported: \textit{BAnimation} for creating visualizations of Event-B or Classical-B models and \textit{CSPAnimation} for creating visualizations of CSP-M models.
 \end{itemize}
 
-Example \texttt{bmotion.json} manifest file:
+Example \bms\ manifest file (e.g. \texttt{lift.json}):
 
 \begin{lstlisting}[language=JavaScript]
 {
