@@ -110,6 +110,16 @@
 %bms.registerObserver(transformerObserver)
 %\end{lstlisting}
 
+\subsection{Selectors}
+\label{selectors}
+
+Each observer (Section~\ref{b_observers}) and event handler (Section~\ref{b_event_handler}) needs to define a \textit{selector}.
+A selector matches a set of graphical elements in the visualization (e.g. images or shapes). 
+A selector follows the syntax provided by jQuery.
+Fore more information about jQuery and selectors we refer the reader to the jQuery API documentation\footnote{\url{http://api.jquery.com/category/selectors/}.}. 
+For instance, to match the graphical element with the ID ``elem1'' (each element should have a unique ID in the visualization) the user can define the selector ``\#elem1''.
+The prefix ``\#'' is used for matching a graphical element by its ID in jQuery.
+
 \subsection{Observers}
 \label{b_observers}
 
@@ -129,11 +139,7 @@ The following options can be passed to the formula observer:
 
 \begin{itemize}
 
-	\item[] \textbf{selector [Type: string, \textit{Required}]:}\\ A \textit{selector} that matches a set of graphical elements in the visualization (e.g. images or shapes). 
-A selector follows the syntax provided by jQuery.
-Fore more information about jQuery and selectors we refer the reader to the jQuery API documentation\footnote{\url{http://api.jquery.com/category/selectors/}.}. 
-For instance, to match the graphical element with the ID ``elem1'' (each element should have a unique ID in the visualization) the user can define the selector ``\#elem1''.
-The prefix ``\#'' is used for matching a graphical element by its ID in jQuery.
+\item[] \textbf{selector [Type: string, \textit{Required}]:}\\ A \textit{selector} that matches a set of graphical elements in the visualization (see Section \ref{selectors}).
 
 \item[] \textbf{formulas [Type: list, \textit{Required}]:}\\
 Define a list of formulas (e.g. expressions, predicates or single variables) which should be evaluated in each state.
@@ -186,11 +192,8 @@ bms.observe("formula", {
 The predicate observer accepts a predicate and applies a list of transformers depending on the result of the predicate in the current state (true or false).
 
 \begin{itemize}
-	\item[] \textbf{selector [Type: string, \textit{Required}]:}\\ A \textit{selector} that matches a set of graphical elements in the visualization (e.g. images or shapes). 
-A selector follows the syntax provided by jQuery.
-Fore more information about jQuery and selectors we refer the reader to the jQuery API documentation\footnote{\url{http://api.jquery.com/category/selectors/}.}. 
-For instance, to match the graphical element with the ID ``elem1'' (each element should have a unique ID in the visualization) the user can define the selector ``\#elem1''.
-The prefix ``\#'' is used for matching a graphical element by its ID in jQuery.
+\item[] \textbf{selector [Type: string, \textit{Required}]:}\\ A \textit{selector} that matches a set of graphical elements in the visualization (see Section \ref{selectors}).
+
 	\item[] \textbf{predicate [Type: string, \textit{Required}]:}\\ The actual predicate that should be evaluated in each state.
 	\item[] \textbf{true [Type: list]:}\\ A list of transformers (\textit{attr} and \textit{value} pairs) that should be applied on the matched element whenever the defined predicate evaluates to true in the respective state. Example: 
   [\{attr: "fill", value: "white"\}, \{attr: "stroke", value: "green"\}].
