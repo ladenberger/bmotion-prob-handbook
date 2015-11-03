@@ -1,8 +1,8 @@
-.bmotion-tutorial-content {
+#content {
     margin-top: 20px;
 }
 
-.bmotion-tutorial-content pre {
+#content pre {
   background-color:#eee;
   color: #2c3e50;
   overflow:auto;
@@ -11,27 +11,27 @@
   font:normal normal 16px/18px "Courier New",Courier,Monospace;
 }
 
-.bmotion-tutorial-content pre code,
-.bmotion-tutorial-content pre .line-number {
+#content pre code,
+#content pre .line-number {
   /* Ukuran line-height antara teks di dalam tag <code> dan <span class="line-number"> harus sama! */
   font:normal normal 16px/18px "Courier New",Courier,Monospace;
   color:black;
   display:block;
 }
 
-.bmotion-tutorial-content pre .line-number {
+#content pre .line-number {
   float:left;
   margin:0 1em 0 -1em;
   border-right:1px solid;
   text-align:right;
 }
 
-.bmotion-tutorial-content pre .line-number span {
+#content pre .line-number span {
   display:block;
   padding:0 .5em 0 1em;
 }
 
-.bmotion-tutorial-content pre .cl {
+#content pre .cl {
   display:block;
   clear:both;
 }
@@ -65,7 +65,7 @@
     font-weight: normal;
 }
 
-.bmotion-tutorial-content hr {color: black}
+#content hr {color: black}
 
 .minitoc {
     border-top: 1px solid black;
@@ -269,19 +269,19 @@ table.list td {
 .lower30 {margin-bottom: -20px}
 .lower20 {margin-bottom: -20px}
 
-.bmotion-tutorial-content img {
+#content img {
     border: none;
     vertical-align: baseline;
 }
 
-.bmotion-tutorial-content img.ieimgfix {
+#content img.ieimgfix {
     width: 0;
     visibility: hidden;
     vertical-align: top;
     display: none;
 }
 
-.bmotion-tutorial-content td img.ieimgfix {
+#content td img.ieimgfix {
     display: inline;
 }
 
@@ -330,19 +330,19 @@ color: #000;
 #navlist a:visited { color: #000; }
 
 /* (mj) Used for the Hint-Images */
-.bmotion-tutorial-content blockquote p span.rmfamily img {
+#content blockquote p span.rmfamily img {
   float: left;
   margin-right:5px;
 }
 
 /* (mj) Used for making the Plugin-Boxes gray */
-.bmotion-tutorial-content blockquote.verse {
+#content blockquote.verse {
   background-color: #eeeeee;
   margin-left: 0px;
   margin-right: 0px;
 }
 
-.bmotion-tutorial-content blockquote.verse p span img {
+#content blockquote.verse p span img {
   padding: 5px;
 }
 
