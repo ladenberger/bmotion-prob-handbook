@@ -122,20 +122,20 @@ In general, observers are defined in the JavaScript file.
 
 \subsubsection{Formula Observer}
 
-The formula observer \textit{observes} a list of formulas (i.e. expressions, predicates or single variables) and triggers a function whenever a state change occurred.
-The result of the formulas are passed to the trigger function.
-For instance, the trigger function can change the attributes of the graphical elements (e.g. the colour or position) according to the results of the formulas in the respective state.
+The formula observer \textit{observes} a list of formulas (e.g.  expressions, predicates or single variables) and triggers a function whenever a state change occurred.
+The values of the formulas and the origin (the reference to the graphical element that the observer is attached to) are passed to the trigger function.
+Within the trigger function you can change the attributes of the origin (e.g. its colour or position) according to the values of the formulas in the respective state.
 The following options can be passed to the formula observer:
 
 \begin{itemize}
 
-	\item[] \textbf{selector [Type: string]:}\\ A \textit{selector} that matches a set of graphical elements in the visualization (e.g. images or shapes). 
-A selector follows the syntax provided by jQuery\footnote{For more information about jQuery and selectors we refer the reader to the jQuery
-API documentation http://api.jquery.com/category/selectors/.}. 
+	\item[] \textbf{selector [Type: string, \textit{Required}]:}\\ A \textit{selector} that matches a set of graphical elements in the visualization (e.g. images or shapes). 
+A selector follows the syntax provided by jQuery.
+Fore more information about jQuery and selectors we refer the reader to the jQuery API documentation\footnote{\url{http://api.jquery.com/category/selectors/}.}. 
 For instance, to match the graphical element with the ID ``elem1'' (each element should have a unique ID in the visualization) the user can define the selector ``\#elem1''.
 The prefix ``\#'' is used for matching a graphical element by its ID in jQuery.
 
-\item[] \textbf{formulas [Type: list]:}\\
+\item[] \textbf{formulas [Type: list, \textit{Required}]:}\\
 Define a list of formulas (e.g. expressions, predicates or single variables) which should be evaluated in each state.
 The results of the formulas are passed to the trigger function.
 Example: $['x < 4', 'card(x)']$
@@ -144,9 +144,18 @@ Example: $['x < 4', 'card(x)']$
 In general the result of the formulas are passed as strings to the trigger function.
 Set this option to \textit{true} to translate B-structures to JavaScript structures.
 
-\item[] \textbf{trigger [Type: function(origin, results)]:}\\
-The trigger function will be called after every state change with its \textit{origin} reference set to the graphical element that the observer is attached to and the \textit{results} of the formulas.
-The results parameter contains the results of the defined formulas in an array, e.g. use \textit{results[0]} to obtain the result of the first formula
+\item[] \textbf{trigger [Type: function(origin, values), \textit{Required}]:}\\
+The trigger function will be called after every state change with its \textit{origin} reference set to the graphical element that the observer is attached to and the \textit{values} of the formulas. 
+The \textit{origin} is a jQuery selector element.
+Consult the jQuery API\footnote{\url{http://api.jquery.com/}.} for more information regarding accessing or manipulating the \textit{origin} (e.g. set and get attributes).
+The \textit{values} parameter contains the values of the defined formulas in an array, e.g. use \textit{values[0]} to obtain the result of the first formula.
+
+The following parameters are available:
+
+\begin{itemize}
+	\item[\textbf{origin:}] The reference set to the graphical element that the observer is attached to.
+	\item[\textbf{values:}] Contains the values of the defined formulas in an array, e.g. use \textit{values[0]} to obtain the result of the first formula.
+\end{itemize}
  
 \end{itemize}
 
@@ -157,13 +166,13 @@ bms.observe("formula", {
   selector: "#door",
   formulas: ["cur_floor", "door_open"],
   translate: true,
-  trigger: function (origin, results) {
-    switch (results[0]) {
+  trigger: function (origin, values) {
+    switch (values[0]) {
       case -1: origin.attr("y", "275"); break
       case 0: origin.attr("y", "175"); break
       case 1: origin.attr("y", "60"); break
     }
-    if(results[1]) {
+    if(values[1]) {
       origin.attr("fill", "white");
     } else {
       origin.attr("fill", "lightgray");
@@ -172,42 +181,40 @@ bms.observe("formula", {
 })
 \end{lstlisting}
 
-%\subsubsection{Predicate Observer}
-%
-%The predicate observer accepts a predicate and applies a list of transformers depending on the result of the predicate in the current state.
-%
-%\begin{tabular}{ l l l p{7cm} }
-%  \textbf{Name} & \textbf{Type} & \textbf{Default} & \textbf{Description} \\
-%  \hline\noalign{\medskip}
-%  predicate & string / function* & & The actual predicate that should be evaluated in each state.\\
-%  \hline\noalign{\medskip}
-%  cause & string / function* & '\textit{AnimationChanged}' & The trigger cause. Possible values: '\textit{AnimationChanged}', '\textit{ModelChanged}' and '\textit{ModelInitialised}'. \\
-%  \hline\noalign{\medskip}
-%  true & list / function** & & A list of transformers (\textit{attr} and \textit{value} pairs) that should be applied on the matched element whenever the defined predicate evaluates to true. Example: 
-%  [\{attr: "fill", value: "white"\}, \{attr: "stroke", value: "green"\}]\\
-%  \hline\noalign{\medskip}
-%  false & list / function** & & A list of transformers (\textit{attr} and \textit{value} pairs) that should be applied on the matched element whenever the defined predicate evaluates to false. Example: 
-%  [\{attr: "fill", value: "white"\}, \{attr: "stroke", value: "green"\}]\\
-%  \hline\noalign{\medskip}
-%  callback & function &  & The callback function is called after each state change.
-%\end{tabular}
-%
+\subsubsection{Predicate Observer}
+
+The predicate observer accepts a predicate and applies a list of transformers depending on the result of the predicate in the current state (true or false).
+
+\begin{itemize}
+	\item[] \textbf{selector [Type: string, \textit{Required}]:}\\ A \textit{selector} that matches a set of graphical elements in the visualization (e.g. images or shapes). 
+A selector follows the syntax provided by jQuery.
+Fore more information about jQuery and selectors we refer the reader to the jQuery API documentation\footnote{\url{http://api.jquery.com/category/selectors/}.}. 
+For instance, to match the graphical element with the ID ``elem1'' (each element should have a unique ID in the visualization) the user can define the selector ``\#elem1''.
+The prefix ``\#'' is used for matching a graphical element by its ID in jQuery.
+	\item[] \textbf{predicate [Type: string, \textit{Required}]:}\\ The actual predicate that should be evaluated in each state.
+	\item[] \textbf{true [Type: list]:}\\ A list of transformers (\textit{attr} and \textit{value} pairs) that should be applied on the matched element whenever the defined predicate evaluates to true in the respective state. Example: 
+  [\{attr: "fill", value: "white"\}, \{attr: "stroke", value: "green"\}].
+	\item[] \textbf{false [Type: list]:}\\ Similar to the true option.
+	However the defined list of transformers is applied whenever the predicate evaluates to false.
+\end{itemize}
+
 %*This attribute also accepts a function that should return its value.
-%
-%**This attribute also accepts a function that is called based on the result of the defined predicate.
-%
-%\begin{lstlisting}[language=JavaScript]
-%$("#door").observe("predicate", {
-%  predicate: "door_open",
-%  true: [
-%    {attr: "fill", value: "white"}
-%  ],
-%  false: [
-%    {attr: "fill", value: "lightgray"}
-%  ]
-%});
-%\end{lstlisting}
-%
+%The reference to the graphical element that the observer is attached to (origin) is passed to the function.
+
+Example predicate observer:
+
+\begin{lstlisting}[language=JavaScript]
+$("#door").observe("predicate", {
+  predicate: "door_open",
+  true: [
+    {attr: "fill", value: "white"}
+  ],
+  false: [
+    {attr: "fill", value: "lightgray"}
+  ]
+});
+\end{lstlisting}
+
 %\subsubsection{Refinement Observer}
 %
 %The refinements observer observes a list of refinements (model names) and triggers an \textit{enable} function whenever the current model is in the list of refinements or a \textit{disable} function whenever the current model is not in the list of refinements.
@@ -264,40 +271,43 @@ bms.observe("formula", {
 
 \subsubsection{Execute Events}
 
-The execute event handler executes an event after clicking on the matched element.
-The user can also define a list of events.
+The execute event handler binds a click handler that executed an event (Event-B) or an operation (Classical-B) on the element(s) that matches the selector.
+The user can also define a list of events (or operations).
 In this case, a tooltip that lists the available events (disabled and enabled) will be shown when hovering the matched element.
 The following options can be passed:
 
 \begin{itemize}
 
-\item[] \textbf{selector [Type: string]:}\\ A \textit{selector} that matches a set of graphical elements in the visualization (e.g. images or shapes). 
-A selector follows the syntax provided by jQuery\footnote{For more information about jQuery and selectors we refer the reader to the jQuery
-API documentation http://api.jquery.com/category/selectors/.}. 
+\item[] \textbf{selector [Type: string, \textit{Required}]:}\\ A \textit{selector} that matches a set of graphical elements in the visualization (e.g. images or shapes). 
+A selector follows the syntax provided by jQuery.
+Fore more information about jQuery and selectors we refer the reader to the jQuery API documentation\footnote{\url{http://api.jquery.com/category/selectors/}.}. 
 For instance, to match the graphical element with the ID ``elem1'' (each element should have a unique ID in the visualization) the user can define the selector ``\#elem1''.
 The prefix ``\#'' is used for matching a graphical element by its ID in jQuery.
 
-\item[] \textbf{events [Type: list]:}\\
+\item[] \textbf{events [Type: list, \textit{Required}]:}\\
 Define a list of events with \textit{name} and \textit{predicate} that should be bind with the matched graphical elements.
 
 \begin{itemize}
 
-\item[] \textbf{name [Type: string]:}\\
+\item[] \textbf{name [Type: string, \textit{Required}]:}\\
 The name of the event. 
 If the value is a function it takes the return value of the function.
 
-\item[] \textbf{predicate [Type: string]:}\\
+\item[] \textbf{predicate [Type: string*]:}\\
 The predicate that defines the parameters of the event to be executed.
 If the value is a function it takes the return value of the function.
 
 \end{itemize}
 
 \item[] \textbf{label [Type: function(event, origin)]:}\\
-A function that returns a custom label to be shown in the tooltip.
+A function that returns a custom label (string) to be shown in the tooltip.
 You can also return an HTML element, e.g. \textit{span} or \textit{strong}.
  The function provides two arguments: \textit{event} a json object containing some data of the respective event and \textit{origin} as the reference to the graphical element where the execute event handler is attached to.
 	
 \end{itemize}
+
+*This attribute also accepts a function that should return its value.
+The reference to the graphical element that the observer is attached to (origin) is passed to the function.
 
 %\vspace{0.5cm}
 %\begin{tabular}{ l l l p{7cm} }

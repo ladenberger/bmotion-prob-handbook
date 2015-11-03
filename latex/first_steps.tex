@@ -41,11 +41,16 @@ You can also open a visualization via the top menu: \textsf{File $\rangle$ Open 
 \section{Create a new Visualization Template}
 \label{vis_template}
 
+To create a new visualization choose via the top menu: \textsf{File $\rangle$ New Visualization}.
+A window will be opened asking you for some information.
+Enter your data and press on OK.
+Now, the tool asks you for a location (a folder) where you want to save your visualization.
+After confirming, the tool creates a bunch of files in the folder:
+
 %Let's start by creating a new visualization template.
-You can download the \file{bms-b-template.zip}{predefined template} as a starting point to create a new visualization template.
+%You can download the \file{bms-b-template.zip}{predefined template} as a starting point to create a new visualization template.
 %The easiest way to create a new visualization template is to download the \file{bms-b-template.zip}{predefined template}.
-Decompress the archive, expand the directory if necessary and navigate to the decompressed folder.
-The folder contains some files:
+%Decompress the archive, expand the directory if necessary and navigate to the decompressed folder.
 
 %	duplicate one of the default templates  \texttt{b\_template} (for Event-B or Classical-B visualizations) or \texttt{csp\_template} (for CSP-M visualizations) that are included in the \texttt{workspace} folder of your \bms~installation.
 %Just duplicate the folder.
@@ -60,18 +65,24 @@ The folder contains some files:
 %In particular, the Groovy script file is the link between the formal model and the visualization.
 %It allows you to programmatically control the ProB animator and to access the actual formal model being visualised.
 
-\paragraph{\texttt{bmotion.json:}}
-The \texttt{bmotion.json} file is the root file of every \bms\ visualization.
+\paragraph{\texttt{[id].json:}}
+The \texttt{[id].json} file (id is your entered id just before) is the root file of every \bms\ visualization (also called \bms\ manifest file).
 It contains the configuration formatted using JSON (JavaScript Object Notation)\footnote{\url{http://www.json.org}.}.
 
 \info{Section~\ref{sec:manifest} contains a full list of available options.}
 
-A minimal configuration of the \texttt{bmotion.json} file should contain the path to the formal model you want to visualize.
-Here is an example \texttt{bmotion.json} file with a minimal configuration:
+A minimal configuration of the manifest file should contain the path to the formal model you want to visualize and at least one view configuration.
+Here is an example manifest file with a minimal configuration:
 
 \begin{lstlisting}[language=JavaScript]
 {
-  "model": "model/model.mch"
+  "model": "model/lift.mch",
+  "views": [
+    {
+      "id": "lift",
+      "name": "Lift visualization",
+      "template": "index.html"
+    }
 }
 \end{lstlisting}
 
@@ -94,30 +105,34 @@ requirejs(['bmotion.template'], function (bms) {
 
 %The \textit{prob} parameter is the access point to the BMotion Studio for ProB API.
 
-\paragraph{\texttt{template.html:}}
+\paragraph{\texttt{index.html:}}
 %The HTML file is the root file of your visualization. It contains the actual visualization.
-The HTML file contains the actual visualization.
-Here is an example \texttt{template.html} file with a minimal configuration:
+The HTML file contains the reference to the \texttt{scripts.js} file and to the \texttt{visualization.svg} file.
+Here is an example \texttt{index.html} file with a minimal configuration:
 
 \begin{lstlisting}[language=html]
-<html data-bms-visualisation>
+<html>
   <head>
     <title>BMotion Studio Visualization</title>
   </head>
   <body>
     <script data-main="script" src="require.js"></script>
+    <div data-bms-svg="visualization.svg"></div>
   </body>
 </html>
 \end{lstlisting}
 
-Please note the empty attribute \textit{data-bms-visualisation} in line 1 and the \textit{script} tag in line 6.
-Every \bms\ visualization template file should contain the empty attribute \textit{data-bms-visualisation} (line  1) and a reference to your \texttt{scripts.js} (line 6).
+%Please note the empty attribute \textit{data-bms-visualisation} in line 1 and the \textit{script} tag in line 6.
+%Every \bms\ visualization template file should contain the empty attribute \textit{data-bms-visualisation} (line  1) and a reference to your \texttt{scripts.js} (line 6).
+
+\paragraph{\texttt{visualization.svg:}}
 
 %The meta tag \textit{bms.tool} (line 4) defines the formalism or the simulator respectively that should be used. 
 %Two values are allowed: ``BAnimation'' for creating visualizations of Event-B or Classical-B models and ``CSPAnimation'' for creating visualizations of CSP-M models.
 %The meta tag \textit{bms.script} (line 5) contains the link to the Groovy script file.
 %Finally, in line 9 we define the path to the JavaScript file.
 
+The actual SVG visualization.
 The user is not restricted to an editor in order to create a visualization.
 The user can make use of any tool that supports the creation of SVG graphics or HTML documents.
 For the tutorials (Section~\ref{tutorial_b} and~\ref{tutorial_csp}) we are going to use the Inkspace\footnote{\url{https://inkscape.org}} editor. Inkscape is an editor for creating vector graphics that is available for Windows, Mac OS X and Linux.

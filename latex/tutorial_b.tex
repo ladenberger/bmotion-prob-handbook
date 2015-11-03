@@ -12,7 +12,7 @@ If something is unclear, remember to check the Reference (\ref{reference_b}) for
 \subsection{Preparation}
 
 Let's start by creating a new visualization template as described in Section~\ref{vis_template}.
-Just download the \file{bms-b-template.zip}{predefined template}, decompress the archive and rename the folder to \texttt{lift}.
+%Just download the \file{bms-b-template.zip}{predefined template}, decompress the archive and rename the folder to \texttt{lift}.
 %After refreshing your browser, a new folder called \texttt{lift} should appear in your workspace (see Figure~\ref{fig_tut_01_workspace}).
 
 %\subsection{Creating a new visualization Template}
@@ -59,9 +59,9 @@ Decompress the archive and put the files into a new folder called \texttt{model}
 \subsection{Link the Model with the Visualization}
 
 The first step consists of linking the model with the visualization.
-For this, open the \texttt{bmotion.json} file with an editor of your choice and set the \textit{model} path property to ``model/MLift.bcm''.
+For this, open the \bms\ manifest file with an editor of your choice and set the \textit{model} path property to ``model/MLift.bcm''.
 This links the visualization with the Event-B machine called ``MLift''.
-Linking a model within the \texttt{bmotion.json} file will automatically load the model, when starting the visualization (see Section~\ref{sec:stat_vis}).
+Linking a model within the \bms\ manifest file will automatically load the model, when starting the visualization (see Section~\ref{sec:stat_vis}).
 
 \subsection{Create the Actual Visualization}
 
@@ -75,7 +75,8 @@ In Section~\ref{sec_creation_observers} we explain how we can use this informati
 If you are satisfied with your SVG graphic, save it as a plain SVG graphic with \textsf{File $\rangle$ Save As}.
 Select \textsf{Plain SVG (*.svg)} as an output format and click on the \textsf{Save} button.
 You can save the SVG file anywhere on your local system. 
-Open the SVG file with an editor of your choice, copy the SVG code and paste it within the body tag in the \texttt{index.html} file.
+Open the \texttt{index.html} file with an editor of your choice and change the path to the SVG file ``lift.svg'' within the ``data-bms-svg'' attribute.
+%Open the SVG file with an editor of your choice, copy the SVG code and paste it within the body tag in the \texttt{index.html} file.
 
 \subsection{Start the Visualization}
 \label{sec:stat_vis}
@@ -111,8 +112,8 @@ As an example, consider the following \textit{formula observer}:
 bms.observe("formula", {
   selector: "#txt_cur_floor",
   formulas: ["cur_floor"],
-  trigger: function (origin, result) {
-    origin.text(result[0])
+  trigger: function (origin, values) {
+    origin.text(values[0])
   }
 });
 \end{lstlisting}
@@ -127,8 +128,8 @@ API documentation http://api.jquery.com/category/selectors/.} to select graphica
 The prefix ``\#'' denotes that we want to select an element by its id.
 In line 3 we define a list of observed formulas.
 In this case we observe the variable \textit{cur\_floor}.
-In line 4 to 6 we define a trigger function that is called after every state change with its \textit{origin} (the origin parameter holds a reference to the graphical element that the observer is attached to) and the \textit{result} (the result parameter contains the results of the defined formulas in an array, e.g. use \textit{result[0]} to obtain the result of the first formula).
-The trigger function changes the text of the graphical element (\textit{origin}) to the current value of the variable \textit{cur\_floor} (\textit{result[0]}).
+In line 4 to 6 we define a trigger function that is called after every state change with its \textit{origin} (the origin parameter holds a reference to the graphical element that the observer is attached to) and the \textit{values} (the values parameter contains the values of the defined formulas in an array, e.g. use \textit{values[0]} to obtain the value of the first formula).
+The trigger function changes the text of the graphical element (\textit{origin}) to the current value of the variable \textit{cur\_floor} (\textit{values[0]}).
 %Reload the visualization by clicking on the \texttt{Reload} button and play with the visualization by executing some events.
 %Line 2 affects that the attribute \textit{text} will be set to the value that is returned by the followed closure.
 %In particular, the closure evaluates the expression \textit{cur\_floor} in the current state and returns the value to be set.
@@ -143,9 +144,9 @@ Check out the following JavaScript snippet:
 bms.observe("formula", {
   selector: "#door",
   formulas: ["cur_floor", "door_open"],
-  trigger: function (origin, result) {
+  trigger: function (origin, values) {
     
-    switch (result[0]) {
+    switch (values[0]) {
       case "0":
         origin.attr("y", "175");
         break;
@@ -157,7 +158,7 @@ bms.observe("formula", {
         break;
     }
     
-    if(result[1] === "TRUE") {
+    if(values[1] === "TRUE") {
       origin.attr("fill", "white");
     } else {
       origin.attr("fill", "lightgray");
@@ -171,8 +172,8 @@ In line 1 we register a formula observer on the graphical element that matches t
 %Line 1 means that we want to transform the graphical element with the id \textit{door}, similar to the previous observer.
 In line 3 we define the set of observed formulas (\textit{cur\_floor} and \textit{door\_open}).
 In line 4 to 24 we define a trigger function, that makes the following action:
-Line 5 to 15 will switch the \textit{y} coordinate of the door (denoting the movement of the door between floors) according to the current value of the variable \textit{cur\_floor} (\textit{result[0]}).
-Lines 18 to 22 affect that the attribute \textit{fill} of the door will be set to ``white'' (denoting the door is open) whenever the formula \textit{door\_open} evaluates to \textit{TRUE} in the current state (\textit{result[1]}), otherwise to ``lightgray'' (denoting the door is closed).
+Line 5 to 15 will switch the \textit{y} coordinate of the door (denoting the movement of the door between floors) according to the current value of the variable \textit{cur\_floor} (\textit{values[0]}).
+Lines 18 to 22 affect that the attribute \textit{fill} of the door will be set to ``white'' (denoting the door is open) whenever the formula \textit{door\_open} evaluates to \textit{TRUE} in the current state (\textit{values[1]}), otherwise to ``lightgray'' (denoting the door is closed).
 %Whenever the expression \textit{door\_open} evaluates to \textit{TRUE}, the value \textit{white} (denoting the door is opened) is returned, otherwise the value \textit{lightgray} (denoting the door is closed) is returned.
 %Line 3 to 17 will switch the \textit{y} coordinate of the door (denoting the movement of the door between floors) according to the evaluation result of the expression \textit{cur\_floor}.
 %In line 18 we register the observer.
@@ -208,7 +209,7 @@ bms.executeEvent({
     {
       name: "push_call_button", 
       predicate: function (origin) {
-        return "b=" + $(origin).attr("data-floor")
+        return "b=" + origin.attr("data-floor")
       }
     }
   ]
@@ -279,10 +280,12 @@ bms.executeEvent({
 });
 \end{lstlisting}
 
+This execute event handler will bind to events to the graphical element that matches the selector ``\#door''.
+
 %In line 1 we register a new execute event handler on the graphical element with the id ``door'' (line 2).
 %In line 3 to 6 we define two events.
-The execute event handler first tries to execute the event \textit{close\_door}.
-In case the event is disabled, it tries to execute the next event \textit{open\_door}.
+%The execute event handler first tries to execute the event \textit{close\_door}.
+%In case the event is disabled, it tries to execute the next event \textit{open\_door}.
 %Line 2 calls our registered Groovy method \textit{openCloseDoor}.
 %In Line 3 to 5 we pass a callback function that is called after an event (\textit{open\_door} or \textit{close\_door}) was executed.
 %In this case we print the returned new state id on the console.
@@ -290,6 +293,6 @@ In case the event is disabled, it tries to execute the next event \textit{open\_
 %These are only small examples for adding interactivity to your visualization.
 %You are not limited to these examples.
 
-\subsection{Final visualization}
+%\subsection{Final visualization}
 
-You can download the final visualization \file{LiftVisualisation.zip}{here}.
+%You can download the final visualization \file{LiftVisualisation.zip}{here}.
