@@ -206,7 +206,8 @@ The predicate observer accepts a predicate and applies a list of transformers de
 Example predicate observer:
 
 \begin{lstlisting}[language=JavaScript]
-$("#door").observe("predicate", {
+bms.observe("predicate", {
+  selector: "#door",
   predicate: "door_open",
   true: [
     {attr: "fill", value: "white"}
