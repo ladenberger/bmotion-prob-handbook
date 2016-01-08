@@ -45,6 +45,9 @@ To create a new visualization choose \textsf{File $\rangle$ New Visualization}.
 A window will be opened asking you for some additional information (e.g. the id and name of your visualization).
 Enter your data and press on OK.
 Now, the tool asks you for a location (a folder) where you want to save your visualization.
+In the next step, the tool asks you for a model to be visualized.
+Select a model and click on OK.
+This will start the fresh visualization.
 The tool will create a bunch of files into the selected folder:
 
 %Let's start by creating a new visualization template.
@@ -66,17 +69,18 @@ The tool will create a bunch of files into the selected folder:
 %It allows you to programmatically control the ProB animator and to access the actual formal model being visualised.
 
 \paragraph{\texttt{[id].json:}}
-The \texttt{[id].json} file (id is your entered id just before) is the root file of every \bms\ visualization (also called \bms\ manifest file).
+The \texttt{[id].json} file (id is your entered id just before) is the root file of your \bms\ visualization (also called \bms\ manifest file).
 It contains the configuration formatted using JSON (JavaScript Object Notation)\footnote{\url{http://www.json.org}.}.
 
 \info{Section~\ref{sec:manifest} contains a full list of available options.}
 
-A minimal configuration of the manifest file should contain the path to the formal model you want to visualize and at least one view configuration.
-Here is an example manifest file with a minimal configuration:
+%A minimal configuration of the manifest file should contain the path to the formal model you want to visualize and at least one view configuration.
+A minimal configuration of the manifest file should contain at least one view configuration.
+
+Example manifest file with a minimal configuration:
 
 \begin{lstlisting}[language=JavaScript]
 {
-  "model": "model/lift.mch",
   "views": [
     {
       "id": "lift",
@@ -95,7 +99,8 @@ For instance, it exists libraries for generating chart and plot diagrams.
 %In addition, you can call functions that are registered in the Groovy script file.
 %This enables you to add some interactivity to your visualization.
 %For instance, pressing a button in your visualization could cause the execution of an Event-B event.
-Here is an example \texttt{script.js} file with a minimal configuration:
+
+Example \texttt{script.js} file with a minimal configuration:
 
 \begin{lstlisting}[language=JavaScript]
 requirejs(['bmotion.template'], function (bms) {
@@ -108,7 +113,8 @@ requirejs(['bmotion.template'], function (bms) {
 \paragraph{\texttt{index.html:}}
 %The HTML file is the root file of your visualization. It contains the actual visualization.
 The HTML file contains the reference to the \texttt{scripts.js} file and to the \texttt{visualization.svg} file.
-Here is an example \texttt{index.html} file with a minimal configuration:
+
+Example \texttt{index.html} file with a minimal configuration:
 
 \begin{lstlisting}[language=html]
 <html>
@@ -135,7 +141,7 @@ Here is an example \texttt{index.html} file with a minimal configuration:
 The actual SVG visualization.
 The user is not restricted to an editor in order to create a visualization.
 The user can make use of any tool that supports the creation of SVG graphics or HTML documents.
-For the tutorials (Section~\ref{tutorial_b} and~\ref{tutorial_csp}) we are going to use the Inkspace\footnote{\url{https://inkscape.org}} editor. Inkscape is an editor for creating vector graphics that is available for Windows, Mac OS X and Linux.
+For the tutorial (Section~\ref{tutorial_b}) we are going to use the Inkspace\footnote{\url{https://inkscape.org}} editor. Inkscape is an editor for creating vector graphics that is available for Windows, Mac OS X and Linux.
 It's free and open source.
 With Inkscape the user can export the vector graphic into the SVG format.
 The SVG code can then be included in the \texttt{template.html} file.
