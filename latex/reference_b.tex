@@ -186,37 +186,37 @@ bms.observe("formula", {
 })
 \end{lstlisting}
 
-\subsubsection{Predicate Observer}
-
-The predicate observer accepts a predicate and applies a list of transformers depending on the result of the predicate in the current state (true or false).
-
-\begin{itemize}
-\item[] \textbf{selector [Type: string, \textit{Required}]:}\\ A \textit{selector} that matches a set of graphical elements in the visualization (see Section \ref{selectors}).
-
-	\item[] \textbf{predicate [Type: string, \textit{Required}]:}\\ The actual predicate that should be evaluated in each state.
-	\item[] \textbf{true [Type: list]:}\\ A list of transformers (\textit{attr} and \textit{value} pairs) that should be applied on the matched element whenever the defined predicate evaluates to true in the respective state. Example: 
-  [\{attr: "fill", value: "white"\}, \{attr: "stroke", value: "green"\}].
-	\item[] \textbf{false [Type: list]:}\\ Similar to the true option.
-	However the defined list of transformers is applied whenever the predicate evaluates to false.
-\end{itemize}
-
-%*This attribute also accepts a function that should return its value.
-%The reference to the graphical element that the observer is attached to (origin) is passed to the function.
-
-Example predicate observer:
-
-\begin{lstlisting}[language=JavaScript]
-bms.observe("predicate", {
-  selector: "#door",
-  predicate: "door_open",
-  true: [
-    {attr: "fill", value: "white"}
-  ],
-  false: [
-    {attr: "fill", value: "lightgray"}
-  ]
-});
-\end{lstlisting}
+%\subsubsection{Predicate Observer}
+%
+%The predicate observer accepts a predicate and applies a list of transformers depending on the result of the predicate in the current state (true or false).
+%
+%\begin{itemize}
+%\item[] \textbf{selector [Type: string, \textit{Required}]:}\\ A \textit{selector} that matches a set of graphical elements in the visualization (see Section \ref{selectors}).
+%
+%	\item[] \textbf{predicate [Type: string, \textit{Required}]:}\\ The actual predicate that should be evaluated in each state.
+%	\item[] \textbf{true [Type: list]:}\\ A list of transformers (\textit{attr} and \textit{value} pairs) that should be applied on the matched element whenever the defined predicate evaluates to true in the respective state. Example: 
+%  [\{attr: "fill", value: "white"\}, \{attr: "stroke", value: "green"\}].
+%	\item[] \textbf{false [Type: list]:}\\ Similar to the true option.
+%	However the defined list of transformers is applied whenever the predicate evaluates to false.
+%\end{itemize}
+%
+%%*This attribute also accepts a function that should return its value.
+%%The reference to the graphical element that the observer is attached to (origin) is passed to the function.
+%
+%Example predicate observer:
+%
+%\begin{lstlisting}[language=JavaScript]
+%bms.observe("predicate", {
+%  selector: "#door",
+%  predicate: "door_open",
+%  true: [
+%    {attr: "fill", value: "white"}
+%  ],
+%  false: [
+%    {attr: "fill", value: "lightgray"}
+%  ]
+%});
+%\end{lstlisting}
 
 %\subsubsection{Refinement Observer}
 %

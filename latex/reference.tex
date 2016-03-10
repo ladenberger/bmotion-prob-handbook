@@ -4,10 +4,9 @@
 \subsection{\bms\ Manifest File}
 \label{sec:manifest}
 
-The \bms\ manifest file is the root file of every \bms\ visualization.
-Every visualization should provide at least one manifest file.
+The \bms\ manifest file (\texttt{bmotion.json}) is the root file of every \bms\ visualization.
 It contains the configuration for the visualization formatted using JSON (JavaScript Object Notation)\footnote{\url{http://www.json.org}.}.
-Hence, the manifest filename must end with \texttt{.json} (denoting a JSON file).
+%Hence, the manifest filename must end with \texttt{.json} (denoting a JSON file).
 The following options (and defaults) are available:
 
 \begin{itemize}
@@ -25,7 +24,7 @@ The following options (and defaults) are available:
 The following views are available: \textit{CurrentTrace}, \textit{Events}, \textit{StateInspector}, \textit{CurrentAnimations}, \textit{GroovyConsoleSession}, \textit{ModelCheckingUI}.
 	\end{itemize}
 	\item[] \textbf{model [Type: String, \textit{Required}]:}\\The relative path to the model file (e.g. ``model/mymodel.mch'').
-	\item[] \textbf{tool [Type: String, Default value: BAnimation]:}\\The formalism / tool to be used. Currently two values and formalism are supported: \textit{BAnimation} for creating visualizations of Event-B or Classical-B models and \textit{CSPAnimation} for creating visualizations of CSP-M models.
+	%\item[] \textbf{tool [Type: String, Default value: BAnimation]:}\\The formalism / tool to be used. Currently two values and formalism are supported: \textit{BAnimation} for creating visualizations of Event-B or Classical-B models and \textit{CSPAnimation} for creating visualizations of CSP-M models.
 \end{itemize}
 
 Example \bms\ manifest file (e.g. \texttt{lift.json}):
@@ -51,8 +50,7 @@ Example \bms\ manifest file (e.g. \texttt{lift.json}):
       "height": 200
     }
   ],
-  "model": "model/lift.mch",
-  "tool": "BAnimation"
+  "model": "model/lift.mch"
 }
 \end{lstlisting}
 
