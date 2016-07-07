@@ -1,7 +1,7 @@
 \ifdefined\isinprint
 \documentclass[twoside,10pt]{book}
 \usepackage[twoside,paperwidth=155.93mm,paperheight=233.89mm,hmargin={15mm,15mm},vmargin={20mm,20mm},bindingoffset=5mm]{geometry}
-\usepackage[hyphens]{url} 
+\usepackage[hyphens]{url}
 \usepackage[colorlinks=false,
             pdfborder={0 0 0}
 	        pdftex,
@@ -10,12 +10,12 @@
             pdftitle={BMotionWeb for ProB Handbook},
             pdfsubject={BMotionWeb},
             pdfkeywords={ProB, Event-B, CSP, Visualization, Tool},
-            pdfproducer={http://www.stups.hhu.de/ProB/index.php5/BMotion_Studio},
+            pdfproducer={http://www.stups.hhu.de/ProB/index.php5/BMotionWeb},
             pdfcreator={plastex-based tool chain}]{hyperref}
 \else
 \documentclass[12pt]{book}
 \usepackage[left=2.5cm,top=3cm,right=2.5cm,bottom=3cm]{geometry}
-\usepackage[hyphens]{url} 
+\usepackage[hyphens]{url}
 \usepackage[colorlinks=true,
 	        pdftex,
             plainpages=false,
@@ -23,7 +23,7 @@
             pdftitle={BMotionWeb for ProB Handbook},
             pdfsubject={BMotionWeb},
             pdfkeywords={ProB, Event-B, CSP, Visualization, Tool},
-            pdfproducer={http://www.stups.hhu.de/ProB/index.php5/BMotion_Studio},
+            pdfproducer={http://www.stups.hhu.de/ProB/index.php5/BMotionWeb},
             pdfcreator={plastex-based tool chain}]{hyperref}
 \fi
 \usepackage{graphicx}
@@ -40,27 +40,27 @@
 
 \usepackage{longtable}
 
-\lstdefinelanguage{Groovy}% 
-{morekeywords={abstract,any,as,boolean,break,byte,case,catch,char,class, 
-const,continue,def,default,do,double,else,extends,false,final,finally, 
-float,for,goto,if,implements,import,instanceof,in,int,interface,label, 
-long,native,new,null,package,private,protected,public,return,short, 
-static,strictfp,super,switch,synchronized,this,throw,throws,transient, 
-true,try,void,volatile,while,with},% 
-sensitive=true,% 
-morecomment=[l]//,% 
-morecomment=[s]{/}{/},% 
-morestring=[b]",% 
-morestring=[b]',% 
+\lstdefinelanguage{Groovy}%
+{morekeywords={abstract,any,as,boolean,break,byte,case,catch,char,class,
+const,continue,def,default,do,double,else,extends,false,final,finally,
+float,for,goto,if,implements,import,instanceof,in,int,interface,label,
+long,native,new,null,package,private,protected,public,return,short,
+static,strictfp,super,switch,synchronized,this,throw,throws,transient,
+true,try,void,volatile,while,with},%
+sensitive=true,%
+morecomment=[l]//,%
+morecomment=[s]{/}{/},%
+morestring=[b]",%
+morestring=[b]',%
 }[keywords,comments,strings]
 
-\lstdefinelanguage{B}% 
-{morekeywords={MACHINE, REFINEMENT,OPERATIONS,INITIALISATION,END,BEGIN,PRE,IF,THEN,ELSE,VARIABLES,INVARIANT,SETS},% 
-sensitive=true,% 
-morecomment=[l]//,% 
-morecomment=[s]{/}{/},% 
-morestring=[b]",% 
-morestring=[b]',% 
+\lstdefinelanguage{B}%
+{morekeywords={MACHINE, REFINEMENT,OPERATIONS,INITIALISATION,END,BEGIN,PRE,IF,THEN,ELSE,VARIABLES,INVARIANT,SETS},%
+sensitive=true,%
+morecomment=[l]//,%
+morecomment=[s]{/}{/},%
+morestring=[b]",%
+morestring=[b]',%
 }[keywords,comments,strings]
 
 \lstdefinelanguage{JavaScript}{
@@ -116,10 +116,10 @@ Work in Progress\\
 %Handbook $ $Rev: 16185 $ $ \\
 \\
 \href{mailto:ladenberger@cs.uni-duesseldorf.de}{ladenberger@cs.uni-duesseldorf.de}\\
-\href{http://www.stups.hhu.de/ProB/index.php5/BMotion_Studio}{http://www.stups.hhu.de/ProB/index.php5/BMotion_Studio}
+\href{http://www.stups.hhu.de/ProB/index.php5/BMotionWeb}{http://www.stups.hhu.de/ProB/index.php5/BMotionWeb}
 }
 
-\begin{document}        
+\begin{document}
 \pagestyle{empty}
 \ifplastex
 \maketitle
@@ -182,12 +182,12 @@ This handbook consists of five parts:
 
 \begin{description}
 	\item[Introduction (Chapter~\ref{introduction})] You are reading the introduction right now.  Its purpose is to help you orient yourself and to find information quickly.
-	\item[First Steps (Chapter~\ref{first_steps})] If you are completely new to BMotionWeb, this section is a good way to get up to speed quickly. 
+	\item[First Steps (Chapter~\ref{first_steps})] If you are completely new to BMotionWeb, this section is a good way to get up to speed quickly.
 	It guides you through the installation and usage of the tool.
 	\item[BMotionWeb for Event-B and Classical-B (Chapter~\ref{bms4b})] This section provides comprehensive documentation of BMotionWeb for creating visualisations of Event-B or Classical-B models.
-	\item[BMotionWeb for CSP (Chapter~\ref{bms4csp})] This section provides comprehensive documentation of BMotionWeb for creating visualisations of CSP-M models.	
+	\item[BMotionWeb for CSP (Chapter~\ref{bms4csp})] This section provides comprehensive documentation of BMotionWeb for creating visualisations of CSP-M models.
 	\item[Frequently Asked Questions  (Chapter~\ref{faq})] Common issues are listed by category in the FAQ.
-	\item[Index] We included an index particularly for the print version of the handbook, but it may be useful in the electronic versions as well.  
+	\item[Index] We included an index particularly for the print version of the handbook, but it may be useful in the electronic versions as well.
 \end{description}
 
 \subsection{Formats of this Handbook}
@@ -241,18 +241,18 @@ ADVANCE is building on an existing formal modelling language - Event-B - and its
 \end{center}
 \end{figure}
 
-Figure~\ref{fig_tut_00_architecture} shows an overview of the architecture of \bms. 
-In \bms, a visualisation is described by a visualisation template that contains visual elements and observers. 
-Visual elements may be, for instance, shapes or images that represent some aspects of the model. 
-For example, when modelling a communication protocol, circles may be used for representing the communicating entities of the protocol and arrows for the message exchanges between the entities. 
-\bms~supports web technologies like Scalable Vector Graphics (SVG)\footnote{\url{http://www.w3.org/TR/SVG11}} and Cascading Style Sheets (CSS)\footnote{\url{http://www.w3.org/TR/css-2010}} for this purpose. 
-SVG is an XML-based markup language for describing two-dimensional vector graphics. 
+Figure~\ref{fig_tut_00_architecture} shows an overview of the architecture of \bms.
+In \bms, a visualisation is described by a visualisation template that contains visual elements and observers.
+Visual elements may be, for instance, shapes or images that represent some aspects of the model.
+For example, when modelling a communication protocol, circles may be used for representing the communicating entities of the protocol and arrows for the message exchanges between the entities.
+\bms~supports web technologies like Scalable Vector Graphics (SVG)\footnote{\url{http://www.w3.org/TR/SVG11}} and Cascading Style Sheets (CSS)\footnote{\url{http://www.w3.org/TR/css-2010}} for this purpose.
+SVG is an XML-based markup language for describing two-dimensional vector graphics.
 It comes with a number of visual elements like shapes, images and paths.
-CSS is a language that can be used to describe the style of SVG visual elements (e.g. the colour or the dimension). 
+CSS is a language that can be used to describe the style of SVG visual elements (e.g. the colour or the dimension).
 
-Observers are used to link visual elements with the model. 
-An observer is notified whenever a model has changed its state, i.e. whenever an event has been executed. 
-In response, the observer will query the model's state and triggers actions on the linked visual elements in respect to the new state. 
+Observers are used to link visual elements with the model.
+An observer is notified whenever a model has changed its state, i.e. whenever an event has been executed.
+In response, the observer will query the model's state and triggers actions on the linked visual elements in respect to the new state.
 
 \subsection{Formal Modelling}
 
@@ -266,7 +266,7 @@ This differs from the traditional development process. In a formal development, 
 
 Predicate logic is a mathematical logic containing variables that can be quantified.
 
-Event-B supports first-order logic which is, technically speaking, just one type of predicate logic.  
+Event-B supports first-order logic which is, technically speaking, just one type of predicate logic.
 
 \subsection{Event-B}
 \label{eventb}
@@ -313,8 +313,7 @@ ProB is a validation toolset for the B method including an animator, a modelchec
 
 \clearpage
 \phantomsection
-\addcontentsline{toc}{chapter}{Index} 
+\addcontentsline{toc}{chapter}{Index}
 \printindex
 
 \end{document}
-
