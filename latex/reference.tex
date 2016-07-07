@@ -11,9 +11,11 @@ The following options (and defaults) are available:
 
 \begin{itemize}
 	\item[] \textbf{id [Type: String, \textit{Required}]:}\\The unique id of the visualization.
-	\item[] \textbf{name [Type: String, Default value: MyVisualization]:}\\The name of the visualization.
+	\item[] \textbf{name [Type: String]:}\\The name of the visualization.
 	\item[] \textbf{model [Type: String, \textit{Required}]:}\\The relative path to the model file (e.g. ``model/mymodel.mch'').
 	\item[] \textbf{template [Type: String, \textit{Required}]:}\\The relative path to the root HTML file (e.g. ``index.html'').
+	\item[] \textbf{autoOpen [Type: Array, Default value: ['Events']]:}\\Specify the ProB views which should be opened automatically in the respective view when starting the visualization. 
+The following views are available: \textit{CurrentTrace}, \textit{Events}, \textit{StateInspector}, \textit{CurrentAnimations}, \textit{GroovyConsoleSession}, \textit{ModelCheckingUI}.
 	\item[] \textbf{views [Type: list]:}\\ List of view objects that are opened in separate windows.
 	At least one view must exists.
 	A view object has the following options:
@@ -23,8 +25,6 @@ The following options (and defaults) are available:
 		\item[] \textbf{name [Type: String]:}\\ The name of the view.
 		\item[] \textbf{width [Type: Integer]:}\\ The width of the view.
 		\item[] \textbf{height [Type: Integer]:}\\ The height of the view.
-		\item[] \textbf{autoOpen [Type: Array, Default value: ['Events']]:}\\Specify the ProB views which should be opened automatically in the respective view when starting the visualization. 
-The following views are available: \textit{CurrentTrace}, \textit{Events}, \textit{StateInspector}, \textit{CurrentAnimations}, \textit{GroovyConsoleSession}, \textit{ModelCheckingUI}.
 	\end{itemize}
 	%\item[] \textbf{tool [Type: String, Default value: BAnimation]:}\\The formalism / tool to be used. Currently two values and formalism are supported: \textit{BAnimation} for creating visualizations of Event-B or Classical-B models and \textit{CSPAnimation} for creating visualizations of CSP-M models.
 \end{itemize}
