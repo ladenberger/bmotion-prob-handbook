@@ -75,18 +75,16 @@ It contains the configuration formatted using JSON (JavaScript Object Notation)\
 \info{Section~\ref{sec:manifest} contains a full list of available options.}
 
 %A minimal configuration of the manifest file should contain the path to the formal model you want to visualize and at least one view configuration.
-A minimal configuration of the manifest file should contain at least one view configuration.
+%A minimal configuration of the manifest file should contain at least one view configuration.
 
 Example manifest file with a minimal configuration:
 
 \begin{lstlisting}[language=JavaScript]
 {
-  "views": [
-    {
-      "id": "lift",
-      "name": "Lift visualization",
-      "template": "index.html"
-    }
+	"id": "lift",
+    "name": "Lift visualization",
+    "template": "index.html",
+    "model": "model/lift.mch"
 }
 \end{lstlisting}
 
