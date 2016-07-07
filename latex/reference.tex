@@ -4,54 +4,62 @@
 \subsection{\bms\ Manifest File}
 \label{sec:manifest}
 
-The \bms\ manifest file (\texttt{bmotion.json}) is the root file of every \bms\ visualization.
-It contains the configuration for the visualization formatted using JSON (JavaScript Object Notation)\footnote{\url{http://www.json.org}.}.
-%Hence, the manifest filename must end with \texttt{.json} (denoting a JSON file).
-The following options (and defaults) are available:
+A visualization template is identified by a \textit{manifest file}.
+The manifest file is the root file of every interactive formal prototype.
+It contains the configuration for the interactive formal prototype formatted using JSON (JavaScript Object Notation).\footnote{http://www.json.org/}
+\Cref{tab:manifest_options} gives an overview of the available options.
+The table shows the option's name, its type, a short description and denotes if the option is required or optional.
+\Cref{lst:lift_manifest} exemplifies the use of a manifest file based on the interactive formal prototype of the \eventB\ simple lift system.
+	
+\begin{table}
+\centering\footnotesize
+\caption{Available options for \bmsweb\ manifest file}
+\begin{tabular}{lllp{9.8cm}}
+\toprule[2pt]
+\textbf{Name} & \textbf{Type} & \textbf{Required} & \textbf{Description} \\
+\midrule[2pt]
+\textit{id} & string & yes & Unique id of the interactive formal prototype\\
+\midrule[2pt]
+\textit{name} & string & no & The name of the interactive formal prototype\\
+\midrule[2pt]
+\textit{template} & string & yes & The relative path to the HTML template file (e.g. ``template.html'').\\
+\midrule[2pt]
+\textit{model} & string & yes & The relative path to the formal specification file that should be animated (e.g. ``model/mymodel.mch'') \\
+\midrule[2pt]
+\textit{modelOptions} & map & no & A key/value map defining the options for loading the model - The available options are dependent on the animator and formalism \\
+\midrule[2pt]
+\textit{autoOpen} & array & no & The user can specify the \prob\ views which should be opened automatically when running the interactive formal prototype - The following views are available for \prob\ animations: \textit{CurrentTrace}, \textit{Events}, \textit{StateInspector} and \textit{ModelCheckingUI} \\
+\midrule[2pt]
+\textit{views} & list & no & List of additional views - A view object has the following options: \\
+\midrule[0.5pt]
+\hspace{0.3cm} \textit{id} & string & yes & Unique id of the view \\
+\midrule[0.5pt]
+\hspace{0.3cm} \textit{name} & string & no & The name of the view \\
+\midrule[0.5pt]
+\hspace{0.3cm} \textit{template} & string & yes & The relative path to the HTML template file of the view (e.g. ``view1.html'') \\
+\midrule[0.5pt]
+\hspace{0.3cm} \textit{width} & numeric & no & The width of the view \\
+\midrule[0.5pt]
+\hspace{0.3cm} \textit{height} & numeric & no & The height of the view \\
+\bottomrule[2pt]
+\end{tabular}
+\label{tab:manifest_options}
+\end{table}	
 
-\begin{itemize}
-	\item[] \textbf{id [Type: String, \textit{Required}]:}\\The unique id of the visualization.
-	\item[] \textbf{name [Type: String]:}\\The name of the visualization.
-	\item[] \textbf{model [Type: String, \textit{Required}]:}\\The relative path to the model file (e.g. ``model/mymodel.mch'').
-	\item[] \textbf{template [Type: String, \textit{Required}]:}\\The relative path to the root HTML file (e.g. ``index.html'').
-	\item[] \textbf{autoOpen [Type: Array]:}\\Specify the ProB views which should be opened automatically in the respective view when starting the visualization. 
-The following views are available: \textit{CurrentTrace}, \textit{Events}, \textit{StateInspector}, \textit{CurrentAnimations}, \textit{GroovyConsoleSession}, \textit{ModelCheckingUI}.
-	\item[] \textbf{views [Type: list]:}\\ List of view objects that are opened in separate windows.
-	At least one view must exists.
-	A view object has the following options:
-	\begin{itemize}
-		\item[] \textbf{id [Type: String, \textit{Required}]:}\\ Unique id of the view.
-		\item[] \textbf{template [Type: String, \textit{Required}]:}\\ The relative path to the HTML visualization file (e.g. ``template.html'').
-		\item[] \textbf{name [Type: String]:}\\ The name of the view.
-		\item[] \textbf{width [Type: Integer]:}\\ The width of the view.
-		\item[] \textbf{height [Type: Integer]:}\\ The height of the view.
-	\end{itemize}
-	%\item[] \textbf{tool [Type: String, Default value: BAnimation]:}\\The formalism / tool to be used. Currently two values and formalism are supported: \textit{BAnimation} for creating visualizations of Event-B or Classical-B models and \textit{CSPAnimation} for creating visualizations of CSP-M models.
-\end{itemize}
-
-Example \bms\ manifest file (e.g. \texttt{lift.json}):
-
-\begin{lstlisting}[language=JavaScript]
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=JavaScript, caption={Example manifest file for the simple lift system (JSON)}, label={lst:lift_manifest}]
 {
   "id": "lift",
-  "name": "Simple lift",
+  "name": "Simple lift system",
   "template": "lift.html",
-  "model": "model/lift.mch",
+  "model": "model/m2.bcm",
   "autoOpen": [
     "CurrentTrace",
     "Events"
-  ],
-  "views": [
-    {
-      "id": "buttons",
-      "name": "Lift control",
-      "template": "control.html",
-      "width": 300,
-      "height": 200
-    }
   ]
 }
 \end{lstlisting}
+\end{minipage}
 
 \subsection{\texttt{bmotion.json} Configuration File}
 \label{sec:configfile}
