@@ -1,9 +1,9 @@
 \section{Installation and Start}
 \label{installation}
 
-Start off by downloading \bms~for your operating system. 
+Start off by downloading \bms~for your operating system.
 You can find the latest version of the tool at \url{http://www.stups.hhu.de/ProB/index.php5/BMotionWeb}.
-Decompress the archive and expand the directory if necessary. 
+Decompress the archive and expand the directory if necessary.
 %\warning{Do not change the location and structure of the files and directories within the folder!}
 %Navigate to the \texttt{server/bin} folder and start the server by entering the bash command:
 %
@@ -22,7 +22,7 @@ After a short loading time you should see the window shown in Figure~\ref{fig_bm
 	\caption{\bms\ Client}
 	\label{fig_bms_client}
 \end{center}
-\end{figure} 
+\end{figure}
 
 %Your default browser should open and show the default workspace.
 %The workspace contains the following predefined folders:
@@ -58,7 +58,7 @@ The tool will create a bunch of files into the selected folder:
 %	duplicate one of the default templates  \texttt{b\_template} (for Event-B or Classical-B visualizations) or \texttt{csp\_template} (for CSP-M visualizations) that are included in the \texttt{workspace} folder of your \bms~installation.
 %Just duplicate the folder.
 %After refreshing your browser, the newly created folder should appear in your workspace.
-%Navigate to the folder. 
+%Navigate to the folder.
 %The folder contains three files.
 
 %\paragraph{\texttt{template.groovy:}}
@@ -124,26 +124,14 @@ Example \texttt{index.html} file with a minimal configuration:
 
 \paragraph{\texttt{visualization.svg:}}
 
-%The meta tag \textit{bms.tool} (line 4) defines the formalism or the simulator respectively that should be used. 
+%The meta tag \textit{bms.tool} (line 4) defines the formalism or the simulator respectively that should be used.
 %Two values are allowed: ``BAnimation'' for creating visualizations of Event-B or Classical-B models and ``CSPAnimation'' for creating visualizations of CSP-M models.
 %The meta tag \textit{bms.script} (line 5) contains the link to the Groovy script file.
 %Finally, in line 9 we define the path to the JavaScript file.
 
 The actual SVG visualization.
 The user is not restricted to an editor in order to create a visualization.
-The user can make use of any tool that supports the creation of SVG graphics or HTML documents.
-For the tutorial (Section~\ref{tutorial_b}) we are going to use the Inkspace\footnote{\url{https://inkscape.org}} editor. Inkscape is an editor for creating vector graphics that is available for Windows, Mac OS X and Linux.
-It's free and open source.
-With Inkscape the user can export the vector graphic into the SVG format.
-The SVG code can then be included in the \texttt{template.html} file.
-
-\begin{figure}[!ht]
-\begin{center}
-	\includegraphics[width=12cm]{img/tutorial/tut_02.png}
-	\caption{Creating an SVG graphic with Inkscape}
-	\label{fig_tut_02_inkscape}
-\end{center}
-\end{figure} 
+The user can make use of the integrated visual editor or any other tool that supports the creation of SVG graphics.
 
 \paragraph{\texttt{bms.api.js:}}
 JavaScript library that is needed for running the visualization.
